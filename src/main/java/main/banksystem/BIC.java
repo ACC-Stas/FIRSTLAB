@@ -1,7 +1,7 @@
 package main.banksystem;
 
 public class BIC {
-    public BIC(long id){
+    public BIC(long id) {
         this.id = id;
     }
 
