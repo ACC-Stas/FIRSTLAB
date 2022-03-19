@@ -1,3 +1,0 @@
-# FIRSTLAB
-FIRSTLAB
-aboba
