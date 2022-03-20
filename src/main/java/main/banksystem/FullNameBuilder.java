@@ -1,5 +1,7 @@
 package main.banksystem;
 
+import java.util.Objects;
+
 public class FullNameBuilder {
     private FullName fullName;
 
@@ -33,15 +35,15 @@ public class FullNameBuilder {
         result.valid = true;
         result.fullName = this.fullName;
 
-        if (fullName.getFirstName() == null) {
+        if (Objects.equals(fullName.getFirstName(), "")) {
             result.valid = false;
         }
 
-        if (fullName.getSecondName() == null) {
+        if (Objects.equals(fullName.getSecondName(), "")) {
             result.valid = false;
         }
 
-        if (fullName.getFatherName() == null) {
+        if (Objects.equals(fullName.getFatherName(), "")) {
             result.valid = false;
         }
 

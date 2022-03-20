@@ -13,6 +13,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.banksystem.Citizenship;
+import main.banksystem.FullNameBuilder;
 import main.banksystem.Role;
 import main.banksystem.Sex;
 
@@ -86,9 +87,17 @@ public class RegistrationMenuController {
         roleStatus.setValue(roleList.get(0));
 
         registrationButton.setOnAction(event -> {
-            String name = nameField.getText();
-            String surname = surnameField.getText();
-            String fathername = fatherName.getText();
+            errorLabel.setText("");
+
+            FullNameBuilder fullNameBuilder = new FullNameBuilder();
+            fullNameBuilder.BuildFirstName(nameField.getText());
+            fullNameBuilder.BuildSecondName(surnameField.getText());
+            fullNameBuilder.BuildFatherName(fatherName.getText());
+            FullNameBuilder.Result fullName = fullNameBuilder.getFullName();
+            if (!fullName.valid) {
+                errorLabel.setText("Invalid full name");
+                return;
+            }
             String email = emailField.getText();
             String number = numberField.getText();
             LocalDate date = dateOfBirthday.getValue();

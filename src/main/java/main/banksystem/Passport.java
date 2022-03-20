@@ -1,9 +1,10 @@
 package main.banksystem;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 
 public class Passport {
-    public Passport(FullName fullName, Citizenship citizenship, Sex sex, Address address, Id idx, Calendar birthday) {
+    public Passport(FullName fullName, Citizenship citizenship, Sex sex, Address address, Id idx, LocalDate birthday) {
         this.fullName = fullName;
         this.citizenship = citizenship;
         this.sex = sex;
@@ -61,11 +62,11 @@ public class Passport {
         this.idx = idx;
     }
 
-    public Calendar getBirthday() {
+    public LocalDate getBirthday() {
         return birthday;
     }
 
-    public void setBirthday(Calendar birthday) {
+    public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
 
@@ -74,5 +75,5 @@ public class Passport {
     private Sex sex;
     private Address address;
     private Id idx;
-    private Calendar birthday;
+    private LocalDate birthday;
 }

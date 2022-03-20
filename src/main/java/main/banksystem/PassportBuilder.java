@@ -1,5 +1,6 @@
 package main.banksystem;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 
 public class PassportBuilder {
@@ -47,8 +48,12 @@ public class PassportBuilder {
         passport.setIdx(idx);
     }
 
-    void BuildBirthday(Calendar birthday) {
+    void BuildBirthday(LocalDate birthday) {
         passport.setBirthday(birthday);
+    }
+
+    void BuildBirthday(String birthday) {
+        passport.setBirthday(LocalDate.parse(birthday));
     }
 
     static class Result {
