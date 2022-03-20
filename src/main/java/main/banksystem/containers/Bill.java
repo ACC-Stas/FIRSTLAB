@@ -1,4 +1,4 @@
-package main.banksystem;
+package main.banksystem.containers;
 
 public class Bill implements java.io.Serializable {
     public Bill(Id id, double money, BillConditions billConditions){

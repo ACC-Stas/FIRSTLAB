@@ -1,7 +1,6 @@
-package main.banksystem;
+package main.banksystem.containers;
 
 import java.time.LocalDate;
-import java.util.Calendar;
 
 public class Passport {
     public Passport(FullName fullName, Citizenship citizenship, Sex sex, Address address, Id idx, LocalDate birthday) {

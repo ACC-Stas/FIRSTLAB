@@ -1,12 +1,7 @@
 package main.banksystem.controllers;
 
 import java.net.URL;
-import java.time.LocalDate;
-import java.util.Dictionary;
-import java.util.HashMap;
 import java.util.ResourceBundle;
-import java.util.Map;
-import java.util.HashMap;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,6 +12,16 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.banksystem.*;
+import main.banksystem.builders.AddressBuilder;
+import main.banksystem.builders.FullNameBuilder;
+import main.banksystem.builders.PassportBuilder;
+import main.banksystem.builders.UserBuilder;
+import main.banksystem.commands.ICommand;
+import main.banksystem.commands.RegistryCommand;
+import main.banksystem.containers.Citizenship;
+import main.banksystem.containers.Id;
+import main.banksystem.containers.Role;
+import main.banksystem.containers.Sex;
 
 public class RegistrationMenuController {
 
@@ -148,6 +153,8 @@ public class RegistrationMenuController {
 
             ICommand.Type type = new ICommand.Type(true, false);
             RegistryCommand command = new RegistryCommand(user.user, type);
+
+
         });
     }
 

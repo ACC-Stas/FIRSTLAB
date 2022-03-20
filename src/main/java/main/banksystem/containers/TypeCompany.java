@@ -1,4 +1,4 @@
-package main.banksystem;
+package main.banksystem.containers;
 
 public enum TypeCompany implements java.io.Serializable {
     IE,

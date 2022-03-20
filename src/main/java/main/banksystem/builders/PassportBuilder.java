@@ -1,7 +1,8 @@
-package main.banksystem;
+package main.banksystem.builders;
+
+import main.banksystem.containers.*;
 
 import java.time.LocalDate;
-import java.util.Calendar;
 
 public class PassportBuilder {
     private Passport passport;

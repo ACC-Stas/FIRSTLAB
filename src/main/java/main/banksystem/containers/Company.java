@@ -1,4 +1,4 @@
-package main.banksystem;
+package main.banksystem.containers;
 
 import java.util.List;
 

@@ -1,6 +1,10 @@
-package main.banksystem;
+package main.banksystem.builders;
 
-import java.time.LocalDate;
+import main.banksystem.containers.Id;
+import main.banksystem.containers.Passport;
+import main.banksystem.containers.Role;
+import main.banksystem.containers.User;
+
 import java.util.Objects;
 
 public class UserBuilder {

@@ -1,4 +1,4 @@
-package main.banksystem;
+package main.banksystem.containers;
 
 public class BIC implements java.io.Serializable {
     public BIC(Id id) {

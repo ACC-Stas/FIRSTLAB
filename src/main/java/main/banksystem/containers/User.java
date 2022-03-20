@@ -1,4 +1,4 @@
-package main.banksystem;
+package main.banksystem.containers;
 
 public class User implements java.io.Serializable {
     public User(Passport passport, Id idx, String number, String email, String password, Role role) {

@@ -1,4 +1,4 @@
-package main.banksystem;
+package main.banksystem.commands;
 
 import java.io.Serializable;
 

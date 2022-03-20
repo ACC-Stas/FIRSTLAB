@@ -1,4 +1,4 @@
-package main.banksystem;
+package main.banksystem.containers;
 
 public class Installment {
     public Installment(Id companyBillId, Id sourceBillId, double sumToPay, double percent){

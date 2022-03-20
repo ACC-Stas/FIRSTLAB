@@ -1,7 +1,8 @@
 package main.banksystem;
 
+import main.banksystem.containers.Id;
+
 import java.util.Map;
-import java.util.HashMap;
 
 public class IndexGenerator {
     private static IndexGenerator generator;
