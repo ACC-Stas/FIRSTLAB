@@ -7,7 +7,7 @@ public interface ICommand {
 
     public Type GetType();
 
-    public void SetType();
+    public void SetType(ICommand.Type type);
 
     public static class Type {
         private boolean approvable;
