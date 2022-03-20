@@ -1,7 +1,7 @@
 package main.banksystem;
 
+import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Objects;
 
 public class PassportBuilder {
     private Passport passport;
@@ -23,33 +23,21 @@ public class PassportBuilder {
     }
 
     void BuildCitizenship(String citizenship) {
-        if (Objects.equals(citizenship, "UKRAINE")) {
-            passport.setCitizenship(Citizenship.UKRAINE);
-            return;
-        }
-
-        if (Objects.equals(citizenship, "BELARUS")) {
-            passport.setCitizenship(Citizenship.BELARUS);
-            return;
-        }
-
-        if (Objects.equals(citizenship, "RUSSIA")) {
-            passport.setCitizenship(Citizenship.RUSSIA);
-            return;
-        }
-
-        if (Objects.equals(citizenship, "USE")) {
-            passport.setCitizenship(Citizenship.USA);
-            return;
-        }
-
-        if (Objects.equals(citizenship, "CHINA")) {
-            passport.setCitizenship(Citizenship.CHINA);
+        try {
+            passport.setCitizenship(Citizenship.valueOf(citizenship));
+        } catch (IllegalArgumentException ignored) {
         }
     }
 
     void BuildSex(Sex sex) {
         passport.setSex(sex);
+    }
+
+    void BuildSex(String sex) {
+        try {
+            passport.setSex(Sex.valueOf(sex));
+        } catch (IllegalArgumentException ignored) {
+        }
     }
 
     void BuildAddress(Address address) {
@@ -60,8 +48,12 @@ public class PassportBuilder {
         passport.setIdx(idx);
     }
 
-    void BuildBirthday(Calendar birthday) {
+    void BuildBirthday(LocalDate birthday) {
         passport.setBirthday(birthday);
+    }
+
+    void BuildBirthday(String birthday) {
+        passport.setBirthday(LocalDate.parse(birthday));
     }
 
     static class Result {

@@ -61,10 +61,10 @@ public class User {
         this.role = role;
     }
 
-    Passport passport;
-    Id idx;
-    String number;
-    String email;
-    String password;
-    Role role;
+    private Passport passport;
+    private Id idx;
+    private String number;
+    private String email;
+    private String password;
+    private Role role;
 }
