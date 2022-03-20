@@ -12,9 +12,12 @@ import com.opencsv.exceptions.CsvException;
 public class DataBase {
 
     private DataBase() {
+        encoder = new Encoder(encoderKey);
     }
 
     private static DataBase instance;
+    private static final char encoderKey = 1;
+    private final Encoder encoder;
 
     public static DataBase GetInstance() {
         if (instance == null) {
@@ -31,7 +34,7 @@ public class DataBase {
             FileWriter fileWriter = new FileWriter(file);
             CSVWriter writer = new CSVWriter(fileWriter);
 
-            String[] data = {id.Serialize(), object};
+            String[] data = {encoder.Encode(id.Serialize()), encoder.Encode(object)};
             writer.writeNext(data);
             writer.close();
         } catch (IOException e) {
@@ -52,8 +55,8 @@ public class DataBase {
             reader.close();
 
             for (String[] element : allElements) {
-                if (Objects.equals(element[0], id.Serialize())) {
-                    constructor.Construct(element[1]);
+                if (Objects.equals(encoder.Decode(element[0]), id.Serialize())) {
+                    constructor.Construct(encoder.Decode(element[1]));
                     return;
                 }
             }
@@ -77,7 +80,7 @@ public class DataBase {
 
             List<String[]> found = new ArrayList<>();
             for (String[] element : allElements) {
-                if (Objects.equals(element[0], id.Serialize())) {
+                if (Objects.equals(encoder.Decode(element[0]), id.Serialize())) {
                     found.add(element);
                 }
             }
