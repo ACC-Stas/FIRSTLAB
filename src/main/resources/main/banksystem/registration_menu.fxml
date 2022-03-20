@@ -14,27 +14,27 @@
                         <Font name="System Bold Italic" size="30.0" />
                     </font>
                 </Label>
-                <Button fx:id="authSignInButton" layoutX="14.0" layoutY="88.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="540.0" style="-fx-background-color: #f39c63;" text="Клиент" textFill="WHITE">
+                <Button fx:id="clientSignUpButton" layoutX="14.0" layoutY="88.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="540.0" style="-fx-background-color: #f39c63;" text="Клиент" textFill="WHITE">
                     <font>
                         <Font name="System Bold Italic" size="30.0" />
                     </font>
                 </Button>
-            <Button fx:id="authSignInButton3" layoutX="726.0" layoutY="88.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="540.0" style="-fx-background-color: #f39c63;" text="Менеджер" textFill="WHITE">
+            <Button fx:id="managerSignUpButton" layoutX="726.0" layoutY="88.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="540.0" style="-fx-background-color: #f39c63;" text="Менеджер" textFill="WHITE">
                <font>
                   <Font name="System Bold Italic" size="30.0" />
                </font>
             </Button>
-            <Button fx:id="authSignInButton2" layoutX="14.0" layoutY="283.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="540.0" style="-fx-background-color: #f39c63;" text="Оператор" textFill="WHITE">
+            <Button fx:id="operatorSignUpButton" layoutX="14.0" layoutY="283.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="540.0" style="-fx-background-color: #f39c63;" text="Оператор" textFill="WHITE">
                <font>
                   <Font name="System Bold Italic" size="30.0" />
                </font>
             </Button>
-            <Button fx:id="authSignInButton1" layoutX="726.0" layoutY="283.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="540.0" style="-fx-background-color: #f39c63;" text="Специалист" textFill="WHITE">
+            <Button fx:id="specialistSignUpButton" layoutX="726.0" layoutY="283.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="540.0" style="-fx-background-color: #f39c63;" text="Специалист" textFill="WHITE">
                <font>
                   <Font name="System Bold Italic" size="30.0" />
                </font>
             </Button>
-            <Button fx:id="authSignInButton4" layoutX="371.0" layoutY="447.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="540.0" style="-fx-background-color: #f39c63;" text="Администратор" textFill="WHITE">
+            <Button fx:id="administratorSignInButton" layoutX="371.0" layoutY="447.0" mnemonicParsing="false" prefHeight="117.0" prefWidth="540.0" style="-fx-background-color: #f39c63;" text="Администратор" textFill="WHITE">
                <font>
                   <Font name="System Bold Italic" size="30.0" />
                </font>
