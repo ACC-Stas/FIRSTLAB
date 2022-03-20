@@ -13,6 +13,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.banksystem.Citizenship;
+import main.banksystem.FullNameBuilder;
 import main.banksystem.Sex;
 
 public class RegistrationMenuController {
@@ -80,9 +81,7 @@ public class RegistrationMenuController {
         citizenshipStatus.setItems(citizenshipList);
         citizenshipStatus.setValue(citizenshipList.get(0));
         registrationButton.setOnAction(event -> {
-            String name = nameField.getText();
-            String surname = surnameField.getText();
-            String fathername = fatherName.getText();
+
             String email = emailField.getText();
             String number = numberField.getText();
             LocalDate date = dateOfBirthday.getValue();
