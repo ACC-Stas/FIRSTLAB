@@ -38,7 +38,6 @@ public class LoginMenuController {
             loginSignUpButton.getScene().getWindow().hide();
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/banksystem/registration_menu.fxml"));
-            System.out.println(getClass().getResource("/main/banksystem/registration_menu.fxml"));
 
             try {
                 loader.load();
