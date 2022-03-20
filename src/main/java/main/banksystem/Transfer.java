@@ -1,7 +1,7 @@
 package main.banksystem;
 
 public class Transfer {
-    public Transfer(BIC bankFrom, long billFromId, BIC bankTo, long billToId, double value){
+    public Transfer(BIC bankFrom, Id billFromId, BIC bankTo, Id billToId, double value){
         this.bankFrom = bankFrom;
         this.billFromId = billFromId;
         this.bankTo = bankTo;
@@ -10,9 +10,9 @@ public class Transfer {
     }
 
     BIC bankFrom;
-    long billFromId;
+    Id billFromId;
     BIC bankTo;
-    long billToId;
+    Id billToId;
     double value;
 
     void startTransfer(){}

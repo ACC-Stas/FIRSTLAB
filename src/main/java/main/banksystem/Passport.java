@@ -3,7 +3,7 @@ package main.banksystem;
 import java.util.Calendar;
 
 public class Passport {
-    public Passport(FullName fullName, Citizenship citizenship, Sex sex, Address address, int idx, Calendar birthday){
+    public Passport(FullName fullName, Citizenship citizenship, Sex sex, Address address, Id idx, Calendar birthday){
         this.fullName = fullName;
         this.citizenship = citizenship;
         this.sex = sex;
@@ -16,6 +16,6 @@ public class Passport {
     Citizenship citizenship;
     Sex sex;
     Address address;
-    int idx;
+    Id idx;
     Calendar birthday;
 }

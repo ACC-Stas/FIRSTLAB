@@ -1,17 +1,13 @@
 package main.banksystem;
 
 public class BIC {
-    public BIC(long id){
+    public BIC(Id id) {
         this.id = id;
     }
 
-    private long id;
+    private final Id id;
 
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public long getId() {
+    public Id getId() {
         return id;
     }
 }
