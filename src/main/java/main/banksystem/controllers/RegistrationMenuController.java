@@ -1,16 +1,25 @@
 package main.banksystem.controllers;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.stage.Stage;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import main.banksystem.Citizenship;
+import main.banksystem.Sex;
 
 public class RegistrationMenuController {
+
+    ObservableList<String> citizenshipList = FXCollections.observableArrayList(Citizenship.BELARUS.name(),
+            Citizenship.RUSSIA.name(), Citizenship.UKRAINE.name(), Citizenship.USA.name());
+    ObservableList<String> sexList = FXCollections.observableArrayList(Sex.MAN.name(),
+            Sex.WOMAN.name(), Sex.OLEG.name());
 
     @FXML
     private ResourceBundle resources;
@@ -19,38 +28,53 @@ public class RegistrationMenuController {
     private URL location;
 
     @FXML
-    private Button administratorSignInButton;
+    private ChoiceBox<String> citizenshipStatus;
 
     @FXML
-    private Button clientSignUpButton;
+    private TextField cityField;
 
     @FXML
-    private Button managerSignUpButton;
+    private TextField countryField;
 
     @FXML
-    private Button operatorSignUpButton;
+    private DatePicker dateOfBirthday;
 
     @FXML
-    private Button specialistSignUpButton;
+    private TextField emailField;
+
+    @FXML
+    private Label errorLabel;
+
+    @FXML
+    private TextField fatherName;
+
+    @FXML
+    private TextField idField;
+
+    @FXML
+    private TextField nameField;
+
+    @FXML
+    private TextField numberField;
+
+    @FXML
+    private Button registrationButton;
+
+    @FXML
+    private ChoiceBox<String> roleStatus;
+
+    @FXML
+    private ChoiceBox<?> sexStatus;
+
+    @FXML
+    private TextField streetField;
+
+    @FXML
+    private TextField surnameField;
 
     @FXML
     void initialize() {
-        clientSignUpButton.setOnAction(event -> {
-            clientSignUpButton.getScene().getWindow().hide();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/banksystem/client_registration_menu.fxml"));
-
-            try {
-                loader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            Parent root = loader.getRoot();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
-        });
 
     }
 
