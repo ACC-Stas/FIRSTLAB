@@ -12,6 +12,7 @@ public class Company {
         this.billCompanyId = billCompanyId;
     }
 
+
     String jName;
     TypeCompany typeCompany;
     Id PAN;
@@ -20,5 +21,6 @@ public class Company {
     Id billCompanyId;
     List<Id> billsIds;
 
-    public void paySalary(){}
+    public void paySalary() {
+    }
 }

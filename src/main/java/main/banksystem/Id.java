@@ -1,6 +1,6 @@
 package main.banksystem;
 
-public class Id implements ISerializable {
+public class Id {
     public Id(long id) {
         this.id = id;
     }
@@ -10,8 +10,4 @@ public class Id implements ISerializable {
     }
 
     long id;
-
-    public String Serialize() {
-        return Long.toString(id);
-    }
 }
