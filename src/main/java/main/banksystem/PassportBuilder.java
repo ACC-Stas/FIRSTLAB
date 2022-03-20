@@ -6,7 +6,7 @@ import java.util.Calendar;
 public class PassportBuilder {
     private Passport passport;
 
-    PassportBuilder() {
+    public PassportBuilder() {
         passport = new Passport();
     }
 
@@ -14,54 +14,60 @@ public class PassportBuilder {
         passport = new Passport();
     }
 
-    void BuildFullName(FullName fullName) {
+    public void BuildFullName(FullName fullName) {
         passport.setFullName(fullName);
     }
 
-    void BuildCitizenship(Citizenship citizenship) {
+    public void BuildCitizenship(Citizenship citizenship) {
         passport.setCitizenship(citizenship);
     }
 
-    void BuildCitizenship(String citizenship) {
+    public void BuildCitizenship(String citizenship) {
         try {
             passport.setCitizenship(Citizenship.valueOf(citizenship));
         } catch (IllegalArgumentException ignored) {
         }
     }
 
-    void BuildSex(Sex sex) {
+    public void BuildSex(Sex sex) {
         passport.setSex(sex);
     }
 
-    void BuildSex(String sex) {
+    public void BuildSex(String sex) {
         try {
             passport.setSex(Sex.valueOf(sex));
         } catch (IllegalArgumentException ignored) {
         }
     }
 
-    void BuildAddress(Address address) {
+    public void BuildAddress(Address address) {
         passport.setAddress(address);
     }
 
-    void BuildIdx(Id idx) {
+    public void BuildIdx(Id idx) {
         passport.setIdx(idx);
     }
 
-    void BuildBirthday(LocalDate birthday) {
+    public void BuildIdx(String string) {
+        Id idx;
+        try {
+            idx = new Id(Long.parseLong(string));
+        } catch (IllegalArgumentException e) {
+            return;
+        }
+        passport.setIdx(idx);
+    }
+
+    public void BuildBirthday(LocalDate birthday) {
         passport.setBirthday(birthday);
     }
 
-    void BuildBirthday(String birthday) {
-        passport.setBirthday(LocalDate.parse(birthday));
-    }
-
-    static class Result {
+    public static class Result {
         public boolean valid;
         public Passport passport;
     }
 
-    Result getPassport() {
+    public Result getPassport() {
         Result result = new Result();
         result.valid = true;
         result.passport = this.passport;

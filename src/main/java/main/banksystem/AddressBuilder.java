@@ -19,16 +19,16 @@ public class AddressBuilder {
         address.setStreetAddress(streetAddress);
     }
 
-    void Reset() {
+    public void Reset() {
         address = new Address();
     }
 
-    static class Result {
+    public static class Result {
         public boolean valid;
         public Address address;
     }
 
-    AddressBuilder.Result getPassport() {
+    public AddressBuilder.Result getAddress() {
         AddressBuilder.Result result = new AddressBuilder.Result();
         result.valid = true;
         result.address = this.address;

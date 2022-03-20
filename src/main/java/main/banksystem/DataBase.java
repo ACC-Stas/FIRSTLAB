@@ -1,6 +1,8 @@
 package main.banksystem;
 
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,6 +35,10 @@ public class DataBase {
         String fileName = baseAddress + dbPart;
         File file = new File(fileName);
         try {
+            if(!file.exists()) {
+                file.createNewFile();
+            }
+
             FileWriter fileWriter = new FileWriter(file);
             CSVWriter writer = new CSVWriter(fileWriter);
 
@@ -99,5 +105,5 @@ public class DataBase {
         }
     }
 
-    private final String baseAddress = "../../../../../database/";
+    private final String baseAddress = "database/";
 }
