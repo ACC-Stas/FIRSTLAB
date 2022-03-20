@@ -13,11 +13,13 @@ public class DataBase {
 
     private DataBase() {
         encoder = new Encoder(encoderKey);
+        converter = new StringConverter<>();
     }
 
     private static DataBase instance;
     private static final char encoderKey = 1;
     private final Encoder encoder;
+    private final StringConverter<Id> converter;
 
     public static DataBase GetInstance() {
         if (instance == null) {
@@ -34,7 +36,7 @@ public class DataBase {
             FileWriter fileWriter = new FileWriter(file);
             CSVWriter writer = new CSVWriter(fileWriter);
 
-            String[] data = {encoder.Encode(id.Serialize()), encoder.Encode(object)};
+            String[] data = {encoder.Encode(converter.Serialize(id)), encoder.Encode(object)};
             writer.writeNext(data);
             writer.close();
         } catch (IOException e) {
@@ -42,7 +44,7 @@ public class DataBase {
         }
     }
 
-    public void Download(Id id, String dbPart, IConstructor constructor) {
+    public String Download(Id id, String dbPart) {
         String filename = baseAddress + dbPart;
         File file = new File(filename);
         FileReader fileReader;
@@ -55,15 +57,16 @@ public class DataBase {
             reader.close();
 
             for (String[] element : allElements) {
-                if (Objects.equals(encoder.Decode(element[0]), id.Serialize())) {
-                    constructor.Construct(encoder.Decode(element[1]));
-                    return;
+                if (Objects.equals(encoder.Decode(element[0]), converter.Serialize(id))) {
+                    return encoder.Decode(element[1]);
                 }
             }
 
         } catch (IOException | CsvException e) {
             e.printStackTrace();
         }
+
+        return "";
     }
 
     public void Remove(Id id, String dbPart) {
@@ -80,7 +83,7 @@ public class DataBase {
 
             List<String[]> found = new ArrayList<>();
             for (String[] element : allElements) {
-                if (Objects.equals(encoder.Decode(element[0]), id.Serialize())) {
+                if (Objects.equals(encoder.Decode(element[0]), converter.Serialize(id))) {
                     found.add(element);
                 }
             }
