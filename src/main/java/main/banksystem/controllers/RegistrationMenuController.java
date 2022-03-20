@@ -1,6 +1,7 @@
 package main.banksystem.controllers;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -64,7 +65,7 @@ public class RegistrationMenuController {
     private ChoiceBox<String> roleStatus;
 
     @FXML
-    private ChoiceBox<?> sexStatus;
+    private ChoiceBox<String> sexStatus;
 
     @FXML
     private TextField streetField;
@@ -74,8 +75,25 @@ public class RegistrationMenuController {
 
     @FXML
     void initialize() {
+        sexStatus.setItems(sexList);
+        sexStatus.setValue(sexList.get(0));
+        citizenshipStatus.setItems(citizenshipList);
+        citizenshipStatus.setValue(citizenshipList.get(0));
+        registrationButton.setOnAction(event -> {
+            String name = nameField.getText();
+            String surname = surnameField.getText();
+            String fathername = fatherName.getText();
+            String email = emailField.getText();
+            String number = numberField.getText();
+            LocalDate date = dateOfBirthday.getValue();
+            String sex = sexStatus.getValue();
+            String citizenship = citizenshipStatus.getValue();
+            String idPassport = idField.getText();
+            String country = countryField.getText();
+            String city = cityField.getText();
+            String streetAddress = streetField.getText();
 
-
+        });
     }
 
 }
