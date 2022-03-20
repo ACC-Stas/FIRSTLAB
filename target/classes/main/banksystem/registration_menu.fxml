@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -35,80 +36,93 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
                     <children>
-                        <TextField fx:id="nameField" prefHeight="36.0" prefWidth="250.0" promptText="Имя" GridPane.columnIndex="1" />
-                        <TextField fx:id="surnameField" prefHeight="36.0" prefWidth="250.0" promptText="Фамилия" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <TextField fx:id="fatherName" prefHeight="36.0" prefWidth="250.0" promptText="Отчество" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <TextField fx:id="emailField" prefHeight="36.0" prefWidth="250.0" promptText="E-mail" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <DatePicker fx:id="dateOfBirthday" prefHeight="36.0" prefWidth="250.0" promptText="День рождения" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                        <TextField fx:id="numberField" prefHeight="36.0" prefWidth="250.0" promptText="Номер телефона" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                        <ChoiceBox fx:id="sexStatus" prefHeight="36.0" prefWidth="250.0" GridPane.columnIndex="4" />
-                        <ChoiceBox fx:id="citizenshipStatus" prefHeight="36.0" prefWidth="250.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-                        <TextField fx:id="idField" prefHeight="36.0" prefWidth="250.0" promptText="Id Паспорта" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-                        <TextField fx:id="countryField" prefHeight="36.0" prefWidth="250.0" promptText="Страна проживания" GridPane.columnIndex="4" GridPane.rowIndex="3" />
-                        <TextField fx:id="cityField" prefHeight="36.0" prefWidth="250.0" promptText="Город" GridPane.columnIndex="4" GridPane.rowIndex="4" />
-                        <TextField fx:id="streetField" prefHeight="36.0" prefWidth="250.0" promptText="Улица, дом" GridPane.columnIndex="4" GridPane.rowIndex="5" />
-                        <Label text="Имя:">
+                        <TextField fx:id="nameField" prefHeight="36.0" prefWidth="250.0" promptText="Имя" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <TextField fx:id="surnameField" prefHeight="36.0" prefWidth="250.0" promptText="Фамилия" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <TextField fx:id="fatherName" prefHeight="36.0" prefWidth="250.0" promptText="Отчество" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <TextField fx:id="emailField" prefHeight="36.0" prefWidth="250.0" promptText="E-mail" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <DatePicker fx:id="dateOfBirthday" prefHeight="36.0" prefWidth="250.0" promptText="День рождения" GridPane.columnIndex="4" />
+                        <TextField fx:id="numberField" prefHeight="36.0" prefWidth="250.0" promptText="Номер телефона" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <ChoiceBox fx:id="sexStatus" prefHeight="36.0" prefWidth="250.0" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                        <ChoiceBox fx:id="citizenshipStatus" prefHeight="36.0" prefWidth="250.0" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                        <TextField fx:id="idField" prefHeight="36.0" prefWidth="250.0" promptText="Id Паспорта" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                        <TextField fx:id="countryField" prefHeight="36.0" prefWidth="250.0" promptText="Страна проживания" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                        <TextField fx:id="cityField" prefHeight="36.0" prefWidth="250.0" promptText="Город" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                        <TextField fx:id="streetField" prefHeight="36.0" prefWidth="250.0" promptText="Улица, дом" GridPane.columnIndex="4" GridPane.rowIndex="6" />
+                        <Label text="Имя:" GridPane.rowIndex="2">
                             <font>
                                 <Font name="System Italic" size="20.0" />
                             </font>
                         </Label>
-                        <Label prefHeight="25.0" prefWidth="117.0" text="Фамилия:" GridPane.rowIndex="1">
+                        <Label prefHeight="25.0" prefWidth="117.0" text="Фамилия:" GridPane.rowIndex="3">
                             <font>
                                 <Font name="System Italic" size="20.0" />
                             </font>
                         </Label>
-                        <Label text="Отчество:" GridPane.rowIndex="2">
+                        <Label text="Отчество:" GridPane.rowIndex="4">
                             <font>
                                 <Font name="System Italic" size="20.0" />
                             </font>
                         </Label>
-                        <Label text="E-mail:" GridPane.rowIndex="3">
+                        <Label text="E-mail:" GridPane.rowIndex="5">
                             <font>
                                 <Font name="System Italic" size="20.0" />
                             </font>
                         </Label>
-                        <Label text="Номер телефона:" GridPane.rowIndex="4">
+                        <Label text="Номер телефона:" GridPane.rowIndex="6">
                             <font>
                                 <Font name="System Italic" size="20.0" />
                             </font>
                         </Label>
-                        <Label text="День рождения:" GridPane.rowIndex="5">
+                        <Label text="День рождения:" GridPane.columnIndex="3">
                             <font>
                                 <Font name="System Italic" size="20.0" />
                             </font>
                         </Label>
-                        <Label text="Пол:" GridPane.columnIndex="3">
+                        <Label text="Пол:" GridPane.columnIndex="3" GridPane.rowIndex="1">
                             <font>
                                 <Font name="System Italic" size="20.0" />
                             </font>
                         </Label>
-                        <Label text="Гражданство:" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                        <Label text="Гражданство:" GridPane.columnIndex="3" GridPane.rowIndex="2">
                             <font>
                                 <Font name="System Italic" size="20.0" />
                             </font>
                         </Label>
-                        <Label text="Id Паспорта:" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                        <Label text="Id Паспорта:" GridPane.columnIndex="3" GridPane.rowIndex="3">
                             <font>
                                 <Font name="System Italic" size="20.0" />
                             </font>
                         </Label>
-                        <Label text="Страна проживания:" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                        <Label text="Страна проживания:" GridPane.columnIndex="3" GridPane.rowIndex="4">
                             <font>
                                 <Font name="System Italic" size="20.0" />
                             </font>
                         </Label>
-                        <Label text="Город:" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                        <Label text="Город:" GridPane.columnIndex="3" GridPane.rowIndex="5">
                             <font>
                                 <Font name="System Italic" size="20.0" />
                             </font>
                         </Label>
-                        <Label text="Улица, дом:" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                        <Label text="Улица, дом:" GridPane.columnIndex="3" GridPane.rowIndex="6">
                             <font>
                                 <Font name="System Italic" size="20.0" />
                             </font>
                         </Label>
+                  <Label text="Логин:">
+                     <font>
+                        <Font name="System Italic" size="20.0" />
+                     </font>
+                  </Label>
+                  <Label text="Пароль::" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="System Italic" size="20.0" />
+                     </font>
+                  </Label>
+                  <PasswordField fx:id="passwordField" prefHeight="36.0" prefWidth="209.0" promptText="Пароль" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="loginField" prefHeight="36.0" prefWidth="250.0" promptText="Логин" GridPane.columnIndex="1" />
                     </children>
                 </GridPane>
                 <Button fx:id="registrationButton" layoutX="438.0" layoutY="515.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="404.0" style="-fx-background-color: #f39c63;" text="Зарегистрироваться" textFill="WHITE">
