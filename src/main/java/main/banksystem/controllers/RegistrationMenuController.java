@@ -99,7 +99,6 @@ public class RegistrationMenuController {
             String city = cityField.getText();
             String streetAddress = streetField.getText();
             Role role = Role.valueOf(roleStatus.getValue());
-
         });
     }
 
