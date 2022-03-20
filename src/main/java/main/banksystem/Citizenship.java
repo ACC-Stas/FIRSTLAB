@@ -1,6 +1,6 @@
 package main.banksystem;
 
-public enum Citizenship {
+public enum Citizenship implements java.io.Serializable {
     BELARUS,
     RUSSIA,
     UKRAINE,

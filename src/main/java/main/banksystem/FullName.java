@@ -1,6 +1,6 @@
 package main.banksystem;
 
-public class FullName {
+public class FullName implements java.io.Serializable {
     private String firstName;
     private String secondName;
     private String fatherName;

@@ -134,11 +134,20 @@ public class RegistrationMenuController {
             userBuilder.BuildRole(roleStatus.getValue());
             userBuilder.BuildEmail(emailField.getText());
             userBuilder.BuildNumber(numberField.getText());
-            String password = passwordField.getText();
-            String login = loginField.getText();
+            userBuilder.BuildLogin(loginField.getText());
+            userBuilder.BuildPassword(passwordField.getText());
+            userBuilder.BuildPassport(passport.passport);
+            UserBuilder.Result user = userBuilder.getUser();
+            if(!user.valid) {
+                errorLabel.setText("Invalid user");
+                return;
+            }
 
             IndexGenerator generator = IndexGenerator.GetInstance();
-            Id idx = new Id(generator.GenerateUserIdx());
+            user.user.setIdx(new Id(generator.GenerateUserIdx()));
+
+            ICommand.Type type = new ICommand.Type(true, false);
+            RegistryCommand command = new RegistryCommand(user.user, type);
         });
     }
 

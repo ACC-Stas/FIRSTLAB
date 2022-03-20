@@ -14,19 +14,6 @@ public class StringConverter<T> {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        /*
-        try {
-            ByteArrayOutputStream bo = new ByteArrayOutputStream();
-            ObjectOutputStream so = new ObjectOutputStream(bo);
-            so.writeObject(object);
-            so.flush();
-            serializedObject = bo.toString();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return serializedObject;
-         */
         return serializedObject;
     }
 
@@ -38,19 +25,6 @@ public class StringConverter<T> {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-
-        /*
-        T obj = null;
-        try {
-            byte[] b = string.getBytes();
-            ByteArrayInputStream bi = new ByteArrayInputStream(b);
-            ObjectInputStream si = new ObjectInputStream(bi);
-            obj = (T) si.readObject();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-         */
-
         return null;
     }
 }

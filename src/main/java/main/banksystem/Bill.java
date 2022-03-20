@@ -1,6 +1,6 @@
 package main.banksystem;
 
-public class Bill {
+public class Bill implements java.io.Serializable {
     public Bill(Id id, double money, BillConditions billConditions){
         this.id = id;
         this.money = money;

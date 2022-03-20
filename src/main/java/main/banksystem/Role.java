@@ -1,6 +1,6 @@
 package main.banksystem;
 
-public enum Role {
+public enum Role implements java.io.Serializable {
     CLIENT,
     OPERATOR,
     MANAGER,

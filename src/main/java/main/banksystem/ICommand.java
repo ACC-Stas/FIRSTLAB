@@ -1,6 +1,8 @@
 package main.banksystem;
 
-public interface ICommand {
+import java.io.Serializable;
+
+public interface ICommand extends Serializable {
     public void execute();
 
     public void undo();
@@ -10,6 +12,11 @@ public interface ICommand {
     public void SetType(ICommand.Type type);
 
     public static class Type {
+        public Type(boolean approvable, boolean saveable) {
+            this.approvable = approvable;
+            this.saveable = saveable;
+        }
+
         private boolean approvable;
         private boolean saveable;
 

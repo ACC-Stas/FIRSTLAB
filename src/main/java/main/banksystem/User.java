@@ -1,6 +1,6 @@
 package main.banksystem;
 
-public class User {
+public class User implements java.io.Serializable {
     public User(Passport passport, Id idx, String number, String email, String password, Role role) {
         this.passport = passport;
         this.idx = idx;
@@ -61,10 +61,19 @@ public class User {
         this.role = role;
     }
 
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
     private Passport passport;
     private Id idx;
     private String number;
     private String email;
     private String password;
+    private String login;
     private Role role;
 }

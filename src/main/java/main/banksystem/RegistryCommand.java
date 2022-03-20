@@ -6,7 +6,7 @@ public class RegistryCommand implements ICommand {
     private final User user;
     private final StringConverter<User> converter;
 
-    RegistryCommand(User user, ICommand.Type type) {
+    public RegistryCommand(User user, ICommand.Type type) {
         this.user = user;
         this.type = type;
         this.converter = new StringConverter<>();

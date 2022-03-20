@@ -1,6 +1,6 @@
 package main.banksystem;
 
-public class Deposit {
+public class Deposit implements java.io.Serializable {
     public Deposit(long bankBillId, double percent, Bill bill){
         this.bankBillId = bankBillId;
         this.percent = percent;
