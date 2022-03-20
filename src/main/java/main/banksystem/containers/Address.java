@@ -1,6 +1,6 @@
-package main.banksystem;
+package main.banksystem.containers;
 
-public class Address {
+public class Address implements java.io.Serializable {
     public Address(String country, String city, String streetAddress){
         this.country = country;
         this.city = city;

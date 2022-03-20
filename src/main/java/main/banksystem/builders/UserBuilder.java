@@ -1,6 +1,10 @@
-package main.banksystem;
+package main.banksystem.builders;
 
-import java.time.LocalDate;
+import main.banksystem.containers.Id;
+import main.banksystem.containers.Passport;
+import main.banksystem.containers.Role;
+import main.banksystem.containers.User;
+
 import java.util.Objects;
 
 public class UserBuilder {
@@ -56,12 +60,16 @@ public class UserBuilder {
         }
     }
 
+    public void BuildLogin(String login) {
+        user.setLogin(login);
+    }
+
     public static class Result {
         public boolean valid;
         public User user;
     }
 
-    Result getUser() {
+    public Result getUser() {
         Result result = new Result();
         result.valid = true;
         result.user = this.user;
@@ -84,6 +92,10 @@ public class UserBuilder {
         }
 
         if (user.getIdx() == null) {
+            result.valid = false;
+        }
+
+        if (Objects.equals(user.getLogin(), "")) {
             result.valid = false;
         }
 

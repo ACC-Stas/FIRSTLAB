@@ -1,4 +1,8 @@
-package main.banksystem;
+package main.banksystem.commands;
+
+import main.banksystem.DataBase;
+import main.banksystem.StringConverter;
+import main.banksystem.containers.User;
 
 public class RegistryCompanyCommand implements ICommand {
 

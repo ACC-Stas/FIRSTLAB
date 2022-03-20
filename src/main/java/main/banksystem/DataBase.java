@@ -8,6 +8,7 @@ import java.util.Objects;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
+import main.banksystem.containers.Id;
 
 public class DataBase {
 
@@ -33,6 +34,10 @@ public class DataBase {
         String fileName = baseAddress + dbPart;
         File file = new File(fileName);
         try {
+            if(!file.exists()) {
+                file.createNewFile();
+            }
+
             FileWriter fileWriter = new FileWriter(file);
             CSVWriter writer = new CSVWriter(fileWriter);
 
@@ -99,5 +104,5 @@ public class DataBase {
         }
     }
 
-    private final String baseAddress = "../../../../../database/";
+    private final String baseAddress = "database/";
 }

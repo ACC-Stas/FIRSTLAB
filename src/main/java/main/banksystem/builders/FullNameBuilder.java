@@ -1,4 +1,6 @@
-package main.banksystem;
+package main.banksystem.builders;
+
+import main.banksystem.containers.FullName;
 
 import java.util.Objects;
 

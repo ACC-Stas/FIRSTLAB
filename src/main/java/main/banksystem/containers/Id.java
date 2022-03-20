@@ -1,6 +1,6 @@
-package main.banksystem;
+package main.banksystem.containers;
 
-public class Id {
+public class Id implements java.io.Serializable {
     public Id(long id) {
         this.id = id;
     }

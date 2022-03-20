@@ -1,4 +1,8 @@
-package main.banksystem;
+package main.banksystem.commands;
+
+import main.banksystem.DataBase;
+import main.banksystem.StringConverter;
+import main.banksystem.containers.User;
 
 public class RegistryCommand implements ICommand {
 
@@ -6,7 +10,7 @@ public class RegistryCommand implements ICommand {
     private final User user;
     private final StringConverter<User> converter;
 
-    RegistryCommand(User user, ICommand.Type type) {
+    public RegistryCommand(User user, ICommand.Type type) {
         this.user = user;
         this.type = type;
         this.converter = new StringConverter<>();

@@ -1,8 +1,8 @@
-package main.banksystem;
+package main.banksystem.containers;
 
 import java.util.List;
 
-public class Company {
+public class Company implements java.io.Serializable {
     public Company(String jName, TypeCompany typeCompany, Id PAN, BIC bankID, Address jAddress, Id billCompanyId) {
         this.jName = jName;
         this.typeCompany = typeCompany;

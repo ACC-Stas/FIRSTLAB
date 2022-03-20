@@ -1,7 +1,6 @@
 package main.banksystem.controllers;
 
 import java.net.URL;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -12,10 +11,17 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import main.banksystem.Citizenship;
-import main.banksystem.FullNameBuilder;
-import main.banksystem.Role;
-import main.banksystem.Sex;
+import main.banksystem.*;
+import main.banksystem.builders.AddressBuilder;
+import main.banksystem.builders.FullNameBuilder;
+import main.banksystem.builders.PassportBuilder;
+import main.banksystem.builders.UserBuilder;
+import main.banksystem.commands.ICommand;
+import main.banksystem.commands.RegistryCommand;
+import main.banksystem.containers.Citizenship;
+import main.banksystem.containers.Id;
+import main.banksystem.containers.Role;
+import main.banksystem.containers.Sex;
 
 public class RegistrationMenuController {
 
@@ -55,6 +61,12 @@ public class RegistrationMenuController {
 
     @FXML
     private TextField idField;
+
+    @FXML
+    private TextField passwordField;
+
+    @FXML
+    private TextField loginField;
 
     @FXML
     private TextField nameField;
@@ -98,16 +110,51 @@ public class RegistrationMenuController {
                 errorLabel.setText("Invalid full name");
                 return;
             }
-            String email = emailField.getText();
-            String number = numberField.getText();
-            LocalDate date = dateOfBirthday.getValue();
-            Sex sex = Sex.valueOf(sexStatus.getValue());
-            Citizenship citizenship = Citizenship.valueOf(citizenshipStatus.getValue());
-            String idPassport = idField.getText();
-            String country = countryField.getText();
-            String city = cityField.getText();
-            String streetAddress = streetField.getText();
-            Role role = Role.valueOf(roleStatus.getValue());
+
+            AddressBuilder addressBuilder = new AddressBuilder();
+            addressBuilder.BuildCity(cityField.getText());
+            addressBuilder.BuildCountry(countryField.getText());
+            addressBuilder.BuildStreetAddress(streetField.getText());
+            AddressBuilder.Result address = addressBuilder.getAddress();
+            if (!address.valid) {
+                errorLabel.setText("Invalid address");
+                return;
+            }
+
+            PassportBuilder passportBuilder = new PassportBuilder();
+            passportBuilder.BuildFullName(fullName.fullName);
+            passportBuilder.BuildBirthday(dateOfBirthday.getValue());
+            passportBuilder.BuildSex(sexStatus.getValue());
+            passportBuilder.BuildIdx(idField.getText());
+            passportBuilder.BuildCitizenship(citizenshipStatus.getValue());
+            passportBuilder.BuildAddress(address.address);
+            PassportBuilder.Result passport = passportBuilder.getPassport();
+            if (!passport.valid) {
+                errorLabel.setText("Invalid password");
+                return;
+            }
+
+            UserBuilder userBuilder = new UserBuilder();
+            userBuilder.BuildIdx(new Id(0L));
+            userBuilder.BuildRole(roleStatus.getValue());
+            userBuilder.BuildEmail(emailField.getText());
+            userBuilder.BuildNumber(numberField.getText());
+            userBuilder.BuildLogin(loginField.getText());
+            userBuilder.BuildPassword(passwordField.getText());
+            userBuilder.BuildPassport(passport.passport);
+            UserBuilder.Result user = userBuilder.getUser();
+            if(!user.valid) {
+                errorLabel.setText("Invalid user");
+                return;
+            }
+
+            IndexGenerator generator = IndexGenerator.GetInstance();
+            user.user.setIdx(new Id(generator.GenerateUserIdx()));
+
+            ICommand.Type type = new ICommand.Type(true, false);
+            RegistryCommand command = new RegistryCommand(user.user, type);
+
+
         });
     }
 
