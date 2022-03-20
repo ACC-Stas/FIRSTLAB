@@ -9,6 +9,7 @@ module main.banksystem {
     requires org.kordamp.ikonli.javafx;
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
+    requires com.opencsv;
 
     opens main.banksystem to javafx.fxml;
     exports main.banksystem;
