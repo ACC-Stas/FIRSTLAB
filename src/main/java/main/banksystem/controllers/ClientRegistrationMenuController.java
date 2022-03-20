@@ -1,6 +1,7 @@
 package main.banksystem.controllers;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -8,7 +9,9 @@ import javafx.scene.control.*;
 import javafx.collections.ObservableList;
 import javafx.collections.FXCollections;
 import main.banksystem.Citizenship;
+import main.banksystem.Passport;
 import main.banksystem.Sex;
+import main.banksystem.User;
 
 public class ClientRegistrationMenuController {
 
@@ -77,7 +80,7 @@ public class ClientRegistrationMenuController {
             String fathername = fatherName.getText();
             String email = emailField.getText();
             String number = numberField.getText();
-            String date = dateOfBirthday.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate date = dateOfBirthday.getValue();
             String sex = sexStatus.getValue();
             String citizenship = citizenshipStatus.getValue();
             String idPassport = idField.getText();

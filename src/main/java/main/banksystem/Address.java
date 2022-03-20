@@ -6,6 +6,13 @@ public class Address {
         this.city = city;
         this.streetAddress = streetAddress;
     }
+
+    public Address() {
+        this.country = null;
+        this.city = null;
+        this.streetAddress = null;
+    }
+
     private String country;
     private String city;
     private String streetAddress;
