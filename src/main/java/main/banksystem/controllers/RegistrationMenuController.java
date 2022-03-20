@@ -13,11 +13,13 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.banksystem.Citizenship;
-import main.banksystem.FullNameBuilder;
+import main.banksystem.Role;
 import main.banksystem.Sex;
 
 public class RegistrationMenuController {
 
+    ObservableList<String> roleList = FXCollections.observableArrayList(Role.CLIENT.name(), Role.OPERATOR.name(),
+            Role.MANAGER.name(), Role.SPECIALIST.name(), Role.ADMINISTRATOR.name());
     ObservableList<String> citizenshipList = FXCollections.observableArrayList(Citizenship.BELARUS.name(),
             Citizenship.RUSSIA.name(), Citizenship.UKRAINE.name(), Citizenship.USA.name());
     ObservableList<String> sexList = FXCollections.observableArrayList(Sex.MAN.name(),
@@ -80,17 +82,23 @@ public class RegistrationMenuController {
         sexStatus.setValue(sexList.get(0));
         citizenshipStatus.setItems(citizenshipList);
         citizenshipStatus.setValue(citizenshipList.get(0));
-        registrationButton.setOnAction(event -> {
+        roleStatus.setItems(roleList);
+        roleStatus.setValue(roleList.get(0));
 
+        registrationButton.setOnAction(event -> {
+            String name = nameField.getText();
+            String surname = surnameField.getText();
+            String fathername = fatherName.getText();
             String email = emailField.getText();
             String number = numberField.getText();
             LocalDate date = dateOfBirthday.getValue();
-            String sex = sexStatus.getValue();
-            String citizenship = citizenshipStatus.getValue();
+            Sex sex = Sex.valueOf(sexStatus.getValue());
+            Citizenship citizenship = Citizenship.valueOf(citizenshipStatus.getValue());
             String idPassport = idField.getText();
             String country = countryField.getText();
             String city = cityField.getText();
             String streetAddress = streetField.getText();
+            Role role = Role.valueOf(roleStatus.getValue());
 
         });
     }

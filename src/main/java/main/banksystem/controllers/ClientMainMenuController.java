@@ -1,4 +1,4 @@
 package main.banksystem.controllers;
 
-public class ClientMenuController {
+public class ClientMainMenuController {
 }
