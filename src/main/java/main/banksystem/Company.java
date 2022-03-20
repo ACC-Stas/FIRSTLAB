@@ -3,7 +3,7 @@ package main.banksystem;
 import java.util.List;
 
 public class Company {
-    public Company(String jName, TypeCompany typeCompany, long PAN, BIC bankID, Address jAddress, long billCompanyId) {
+    public Company(String jName, TypeCompany typeCompany, Id PAN, BIC bankID, Address jAddress, Id billCompanyId) {
         this.jName = jName;
         this.typeCompany = typeCompany;
         this.PAN = PAN;
@@ -14,11 +14,11 @@ public class Company {
 
     String jName;
     TypeCompany typeCompany;
-    long PAN;
+    Id PAN;
     BIC bankID;
     Address jAddress;
-    long billCompanyId;
-    List<Long> billsIds;
+    Id billCompanyId;
+    List<Id> billsIds;
 
     public void paySalary(){}
 }

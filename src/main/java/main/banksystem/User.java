@@ -1,7 +1,7 @@
 package main.banksystem;
 
 public class User {
-    public User(Passport passport, int idx, String number, String email, String password, Role role){
+    public User(Passport passport, Id idx, String number, String email, String password, Role role){
         this.passport = passport;
         this.idx = idx;
         this.number = number;
@@ -11,7 +11,7 @@ public class User {
     }
 
     Passport passport;
-    int idx;
+    Id idx;
     String number;
     String email;
     String password;
