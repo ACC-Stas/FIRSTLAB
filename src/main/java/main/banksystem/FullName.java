@@ -12,6 +12,12 @@ public class FullName {
         this.fatherName = fatherName;
     }
 
+    public FullName() {
+        this.firstName = null;
+        this.secondName = null;
+        this.fatherName = null;
+    }
+
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }

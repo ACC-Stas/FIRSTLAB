@@ -10,6 +10,9 @@ public class User {
         this.role = role;
     }
 
+    public User() {
+    }
+
     public Passport getPassport() {
         return passport;
     }
