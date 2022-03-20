@@ -70,6 +70,8 @@ public class ClientRegistrationMenuController {
         sexStatus.setValue(sexList.get(0));
         citizenshipStatus.setItems(citizenshipList);
         citizenshipStatus.setValue(citizenshipList.get(0));
-    }
 
+        registrationButton.setOnAction(event -> {
+        });
+    }
 }
