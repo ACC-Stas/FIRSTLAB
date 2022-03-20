@@ -10,6 +10,19 @@ import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
 
 public class DataBase {
+
+    private DataBase() {
+    }
+
+    private static DataBase instance;
+
+    public static DataBase GetInstance() {
+        if (instance == null) {
+            instance = new DataBase();
+        }
+        return instance;
+    }
+
     public void Save(Id id, String dbPart, String object) {
         Remove(id, dbPart);
         String fileName = baseAddress + dbPart;
