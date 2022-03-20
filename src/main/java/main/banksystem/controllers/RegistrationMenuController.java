@@ -58,6 +58,12 @@ public class RegistrationMenuController {
     private TextField idField;
 
     @FXML
+    private TextField passwordField;
+
+    @FXML
+    private TextField loginField;
+
+    @FXML
     private TextField nameField;
 
     @FXML
@@ -128,6 +134,8 @@ public class RegistrationMenuController {
             userBuilder.BuildRole(roleStatus.getValue());
             userBuilder.BuildEmail(emailField.getText());
             userBuilder.BuildNumber(numberField.getText());
+            String password = passwordField.getText();
+            String login = loginField.getText();
 
             IndexGenerator generator = IndexGenerator.GetInstance();
             Id idx = new Id(generator.GenerateUserIdx());
