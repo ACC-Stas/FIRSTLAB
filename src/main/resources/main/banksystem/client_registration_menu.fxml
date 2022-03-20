@@ -116,6 +116,11 @@
                   <Font name="System Bold Italic" size="30.0" />
                </font>
             </Button>
+            <Label fx:id="errorLabel" layoutX="913.0" layoutY="536.0" textFill="RED">
+               <font>
+                  <Font name="System Italic" size="25.0" />
+               </font>
+            </Label>
             </children>
         </AnchorPane>
         <Label layoutX="535.0" layoutY="31.0" text="BankSystem" textAlignment="CENTER" textFill="#e8e8e8">
