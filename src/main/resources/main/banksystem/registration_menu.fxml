@@ -116,7 +116,7 @@
                         <Font name="System Italic" size="20.0" />
                      </font>
                   </Label>
-                  <Label text="Пароль::" GridPane.rowIndex="1">
+                  <Label text="Пароль:" GridPane.rowIndex="1">
                      <font>
                         <Font name="System Italic" size="20.0" />
                      </font>

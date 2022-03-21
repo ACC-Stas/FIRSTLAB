@@ -130,7 +130,7 @@ public class RegistrationMenuController {
             passportBuilder.BuildAddress(address.address);
             PassportBuilder.Result passport = passportBuilder.getPassport();
             if (!passport.valid) {
-                errorLabel.setText("Invalid password");
+                errorLabel.setText("Invalid passport");
                 return;
             }
 
