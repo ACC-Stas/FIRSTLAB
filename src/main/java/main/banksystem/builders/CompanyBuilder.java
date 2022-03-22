@@ -1,9 +1,8 @@
 package main.banksystem.builders;
 
-import main.banksystem.containers.BIC;
-import main.banksystem.containers.Company;
-import main.banksystem.containers.Id;
-import main.banksystem.containers.Role;
+import main.banksystem.containers.*;
+
+import java.util.Objects;
 
 public class CompanyBuilder {
     private Company company;
@@ -66,12 +65,54 @@ public class CompanyBuilder {
         company.setPAN(idx);
     }
 
+    public void BuildAddress(Address address) {
+        company.setjAddress(address);
+    }
+
+    public void BuildCompanyId(Id id) {
+        company.setBillCompanyId(id);
+    }
+
+    public void BuildCompanyId(String string) {
+        Id idx;
+        try {
+            idx = new Id(Long.parseLong(string));
+        } catch (IllegalArgumentException e) {
+            return;
+        }
+
+        company.setBillCompanyId(idx);
+    }
+
 
     public Result getCompany() {
         Result result = new Result();
         result.valid = true;
         result.company = company;
 
+        if (company.getType() == null) {
+            result.valid = false;
+        }
+
+        if (company.getjName() == null || Objects.equals(company.getjName(), "")) {
+            result.valid = false;
+        }
+
+        if (company.getPAN() == null) {
+            result.valid = false;
+        }
+
+        if (company.getBankID() == null) {
+            result.valid = false;
+        }
+
+        if (company.getjAddress() == null) {
+            result.valid = false;
+        }
+
+        if (company.getBillCompanyId() == null) {
+            result.valid = false;
+        }
 
         return result;
     }
