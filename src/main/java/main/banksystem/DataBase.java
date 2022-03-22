@@ -22,6 +22,13 @@ public class DataBase {
     private final Encoder encoder;
     private final StringConverter<Id> converter;
 
+    public static final String USER_PART = "user.csv";
+    public static final String STACK_PART = "stack.csv";
+    public static final String QUEUE_PART = "queue.csv";
+    public static final String COMPANY_PART = "company.csv";
+    public static final String INDEXES_PART = "indexes.csv";
+    public static final String BILLS_PART = "bills.csv";
+
     public static DataBase GetInstance() {
         if (instance == null) {
             instance = new DataBase();
@@ -34,7 +41,7 @@ public class DataBase {
         String fileName = baseAddress + dbPart;
         File file = new File(fileName);
         try {
-            if(!file.exists()) {
+            if (!file.exists()) {
                 file.createNewFile();
             }
 
@@ -72,6 +79,25 @@ public class DataBase {
         }
 
         return "";
+    }
+
+    public List<String[]> DownloadList(String dbPart) {
+        String filename = baseAddress + dbPart;
+
+        List<String[]> allElements = null;
+        File file = new File(filename);
+        FileReader fileReader;
+        try {
+            fileReader = new FileReader(file);
+
+            CSVReader reader = new CSVReader(fileReader);
+            allElements = reader.readAll();
+            reader.close();
+        } catch (IOException | CsvException e) {
+            e.printStackTrace();
+        }
+
+        return allElements;
     }
 
     public void Remove(Id id, String dbPart) {
