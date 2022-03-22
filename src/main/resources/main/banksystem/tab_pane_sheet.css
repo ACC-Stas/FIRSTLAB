@@ -4,7 +4,7 @@
 
 .tab {
     -fx-background-color: #f39c63;
-    -fx-pref-width: 252;
+    -fx-pref-width: USE_PREF_SIZE;
     -fx-text-alignment: center;
 }
 

@@ -1,16 +1,10 @@
 package main.banksystem.controllers;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.Objects;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 
 import static main.banksystem.controllers.SwitchMenu.switchMenu;
 
@@ -42,6 +36,7 @@ public class LoginMenuController {
         authSignInButton.setOnAction(actionEvent -> {
             String login = login_field.getText();
             String password = password_field.getText();
+
         });
 
     }
