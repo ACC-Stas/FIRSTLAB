@@ -73,13 +73,13 @@ public class UserBuilder {
         Result result = new Result();
         result.valid = true;
         result.user = this.user;
-        if (Objects.equals(user.getPassword(), "")) {
+        if (user.getPassword() == null || Objects.equals(user.getPassword(), "")) {
             result.valid = false;
         }
         if (user.getRole() == null) {
             result.valid = false;
         }
-        if (Objects.equals(user.getEmail(), "")) {
+        if (user.getEmail() == null || Objects.equals(user.getEmail(), "")) {
             result.valid = false;
         }
 
@@ -87,7 +87,7 @@ public class UserBuilder {
             result.valid = false;
         }
 
-        if (Objects.equals(user.getNumber(), "")) {
+        if (user.getNumber() == null || Objects.equals(user.getNumber(), "")) {
             result.valid = false;
         }
 
@@ -95,7 +95,7 @@ public class UserBuilder {
             result.valid = false;
         }
 
-        if (Objects.equals(user.getLogin(), "")) {
+        if (user.getLogin() == null || Objects.equals(user.getLogin(), "")) {
             result.valid = false;
         }
 

@@ -2,6 +2,8 @@ package main.banksystem.builders;
 
 import main.banksystem.containers.Address;
 
+import java.util.Objects;
+
 public class AddressBuilder {
     private Address address;
 
@@ -35,15 +37,15 @@ public class AddressBuilder {
         result.valid = true;
         result.address = this.address;
 
-        if (address.getCountry() == null) {
+        if (address.getCountry() == null || Objects.equals(address.getCountry(), "")) {
             result.valid = false;
         }
 
-        if (address.getStreetAddress() == null) {
+        if (address.getStreetAddress() == null || Objects.equals(address.getStreetAddress(), "")) {
             result.valid = false;
         }
 
-        if (address.getCity() == null) {
+        if (address.getCity() == null || Objects.equals(address.getCity(), "")) {
             result.valid = false;
         }
 

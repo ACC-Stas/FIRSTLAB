@@ -37,15 +37,15 @@ public class FullNameBuilder {
         result.valid = true;
         result.fullName = this.fullName;
 
-        if (Objects.equals(fullName.getFirstName(), "")) {
+        if (fullName.getFirstName() == null || Objects.equals(fullName.getFirstName(), "")) {
             result.valid = false;
         }
 
-        if (Objects.equals(fullName.getSecondName(), "")) {
+        if (fullName.getSecondName() == null || Objects.equals(fullName.getSecondName(), "")) {
             result.valid = false;
         }
 
-        if (Objects.equals(fullName.getFatherName(), "")) {
+        if (fullName.getFatherName() == null || Objects.equals(fullName.getFatherName(), "")) {
             result.valid = false;
         }
 

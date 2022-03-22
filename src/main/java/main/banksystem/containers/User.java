@@ -1,16 +1,21 @@
 package main.banksystem.containers;
 
+import java.util.ArrayList;
+
 public class User implements java.io.Serializable {
-    public User(Passport passport, Id idx, String number, String email, String password, Role role) {
+    public User(Passport passport, Id idx, String login, String number, String email, String password, Role role) {
         this.passport = passport;
         this.idx = idx;
         this.number = number;
         this.email = email;
         this.password = password;
         this.role = role;
+        this.login = login;
+        this.billIds = new ArrayList<Id>();
     }
 
     public User() {
+        this.billIds = new ArrayList<Id>();
     }
 
     public Passport getPassport() {
@@ -69,6 +74,14 @@ public class User implements java.io.Serializable {
         this.login = login;
     }
 
+    public ArrayList<Id> getBillIds() {
+        return billIds;
+    }
+
+    public void setBillIds(ArrayList<Id> billIds) {
+        this.billIds = billIds;
+    }
+
     private Passport passport;
     private Id idx;
     private String number;
@@ -76,4 +89,5 @@ public class User implements java.io.Serializable {
     private String password;
     private String login;
     private Role role;
+    private ArrayList<Id> billIds;
 }
