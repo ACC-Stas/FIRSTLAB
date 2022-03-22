@@ -2,6 +2,9 @@ package main.banksystem.controllers;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
@@ -76,6 +79,12 @@ public class ClientMainMenuController {
     @FXML
     void initialize() {
         createBillButton.setOnAction(event ->{
+            newMenu("/main/banksystem/create_bill_menu.fxml");
+        });
+        withdrawBillButton.setOnAction(event ->{
+            newMenu("/main/banksystem/withdraw_menu.fxml");
+        });
+        transferBillButton.setOnAction(event ->{
             newMenu("/main/banksystem/transfer_menu.fxml");
         });
     }

@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
 import main.banksystem.ProgramStatus;
 import main.banksystem.containers.Id;
 
-public class TransferMenuController {
+public class WithdrawMenuController {
 
     ObservableList<String> billList = FXCollections.observableArrayList();
 
@@ -28,16 +28,14 @@ public class TransferMenuController {
     private ChoiceBox<String> billFromChoice;
 
     @FXML
-    private TextField billToField;
-
-    @FXML
     private Label errorLabel;
 
     @FXML
-    private Button transferButton;
+    private TextField valueField;
 
     @FXML
-    private TextField valueField;
+    private Button withdrawButton;
+
     @FXML
     void initialize() {
         ProgramStatus status = ProgramStatus.getInstance();
@@ -47,9 +45,8 @@ public class TransferMenuController {
         }
         billFromChoice.setItems(billList);
 
-        transferButton.setOnAction(event -> {
+        withdrawButton.setOnAction(event -> {
             String billFrom = billFromChoice.getValue();
-            String billTo = billToField.getText();
             String value = valueField.getText();
         });
 
