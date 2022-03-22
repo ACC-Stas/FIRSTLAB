@@ -5,8 +5,16 @@ public class Id implements java.io.Serializable {
         this.id = id;
     }
 
+    public Id() {
+        this.id = 0L;
+    }
+
     public long getId() {
         return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     long id;

@@ -1,17 +1,33 @@
 package main.banksystem;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.jsontype.NamedType;
 import main.banksystem.commands.ICommand;
+import main.banksystem.commands.RegistryCommand;
+import main.banksystem.commands.RegistryCompanyCommand;
 import main.banksystem.containers.User;
 
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
 public class CPU {
-    CPU(User cpuUser) {
+    public CPU(User cpuUser) {
         dataBase = DataBase.GetInstance();
         queueConverter = new StringConverter<>();
         stackConverter = new StringConverter<>();
+        commandConverter = new StringConverter<>();
         this.cpuUser = cpuUser;
+    }
+
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    static {
+        MAPPER.registerSubtypes(new NamedType(RegistryCommand.class, "RegistryCommand"));
+        MAPPER.registerSubtypes(new NamedType(RegistryCompanyCommand.class, "RegistryCompanyCommand"));
+        MAPPER.findAndRegisterModules();
     }
 
     public User getCpuUser() {
@@ -24,22 +40,41 @@ public class CPU {
 
     private User cpuUser;
     private final DataBase dataBase;
-    private final StringConverter<Queue<ICommand>> queueConverter;
-    private final StringConverter<Stack<ICommand>> stackConverter;
+    private final StringConverter<ICommand> commandConverter;
+    private final StringConverter<Queue<String>> queueConverter;
+    private final StringConverter<Stack<String>> stackConverter;
 
     public void HeldCommand(ICommand command) {
         if (command.GetType().isApprovable()) {
-            Queue<ICommand> queue = queueConverter.Deserialize(dataBase.Download(cpuUser.getIdx(), DataBase.QUEUE_PART));
+            String rawData = dataBase.Download(cpuUser.getIdx(), DataBase.QUEUE_PART);
+            Queue<String> stringQueue = queueConverter.Deserialize(rawData, Queue.class);
+            Queue<ICommand> queue = commandConverter.Deserialize(stringQueue, ICommand.class);
+
+            if (queue == null) {
+                queue = new LinkedList<>();
+            }
             queue.add(command);
-            dataBase.Save(cpuUser.getIdx(), DataBase.QUEUE_PART, queueConverter.Serialize(queue));
+
+            stringQueue = commandConverter.Serialize(queue);
+            rawData = queueConverter.Serialize(stringQueue);
+            dataBase.Save(cpuUser.getIdx(), DataBase.QUEUE_PART, rawData);
             return;
         }
 
         command.execute();
         if (command.GetType().isSaveable()) {
-            Stack<ICommand> stack = stackConverter.Deserialize(dataBase.Download(cpuUser.getIdx(), DataBase.STACK_PART));
-            stack.add(command);
-            dataBase.Save(cpuUser.getIdx(), DataBase.STACK_PART, stackConverter.Serialize(stack));
+            String rawData = dataBase.Download(cpuUser.getIdx(), DataBase.STACK_PART);
+            Stack<String> stringStack = stackConverter.Deserialize(rawData, Stack.class);
+            Stack<ICommand> stack = commandConverter.Deserialize(stringStack, ICommand.class);
+
+            if (stack == null) {
+                stack = new Stack<>();
+            }
+            stack.push(command);
+
+            stringStack = commandConverter.Serialize(stack);
+            rawData = stackConverter.Serialize(stringStack);
+            dataBase.Save(cpuUser.getIdx(), DataBase.STACK_PART, rawData);
         }
     }
 }

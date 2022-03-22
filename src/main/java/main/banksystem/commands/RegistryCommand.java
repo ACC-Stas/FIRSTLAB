@@ -1,14 +1,37 @@
 package main.banksystem.commands;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeName;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import main.banksystem.DataBase;
 import main.banksystem.StringConverter;
 import main.banksystem.containers.User;
 
+@JsonTypeName("RegistryCommand")
 public class RegistryCommand implements ICommand {
-
     private ICommand.Type type;
-    private final User user;
-    private final StringConverter<User> converter;
+    private User user;
+    private String description;
+    private static final ObjectMapper mapper = new ObjectMapper();
+    private static final StringConverter<User> converter = new StringConverter<>();
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     @Override
     public String getDescription() {
@@ -20,12 +43,12 @@ public class RegistryCommand implements ICommand {
         this.description = description;
     }
 
-    private String description;
-
-    public RegistryCommand(User user, ICommand.Type type) {
+    @JsonCreator
+    public RegistryCommand(@JsonProperty("user") User user, @JsonProperty("type") ICommand.Type type) {
         this.user = user;
         this.type = type;
-        this.converter = new StringConverter<>();
+        this.description = String.format("User %s want's to register in system. His passport id is %d",
+                user.getLogin(), user.getPassport().getIdx().getId());
     }
 
     @Override

@@ -18,16 +18,17 @@ public class DataBase {
     }
 
     private static DataBase instance;
-    private static final char encoderKey = 1;
+    private static final char encoderKey = 0;
     private final Encoder encoder;
     private final StringConverter<Id> converter;
 
-    public static final String USER_PART = "user.csv";
-    public static final String STACK_PART = "stack.csv";
-    public static final String QUEUE_PART = "queue.csv";
-    public static final String COMPANY_PART = "company.csv";
-    public static final String INDEXES_PART = "indexes.csv";
-    public static final String BILLS_PART = "bills.csv";
+    public static final String USER_PART = "user.txt";
+    public static final String STACK_PART = "stack.txt";
+    public static final String QUEUE_PART = "queue.txt";
+    public static final String COMPANY_PART = "company.txt";
+    public static final String INDEXES_PART = "indexes.txt";
+    public static final String BILLS_PART = "bills.txt";
+    public static final Id INIT_USER_ID = new Id(-1L); // special user to register others
 
     public static DataBase GetInstance() {
         if (instance == null) {
