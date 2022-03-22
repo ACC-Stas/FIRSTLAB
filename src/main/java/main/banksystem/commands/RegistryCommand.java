@@ -31,13 +31,13 @@ public class RegistryCommand implements ICommand {
     @Override
     public void execute() {
         DataBase dataBase = DataBase.GetInstance();
-        dataBase.Save(user.getIdx(), "users.csv", converter.Serialize(this.user));
+        dataBase.Save(user.getIdx(), DataBase.USER_PART, converter.Serialize(this.user));
     }
 
     @Override
     public void undo() {
         DataBase dataBase = DataBase.GetInstance();
-        dataBase.Remove(user.getIdx(), "users.csv");
+        dataBase.Remove(user.getIdx(), DataBase.USER_PART);
 
     }
 

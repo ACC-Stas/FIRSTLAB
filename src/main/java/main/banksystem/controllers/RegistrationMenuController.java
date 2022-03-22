@@ -113,7 +113,7 @@ public class RegistrationMenuController {
 
         registrationButton.setOnAction(event -> {
             errorLabel.setText("");
-            /*
+
             FullNameBuilder fullNameBuilder = new FullNameBuilder();
             fullNameBuilder.BuildFirstName(nameField.getText());
             fullNameBuilder.BuildSecondName(surnameField.getText());
@@ -167,8 +167,6 @@ public class RegistrationMenuController {
             ICommand.Type type = new ICommand.Type(true, false);
             RegistryCommand command = new RegistryCommand(user.user, type);
 
-            ProgramStatus status = ProgramStatus.getInstance();
-            status.setUser(user);*/
             switchMenu(registrationButton, "/main/banksystem/client_main_menu.fxml");
         });
     }
