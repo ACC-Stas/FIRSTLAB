@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.banksystem.controllers.SpecialistMainMenuController">
+    <children>
+        <AnchorPane layoutY="110.0" prefHeight="610.0" prefWidth="1280.0" style="-fx-background-color: #fafafafa;">
+            <children>
+                <Label layoutX="472.0" layoutY="14.0" text="Меню Специалиста" textAlignment="CENTER" textFill="#979595">
+                    <font>
+                        <Font name="System Bold Italic" size="30.0" />
+                    </font>
+                </Label>
+                <TabPane layoutY="50.0" prefHeight="560.0" prefWidth="1280.0" stylesheets="@tab_pane_sheet.css" tabClosingPolicy="UNAVAILABLE">
+                    <tabs>
+                        <Tab text="Подтверждения новых сотрудников">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="499.0" prefWidth="1280.0">
+                                    <children>
+                                        <Accordion fx:id="newStaffAccordion" layoutX="50.0" layoutY="80.0" prefHeight="178.0" prefWidth="1180.0">
+                                            <panes>
+                                                <TitledPane animated="false" prefHeight="108.0" prefWidth="1180.0" stylesheets="@pane_sheet.css" text="Счёт 1" textFill="WHITE">
+                                                    <content>
+                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="138.0" prefWidth="1178.0">
+                                                            <children>
+                                                                <Label layoutX="14.0" layoutY="21.0" prefHeight="25.0" prefWidth="78.0" text="Банк:">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="20.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <Label layoutX="109.0" layoutY="21.0" text="Label">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="20.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <Label layoutX="384.0" layoutY="21.0" text="Баланс:">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="20.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <Label layoutX="14.0" layoutY="69.0" text="Статус счёта:">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="20.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <Label layoutX="206.0" layoutY="69.0" text="Label">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="20.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <Label layoutX="504.0" layoutY="21.0" text="Label">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="20.0" />
+                                                                    </font>
+                                                                </Label>
+                                                            </children>
+                                                        </AnchorPane>
+                                                    </content>
+                                                    <font>
+                                                        <Font size="20.0" />
+                                                    </font>
+                                                </TitledPane>
+                                            </panes>
+                                        </Accordion>
+                                        <Label fx:id="errorLabel" layoutX="1005.0" layoutY="20.0" prefHeight="25.0" prefWidth="188.0" textFill="RED">
+                                            <font>
+                                                <Font name="System Italic" size="20.0" />
+                                            </font>
+                                        </Label>
+                                    </children></AnchorPane>
+                            </content>
+                        </Tab>
+                        <Tab text="Заявка на зарплатный проект">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <Accordion fx:id="salaryAccordion" layoutX="50.0" layoutY="80.0" prefHeight="178.0" prefWidth="1180.0">
+                                            <panes>
+                                                <TitledPane animated="false" prefHeight="108.0" prefWidth="1180.0" stylesheets="@pane_sheet.css" text="Счёт 1" textFill="WHITE">
+                                                    <content>
+                                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="138.0" prefWidth="1178.0">
+                                                            <children>
+                                                                <Label layoutX="14.0" layoutY="21.0" prefHeight="25.0" prefWidth="78.0" text="Банк:">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="20.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <Label layoutX="109.0" layoutY="21.0" text="Label">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="20.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <Label layoutX="384.0" layoutY="21.0" text="Баланс:">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="20.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <Label layoutX="14.0" layoutY="69.0" text="Статус счёта:">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="20.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <Label layoutX="206.0" layoutY="69.0" text="Label">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="20.0" />
+                                                                    </font>
+                                                                </Label>
+                                                                <Label layoutX="504.0" layoutY="21.0" text="Label">
+                                                                    <font>
+                                                                        <Font name="System Italic" size="20.0" />
+                                                                    </font>
+                                                                </Label>
+                                                            </children>
+                                                        </AnchorPane>
+                                                    </content>
+                                                    <font>
+                                                        <Font size="20.0" />
+                                                    </font>
+                                                </TitledPane>
+                                            </panes>
+                                        </Accordion>
+                              <Button fx:id="findButton1" layoutX="50.0" layoutY="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="150.0" style="-fx-background-color: f39c63;" text="Раздать ЗП" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Button>
+                                    </children></AnchorPane>
+                            </content>
+                        </Tab>
+                  <Tab text="Перевод от предприятия">
+                     <content>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <Accordion fx:id="transferAccordion" layoutX="50.0" layoutY="80.0" prefHeight="178.0" prefWidth="1180.0">
+                                 <panes>
+                                    <TitledPane animated="false" prefHeight="108.0" prefWidth="1180.0" stylesheets="@pane_sheet.css" text="Счёт 1" textFill="WHITE">
+                                       <content>
+                                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="138.0" prefWidth="1178.0">
+                                             <children>
+                                                <Label layoutX="14.0" layoutY="21.0" prefHeight="25.0" prefWidth="78.0" text="Банк:">
+                                                   <font>
+                                                      <Font name="System Italic" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="109.0" layoutY="21.0" text="Label">
+                                                   <font>
+                                                      <Font name="System Italic" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="384.0" layoutY="21.0" text="Баланс:">
+                                                   <font>
+                                                      <Font name="System Italic" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="14.0" layoutY="69.0" text="Статус счёта:">
+                                                   <font>
+                                                      <Font name="System Italic" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="206.0" layoutY="69.0" text="Label">
+                                                   <font>
+                                                      <Font name="System Italic" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                                <Label layoutX="504.0" layoutY="21.0" text="Label">
+                                                   <font>
+                                                      <Font name="System Italic" size="20.0" />
+                                                   </font>
+                                                </Label>
+                                             </children>
+                                          </AnchorPane>
+                                       </content>
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </TitledPane>
+                                 </panes>
+                              </Accordion>
+                              <Button fx:id="createCompanyTransferButton" layoutX="50.0" layoutY="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="150.0" style="-fx-background-color: f39c63;" text="Создать перевод" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Button>
+                              <Label layoutX="640.0" layoutY="20.0" text="Баланс предприятия:">
+                                 <font>
+                                    <Font name="System Italic" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Label fx:id="companyMoneyLabel" layoutX="898.0" layoutY="20.0" text="Label">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
+                     </content>
+                  </Tab>
+                        <Tab text="Дополнительные опции">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                                    <children>
+                                        <Button fx:id="toClientButton" layoutX="465.0" layoutY="64.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="350.0" style="-fx-background-color: f39c63;" text="Перейти в меню Клиента" textFill="WHITE">
+                                            <font>
+                                                <Font name="System Italic" size="20.0" />
+                                            </font>
+                                        </Button>
+                              <Label fx:id="specialistStatusLabel" layoutX="286.0" layoutY="280.0" text="Вы не привязаны к предприятию:" textFill="RED">
+                                 <font>
+                                    <Font name="System Italic" size="20.0" />
+                                 </font>
+                              </Label>
+                              <Button fx:id="setCompanyButton" layoutX="701.0" layoutY="275.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="150.0" style="-fx-background-color: f39c63;" text="Привязать" textFill="WHITE">
+                                 <font>
+                                    <Font name="System Italic" size="13.0" />
+                                 </font>
+                              </Button>
+                                    </children></AnchorPane>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+            </children>
+        </AnchorPane>
+        <Label layoutX="535.0" layoutY="31.0" text="BankSystem" textAlignment="CENTER" textFill="#e8e8e8">
+            <font>
+                <Font name="System Bold Italic" size="30.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>
