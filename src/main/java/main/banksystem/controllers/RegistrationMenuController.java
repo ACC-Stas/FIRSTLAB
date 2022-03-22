@@ -1,21 +1,20 @@
 package main.banksystem.controllers;
 
-import java.io.IOException;
 import java.net.URL;
-import java.util.ResourceBundle;
+import java.util.*;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.jsontype.NamedType;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import main.banksystem.*;
 import main.banksystem.builders.AddressBuilder;
 import main.banksystem.builders.FullNameBuilder;
@@ -23,14 +22,20 @@ import main.banksystem.builders.PassportBuilder;
 import main.banksystem.builders.UserBuilder;
 import main.banksystem.commands.ICommand;
 import main.banksystem.commands.RegistryCommand;
-import main.banksystem.containers.Citizenship;
-import main.banksystem.containers.Id;
-import main.banksystem.containers.Role;
-import main.banksystem.containers.Sex;
+import main.banksystem.commands.RegistryCompanyCommand;
+import main.banksystem.containers.*;
 
 import static main.banksystem.controllers.SwitchMenu.switchMenu;
 
 public class RegistrationMenuController {
+
+    private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    static {
+        MAPPER.registerSubtypes(new NamedType(RegistryCommand.class, "RegistryCommand"));
+        MAPPER.registerSubtypes(new NamedType(RegistryCompanyCommand.class, "RegistryCompanyCommand"));
+        MAPPER.findAndRegisterModules();
+    }
 
     ObservableList<String> roleList = FXCollections.observableArrayList();
     ObservableList<String> citizenshipList = FXCollections.observableArrayList();
@@ -95,13 +100,13 @@ public class RegistrationMenuController {
 
     @FXML
     void initialize() {
-        for(Role role : Role.values()) {
+        for (Role role : Role.values()) {
             roleList.add(role.toString());
         }
-        for(Citizenship citizenship : Citizenship.values()) {
+        for (Citizenship citizenship : Citizenship.values()) {
             citizenshipList.add(citizenship.toString());
         }
-        for(Sex sex : Sex.values()) {
+        for (Sex sex : Sex.values()) {
             sexList.add(sex.toString());
         }
         sexStatus.setItems(sexList);
@@ -156,7 +161,7 @@ public class RegistrationMenuController {
             userBuilder.BuildPassword(passwordField.getText());
             userBuilder.BuildPassport(passport.passport);
             UserBuilder.Result user = userBuilder.getUser();
-            if(!user.valid) {
+            if (!user.valid) {
                 errorLabel.setText("Invalid user");
                 return;
             }
@@ -166,6 +171,11 @@ public class RegistrationMenuController {
 
             ICommand.Type type = new ICommand.Type(true, false);
             RegistryCommand command = new RegistryCommand(user.user, type);
+
+            User initUser = new User();
+            initUser.setIdx(DataBase.INIT_USER_ID);
+            CPU cpu = new CPU(initUser);
+            cpu.HeldCommand(command);
 
             switchMenu(registrationButton, "/main/banksystem/client_main_menu.fxml");
         });

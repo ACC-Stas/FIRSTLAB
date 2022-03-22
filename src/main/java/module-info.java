@@ -11,6 +11,12 @@ module main.banksystem {
     requires eu.hansolo.tilesfx;
     requires com.opencsv;
 
+    requires com.fasterxml.jackson.databind;
+    requires com.fasterxml.jackson.annotation;
+    requires com.fasterxml.jackson.core;
+    requires com.fasterxml.jackson.datatype.jsr310;
+    requires com.google.common;
+
     opens main.banksystem to javafx.fxml;
     exports main.banksystem;
     exports main.banksystem.controllers;

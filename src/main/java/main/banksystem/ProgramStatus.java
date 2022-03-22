@@ -1,5 +1,6 @@
-package main.banksystem.controllers;
+package main.banksystem;
 
+import main.banksystem.containers.Id;
 import main.banksystem.containers.User;
 
 public class ProgramStatus {

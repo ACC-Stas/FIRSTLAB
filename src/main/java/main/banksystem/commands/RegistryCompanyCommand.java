@@ -1,9 +1,11 @@
 package main.banksystem.commands;
 
+import com.fasterxml.jackson.annotation.JsonTypeName;
 import main.banksystem.DataBase;
 import main.banksystem.StringConverter;
 import main.banksystem.containers.User;
 
+@JsonTypeName("RegistryCompanyCommand")
 public class RegistryCompanyCommand implements ICommand {
 
     private ICommand.Type type;
