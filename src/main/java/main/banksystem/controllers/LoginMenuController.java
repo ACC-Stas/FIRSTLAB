@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 import static main.banksystem.controllers.SwitchMenu.switchMenu;
@@ -17,25 +18,31 @@ public class LoginMenuController {
     private URL location;
 
     @FXML
-    private Button authSignInButton;
+    private TextField loginField;
+
+    @FXML
+    private Button loginSignInButton;
 
     @FXML
     private Button loginSignUpButton;
 
     @FXML
-    private TextField login_field;
+    private Button loginSignUpCompanyButton;
 
     @FXML
-    private TextField password_field;
+    private PasswordField passwordField;
 
     @FXML
     void initialize() {
         loginSignUpButton.setOnAction(event -> {
             switchMenu(loginSignUpButton, "/main/banksystem/registration_menu.fxml");
         });
-        authSignInButton.setOnAction(actionEvent -> {
-            String login = login_field.getText();
-            String password = password_field.getText();
+        loginSignUpCompanyButton.setOnAction(event -> {
+            switchMenu(loginSignUpButton, "/main/banksystem/company_registration_menu.fxml");
+        });
+        loginSignInButton.setOnAction(actionEvent -> {
+            String login = loginField.getText();
+            String password = passwordField.getText();
 
         });
 
