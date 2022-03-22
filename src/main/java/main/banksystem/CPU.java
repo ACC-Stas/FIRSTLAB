@@ -1,12 +1,5 @@
 package main.banksystem;
-
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.jsontype.NamedType;
 import main.banksystem.commands.ICommand;
-import main.banksystem.commands.RegistryCommand;
-import main.banksystem.commands.RegistryCompanyCommand;
 import main.banksystem.containers.User;
 
 import java.util.LinkedList;
@@ -21,15 +14,6 @@ public class CPU {
         commandConverter = new StringConverter<>();
         this.cpuUser = cpuUser;
     }
-
-    private static final ObjectMapper MAPPER = new ObjectMapper();
-
-    static {
-        MAPPER.registerSubtypes(new NamedType(RegistryCommand.class, "RegistryCommand"));
-        MAPPER.registerSubtypes(new NamedType(RegistryCompanyCommand.class, "RegistryCompanyCommand"));
-        MAPPER.findAndRegisterModules();
-    }
-
     public User getCpuUser() {
         return cpuUser;
     }

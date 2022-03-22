@@ -1,13 +1,9 @@
 package main.banksystem;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.nio.file.Files;
+import java.util.*;
 
-import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
-import com.opencsv.exceptions.CsvException;
 import main.banksystem.containers.Id;
 
 public class DataBase {
@@ -21,6 +17,7 @@ public class DataBase {
     private static final char encoderKey = 0;
     private final Encoder encoder;
     private final StringConverter<Id> converter;
+    private static final StringConverter<Map<String, String>> dataConverter = new StringConverter<>();
 
     public static final String USER_PART = "user.txt";
     public static final String STACK_PART = "stack.txt";
@@ -46,12 +43,18 @@ public class DataBase {
                 file.createNewFile();
             }
 
+            Map<String, String> data = new HashMap<>();
             FileWriter fileWriter = new FileWriter(file);
-            CSVWriter writer = new CSVWriter(fileWriter);
+            String rowData = encoder.Decode(Files.readString(file.toPath()));
+            if (!Objects.equals(rowData, "")) {
+                data = dataConverter.Deserialize(rowData, data.getClass());
+            }
+            data.put(converter.Serialize(id), object);
+            rowData = dataConverter.Serialize(data);
+            fileWriter.write(encoder.Encode(rowData));
 
-            String[] data = {encoder.Encode(converter.Serialize(id)), encoder.Encode(object)};
-            writer.writeNext(data);
-            writer.close();
+            fileWriter.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -60,73 +63,88 @@ public class DataBase {
     public String Download(Id id, String dbPart) {
         String filename = baseAddress + dbPart;
         File file = new File(filename);
-        FileReader fileReader;
         try {
-            fileReader = new FileReader(file);
-
-            CSVReader reader = new CSVReader(fileReader);
-            List<String[]> allElements;
-            allElements = reader.readAll();
-            reader.close();
-
-            for (String[] element : allElements) {
-                if (Objects.equals(encoder.Decode(element[0]), converter.Serialize(id))) {
-                    return encoder.Decode(element[1]);
-                }
+            if (!file.exists()) {
+                file.createNewFile();
             }
 
-        } catch (IOException | CsvException e) {
+            String rowData = encoder.Decode(Files.readString(file.toPath()));
+            if (Objects.equals(rowData, "")) {
+                return "";
+            }
+            Map<String, String> data = new HashMap<>();
+            data = dataConverter.Deserialize(rowData, data.getClass());
+            String idStr = converter.Serialize(id);
+
+            if (!data.containsKey(idStr)) {
+                return "";
+            }
+
+            return data.get(idStr);
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         return "";
     }
 
-    public List<String[]> DownloadList(String dbPart) {
+    public Map<Id, String> DownloadList(String dbPart) {
         String filename = baseAddress + dbPart;
-
-        List<String[]> allElements = null;
         File file = new File(filename);
-        FileReader fileReader;
         try {
-            fileReader = new FileReader(file);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
 
-            CSVReader reader = new CSVReader(fileReader);
-            allElements = reader.readAll();
-            reader.close();
-        } catch (IOException | CsvException e) {
+            String rowData = encoder.Decode(Files.readString(file.toPath()));
+            if (Objects.equals(rowData, "")) {
+                return new HashMap<>();
+            }
+            Map<String, String> data = new HashMap<>();
+            data = dataConverter.Deserialize(rowData, data.getClass());
+
+            Map<Id, String> result = new HashMap<>();
+            for (Map.Entry<String, String> entry : data.entrySet()) {
+                result.put(converter.Deserialize(entry.getKey(), Id.class), entry.getValue());
+            }
+
+            return result;
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
-        return allElements;
+        return new HashMap<>();
     }
 
     public void Remove(Id id, String dbPart) {
         String filename = baseAddress + dbPart;
         File file = new File(filename);
-        FileReader fileReader;
         try {
-            fileReader = new FileReader(file);
-
-            CSVReader reader = new CSVReader(fileReader);
-            List<String[]> allElements;
-            allElements = reader.readAll();
-            reader.close();
-
-            List<String[]> found = new ArrayList<>();
-            for (String[] element : allElements) {
-                if (Objects.equals(encoder.Decode(element[0]), converter.Serialize(id))) {
-                    found.add(element);
-                }
+            if (!file.exists()) {
+                file.createNewFile();
             }
-            allElements.removeAll(found);
+
+            String rowData = encoder.Decode(Files.readString(file.toPath()));
+            if (Objects.equals(rowData, "")) {
+                return;
+            }
+
+            Map<String, String> data = new HashMap<>();
+            data = dataConverter.Deserialize(rowData, data.getClass());
+            String idStr = converter.Serialize(id);
+            if (!data.containsKey(idStr)) {
+                return;
+            }
+
+            data.remove(idStr);
 
             FileWriter fileWriter = new FileWriter(file);
-            CSVWriter writer = new CSVWriter(fileWriter);
-            writer.writeAll(allElements);
-            writer.close();
+            fileWriter.write(encoder.Encode(dataConverter.Serialize(data)));
+            fileWriter.close();
 
-        } catch (IOException | CsvException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

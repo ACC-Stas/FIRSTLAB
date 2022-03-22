@@ -1,17 +1,10 @@
 package main.banksystem;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
-import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
-import com.google.common.reflect.TypeToken;
 import main.banksystem.commands.RegistryCommand;
 import main.banksystem.commands.RegistryCompanyCommand;
-
-import java.lang.reflect.Type;
-
-import java.io.*;
 import java.util.*;
 
 public class StringConverter<T> {
