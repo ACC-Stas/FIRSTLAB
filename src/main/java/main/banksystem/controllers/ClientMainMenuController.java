@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 
+import static main.banksystem.controllers.SwitchMenu.newMenu;
+
 public class ClientMainMenuController {
 
     @FXML
@@ -73,7 +75,9 @@ public class ClientMainMenuController {
 
     @FXML
     void initialize() {
-
+        createBillButton.setOnAction(event ->{
+            newMenu("/main/banksystem/transfer_menu.fxml");
+        });
     }
 
 }

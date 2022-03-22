@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.banksystem.controllers.CompanyRegistrationMenuController">
+    <children>
+        <AnchorPane layoutY="110.0" prefHeight="610.0" prefWidth="1280.0" style="-fx-background-color: #fafafafa;">
+            <children>
+                <Label layoutX="439.0" layoutY="14.0" text="Регистрация Компании" textAlignment="CENTER" textFill="#979595">
+                    <font>
+                        <Font name="System Bold Italic" size="30.0" />
+                    </font>
+                </Label>
+                <GridPane layoutX="220.0" layoutY="70.0" prefHeight="445.0" prefWidth="840.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="495.0" minWidth="10.0" prefWidth="487.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="488.0" minWidth="10.0" prefWidth="251.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="490.0" minWidth="0.0" prefWidth="400.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <ChoiceBox fx:id="typeChoice" prefHeight="36.0" prefWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <TextField fx:id="countryField" prefHeight="36.0" prefWidth="250.0" promptText="Страна" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <TextField fx:id="cityField" prefHeight="36.0" prefWidth="250.0" promptText="Город" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                        <TextField fx:id="streetField" prefHeight="36.0" prefWidth="250.0" promptText="Улица, дом" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                        <Label text="Юридический адрес:" GridPane.rowIndex="2">
+                            <font>
+                                <Font name="System Italic" size="20.0" />
+                            </font>
+                        </Label>
+                        <Label text="Страна:" GridPane.rowIndex="3">
+                            <font>
+                                <Font name="System Italic" size="20.0" />
+                            </font>
+                        </Label>
+                        <Label text="Город:" GridPane.rowIndex="4">
+                            <font>
+                                <Font name="System Italic" size="20.0" />
+                            </font>
+                        </Label>
+                        <Label text="Улица, дом:" GridPane.rowIndex="5">
+                            <font>
+                                <Font name="System Italic" size="20.0" />
+                            </font>
+                        </Label>
+                        <Label prefHeight="46.0" prefWidth="347.0" text="Юридическое Название:">
+                            <font>
+                                <Font name="System Italic" size="20.0" />
+                            </font>
+                        </Label>
+                        <Label text="Тип:" GridPane.rowIndex="1">
+                            <font>
+                                <Font name="System Italic" size="20.0" />
+                            </font>
+                        </Label>
+                        <TextField fx:id="jNameField" prefHeight="36.0" prefWidth="250.0" promptText="Название" GridPane.columnIndex="2" />
+                      <Label text="Выберите под-тип:" GridPane.rowIndex="6">
+                          <font>
+                              <Font name="System Italic" size="20.0" />
+                          </font>
+                      </Label>
+                      <ChoiceBox fx:id="bankChoice" prefHeight="36.0" prefWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                    </children>
+                </GridPane>
+                <Button fx:id="registrationButton" layoutX="438.0" layoutY="515.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="404.0" style="-fx-background-color: #f39c63;" text="Зарегистрировать" textFill="WHITE">
+                    <font>
+                        <Font name="System Bold Italic" size="30.0" />
+                    </font>
+                </Button>
+                <Label fx:id="errorLabel" layoutX="913.0" layoutY="536.0" textFill="RED">
+                    <font>
+                        <Font name="System Italic" size="25.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <Label layoutX="535.0" layoutY="31.0" text="BankSystem" textAlignment="CENTER" textFill="#e8e8e8">
+            <font>
+                <Font name="System Bold Italic" size="30.0" />
+            </font>
+        </Label>
+    </children>
+</AnchorPane>
