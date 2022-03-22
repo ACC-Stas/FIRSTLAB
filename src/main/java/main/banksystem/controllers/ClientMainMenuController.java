@@ -74,7 +74,6 @@ public class ClientMainMenuController {
     @FXML
     void initialize() {
 
-
     }
 
 }

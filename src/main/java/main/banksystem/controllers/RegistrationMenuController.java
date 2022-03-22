@@ -32,12 +32,9 @@ import static main.banksystem.controllers.SwitchMenu.switchMenu;
 
 public class RegistrationMenuController {
 
-    ObservableList<String> roleList = FXCollections.observableArrayList(Role.CLIENT.name(), Role.OPERATOR.name(),
-            Role.MANAGER.name(), Role.SPECIALIST.name(), Role.ADMINISTRATOR.name());
-    ObservableList<String> citizenshipList = FXCollections.observableArrayList(Citizenship.BELARUS.name(),
-            Citizenship.RUSSIA.name(), Citizenship.UKRAINE.name(), Citizenship.USA.name());
-    ObservableList<String> sexList = FXCollections.observableArrayList(Sex.MAN.name(),
-            Sex.WOMAN.name(), Sex.OLEG.name());
+    ObservableList<String> roleList = FXCollections.observableArrayList();
+    ObservableList<String> citizenshipList = FXCollections.observableArrayList();
+    ObservableList<String> sexList = FXCollections.observableArrayList();
 
     @FXML
     private ResourceBundle resources;
@@ -98,6 +95,15 @@ public class RegistrationMenuController {
 
     @FXML
     void initialize() {
+        for(Role role : Role.values()) {
+            roleList.add(role.toString());
+        }
+        for(Citizenship citizenship : Citizenship.values()) {
+            citizenshipList.add(citizenship.toString());
+        }
+        for(Sex sex : Sex.values()) {
+            sexList.add(sex.toString());
+        }
         sexStatus.setItems(sexList);
         sexStatus.setValue(sexList.get(0));
         citizenshipStatus.setItems(citizenshipList);
@@ -160,7 +166,9 @@ public class RegistrationMenuController {
 
             ICommand.Type type = new ICommand.Type(true, false);
             RegistryCommand command = new RegistryCommand(user.user, type);
-            */
+
+            ProgramStatus status = ProgramStatus.getInstance();
+            status.setUser(user);*/
             switchMenu(registrationButton, "/main/banksystem/client_main_menu.fxml");
         });
     }
