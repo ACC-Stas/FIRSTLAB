@@ -3,8 +3,6 @@ package main.banksystem.commands;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import main.banksystem.DataBase;
 import main.banksystem.StringConverter;
 import main.banksystem.containers.User;
@@ -14,7 +12,6 @@ public class RegistryCommand implements ICommand {
     private ICommand.Type type;
     private User user;
     private String description;
-    private static final ObjectMapper mapper = new ObjectMapper();
     private static final StringConverter<User> converter = new StringConverter<>();
 
     public Type getType() {

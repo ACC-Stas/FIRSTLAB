@@ -4,9 +4,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.*;
 
-import com.opencsv.CSVReader;
-import com.opencsv.CSVWriter;
-import com.opencsv.exceptions.CsvException;
 import main.banksystem.containers.Id;
 
 public class DataBase {
@@ -48,13 +45,13 @@ public class DataBase {
 
             Map<String, String> data = new HashMap<>();
             FileWriter fileWriter = new FileWriter(file);
-            String rowData = Files.readString(file.toPath());
+            String rowData = encoder.Decode(Files.readString(file.toPath()));
             if (!Objects.equals(rowData, "")) {
                 data = dataConverter.Deserialize(rowData, data.getClass());
             }
             data.put(converter.Serialize(id), object);
             rowData = dataConverter.Serialize(data);
-            fileWriter.write(rowData);
+            fileWriter.write(encoder.Encode(rowData));
 
             fileWriter.close();
 
@@ -71,7 +68,7 @@ public class DataBase {
                 file.createNewFile();
             }
 
-            String rowData = Files.readString(file.toPath());
+            String rowData = encoder.Decode(Files.readString(file.toPath()));
             if (Objects.equals(rowData, "")) {
                 return "";
             }
@@ -100,7 +97,7 @@ public class DataBase {
                 file.createNewFile();
             }
 
-            String rowData = Files.readString(file.toPath());
+            String rowData = encoder.Decode(Files.readString(file.toPath()));
             if (Objects.equals(rowData, "")) {
                 return new HashMap<>();
             }
@@ -129,7 +126,7 @@ public class DataBase {
                 file.createNewFile();
             }
 
-            String rowData = Files.readString(file.toPath());
+            String rowData = encoder.Decode(Files.readString(file.toPath()));
             if (Objects.equals(rowData, "")) {
                 return;
             }
@@ -142,6 +139,10 @@ public class DataBase {
             }
 
             data.remove(idStr);
+
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(encoder.Encode(dataConverter.Serialize(data)));
+            fileWriter.close();
 
         } catch (IOException e) {
             e.printStackTrace();

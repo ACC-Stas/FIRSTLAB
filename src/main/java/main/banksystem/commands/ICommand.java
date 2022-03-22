@@ -6,12 +6,8 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 
 import java.io.Serializable;
 
-import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.PROPERTY;
-import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
-
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
-        include = JsonTypeInfo.As.PROPERTY,
         property = "__typename"
 )
 @JsonSubTypes({
@@ -20,19 +16,19 @@ import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
 })
 @JsonTypeName("ICommand")
 public interface ICommand extends Serializable {
-    public void execute();
+    void execute();
 
-    public void undo();
+    void undo();
 
-    public Type GetType();
+    Type GetType();
 
-    public void SetType(ICommand.Type type);
+    void SetType(ICommand.Type type);
 
-    public String getDescription();
+    String getDescription();
 
-    public void setDescription(String description);
+    void setDescription(String description);
 
-    public static class Type {
+    class Type {
         public Type(boolean approvable, boolean saveable) {
             this.approvable = approvable;
             this.saveable = saveable;
