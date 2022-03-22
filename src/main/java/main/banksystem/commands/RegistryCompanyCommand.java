@@ -10,6 +10,18 @@ public class RegistryCompanyCommand implements ICommand {
     private final User user;
     private final StringConverter<User> converter;
 
+    @Override
+    public String getDescription() {
+        return description;
+    }
+
+    @Override
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    private String description;
+
     RegistryCompanyCommand(User user, ICommand.Type type) {
         this.user = user;
         this.type = type;

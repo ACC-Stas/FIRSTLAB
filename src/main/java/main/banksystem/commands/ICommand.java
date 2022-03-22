@@ -11,6 +11,10 @@ public interface ICommand extends Serializable {
 
     public void SetType(ICommand.Type type);
 
+    public String getDescription();
+
+    public void setDescription(String description);
+
     public static class Type {
         public Type(boolean approvable, boolean saveable) {
             this.approvable = approvable;
@@ -19,7 +23,6 @@ public interface ICommand extends Serializable {
 
         private boolean approvable;
         private boolean saveable;
-
         public boolean isSaveable() {
             return saveable;
         }
