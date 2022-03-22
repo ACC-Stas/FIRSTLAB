@@ -1,16 +1,21 @@
 package main.banksystem.controllers;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import main.banksystem.*;
 import main.banksystem.builders.AddressBuilder;
 import main.banksystem.builders.FullNameBuilder;
@@ -22,6 +27,8 @@ import main.banksystem.containers.Citizenship;
 import main.banksystem.containers.Id;
 import main.banksystem.containers.Role;
 import main.banksystem.containers.Sex;
+
+import static main.banksystem.controllers.SwitchMenu.switchMenu;
 
 public class RegistrationMenuController {
 
@@ -100,7 +107,7 @@ public class RegistrationMenuController {
 
         registrationButton.setOnAction(event -> {
             errorLabel.setText("");
-
+            /*
             FullNameBuilder fullNameBuilder = new FullNameBuilder();
             fullNameBuilder.BuildFirstName(nameField.getText());
             fullNameBuilder.BuildSecondName(surnameField.getText());
@@ -153,8 +160,8 @@ public class RegistrationMenuController {
 
             ICommand.Type type = new ICommand.Type(true, false);
             RegistryCommand command = new RegistryCommand(user.user, type);
-
-
+            */
+            switchMenu(registrationButton, "/main/banksystem/client_main_menu.fxml");
         });
     }
 

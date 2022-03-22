@@ -12,6 +12,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import static main.banksystem.controllers.SwitchMenu.switchMenu;
+
 public class LoginMenuController {
 
     @FXML
@@ -35,25 +37,11 @@ public class LoginMenuController {
     @FXML
     void initialize() {
         loginSignUpButton.setOnAction(event -> {
-            loginSignUpButton.getScene().getWindow().hide();
-
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/main/banksystem/registration_menu.fxml"));
-
-            try {
-                loader.load();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-            Parent root = loader.getRoot();
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.showAndWait();
-
-
+            switchMenu(loginSignUpButton, "/main/banksystem/registration_menu.fxml");
         });
         authSignInButton.setOnAction(actionEvent -> {
-
+            String login = login_field.getText();
+            String password = password_field.getText();
         });
 
     }
