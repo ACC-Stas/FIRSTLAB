@@ -1,6 +1,7 @@
 package main.banksystem.controllers;
 
 import java.net.URL;
+
 import java.util.Map;
 import java.util.Queue;
 import java.util.ResourceBundle;
@@ -9,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import main.banksystem.DataBase;
-import main.banksystem.StringConverter;
 import main.banksystem.commands.ICommand;
 import main.banksystem.containers.Id;
 
@@ -47,18 +47,51 @@ public class ManagerMainMenuController {
 
     @FXML
     void initialize() {
-        for (int i = 0; i < 2; i++) {
-            TitledPane titledPane = new TitledPane();
-            titledPane.setText("Клиент " + i.toString());
+        createRegistrationAccordion();
 
-            VBox content1 = new VBox();
-            content1.getChildren().add(new Label("Java Swing Tutorial"));
-            content1.getChildren().add(new Label("JavaFx Tutorial"));
-            content1.getChildren().add(new Label("Java IO Tutorial"));
-
-            titledPane.setContent(content1);
-            registrationAccordion.getPanes().addAll(titledPane);
-        }
     }
 
+    void createRegistrationAccordion(){
+        registrationAccordion.getPanes().clear();
+
+        DataBase dataBase = DataBase.GetInstance();
+        Map<Id, Queue<ICommand>> queues = dataBase.DownloadQueue(DataBase.QUEUE_PART, ICommand.class);
+
+        if (queues.containsKey(DataBase.INIT_USER_ID)) {
+            for (ICommand command : queues.get(DataBase.INIT_USER_ID)) {
+                TitledPane titledPane = new TitledPane();
+                titledPane.getStylesheets().add(ManagerMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+                titledPane.setText(command.getDescription());
+
+                VBox content = new VBox();
+                Button approve = new Button("Approve");
+                approve.setOnAction(event -> {
+
+                    command.execute();
+
+                    queues.get(DataBase.INIT_USER_ID).remove(command);
+                    dataBase.SaveQueue(DataBase.INIT_USER_ID, DataBase.QUEUE_PART, queues.get(DataBase.INIT_USER_ID));
+                    registrationAccordion.getPanes().remove(titledPane);
+
+                    initialize();
+                });
+
+                Button disapprove = new Button("Disapprove");
+                disapprove.setOnAction(event -> {
+
+                    queues.get(DataBase.INIT_USER_ID).remove(command);
+                    dataBase.SaveQueue(DataBase.INIT_USER_ID, DataBase.QUEUE_PART, queues.get(DataBase.INIT_USER_ID));
+                    registrationAccordion.getPanes().remove(titledPane);
+
+                    initialize();
+                });
+
+                content.getChildren().add(approve);
+                content.getChildren().add(disapprove);
+                titledPane.setContent(content);
+
+                registrationAccordion.getPanes().addAll(titledPane);
+            }
+        }
+    }
 }
