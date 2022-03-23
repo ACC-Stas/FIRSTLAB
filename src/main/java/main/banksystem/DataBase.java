@@ -4,6 +4,7 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.*;
 
+import main.banksystem.commands.ICommand;
 import main.banksystem.containers.Id;
 
 public class DataBase {
@@ -141,6 +142,41 @@ public class DataBase {
             for (Map.Entry<String, String> entry : data.entrySet()) {
                 StringConverter<T> converterT = new StringConverter<>();
                 result.put(converter.Deserialize(entry.getKey(), Id.class), converterT.Deserialize(entry.getValue(), type));
+            }
+
+            return result;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return new HashMap<>();
+    }
+
+    public <T> Map<Id, Queue<T>> DownloadQueue(String dbPart, Class type) {
+        String filename = BASE_ADDRESS + dbPart;
+        File file = new File(filename);
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            String rowData = encoder.Decode(Files.readString(file.toPath()));
+            if (Objects.equals(rowData, "")) {
+                return new HashMap<>();
+            }
+
+            Map<String, String> data = new HashMap<>();
+            data = dataConverter.Deserialize(rowData, data.getClass());
+
+            StringConverter<Queue<String>> queueConverter = new StringConverter<>();
+            StringConverter<T> converterT = new StringConverter<>();
+
+            Map<Id, Queue<T>> result = new HashMap<>();
+            for (Map.Entry<String, String> entry : data.entrySet()) {
+                Queue<String> queue = queueConverter.Deserialize(entry.getValue(), Queue.class);
+                Queue<T> queueT = converterT.Deserialize(queue, type);
+                result.put(converter.Deserialize(entry.getKey(), Id.class), queueT);
             }
 
             return result;
