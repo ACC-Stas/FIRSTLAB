@@ -3,6 +3,7 @@ package main.banksystem.commands;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import main.banksystem.containers.Role;
 
 import java.io.Serializable;
 
@@ -11,7 +12,7 @@ import java.io.Serializable;
         property = "__typename"
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = RegistryCommand.class, name = "RegistryCommand"),
+        @JsonSubTypes.Type(value = BuildBillCommand.class, name = "RegistryCommand"),
         @JsonSubTypes.Type(value = RegistryCompanyCommand.class, name = "RegistryCompanyCommand")
 })
 @JsonTypeName("ICommand")
@@ -27,6 +28,10 @@ public interface ICommand extends Serializable {
     String getDescription();
 
     void setDescription(String description);
+
+    Role getApproveLevel();
+
+    void setApproveLevel(Role role);
 
     class Type {
         public Type(boolean approvable, boolean saveable) {

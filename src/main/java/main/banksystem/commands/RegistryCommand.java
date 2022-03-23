@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonTypeName;
 import main.banksystem.DataBase;
 import main.banksystem.StringConverter;
 import main.banksystem.containers.Id;
+import main.banksystem.containers.Role;
 import main.banksystem.containers.User;
 
 import java.util.Map;
@@ -16,6 +17,7 @@ public class RegistryCommand implements ICommand {
     private ICommand.Type type;
     private User user;
     private String description;
+    private Role role;
     private static final StringConverter<User> converter = new StringConverter<>();
 
     public Type getType() {
@@ -82,5 +84,14 @@ public class RegistryCommand implements ICommand {
     @Override
     public void SetType(ICommand.Type type) {
         this.type = type;
+    }
+
+    @Override
+    public void setApproveLevel(Role role) {
+    }
+
+    @Override
+    public Role getApproveLevel() {
+        return null;
     }
 }

@@ -3,8 +3,6 @@ package main.banksystem.controllers;
 import java.net.URL;
 import java.util.*;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
 import javafx.collections.FXCollections;
@@ -21,7 +19,7 @@ import main.banksystem.builders.FullNameBuilder;
 import main.banksystem.builders.PassportBuilder;
 import main.banksystem.builders.UserBuilder;
 import main.banksystem.commands.ICommand;
-import main.banksystem.commands.RegistryCommand;
+import main.banksystem.commands.BuildBillCommand;
 import main.banksystem.commands.RegistryCompanyCommand;
 import main.banksystem.containers.*;
 
@@ -32,7 +30,7 @@ public class RegistrationMenuController {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     static {
-        MAPPER.registerSubtypes(new NamedType(RegistryCommand.class, "RegistryCommand"));
+        MAPPER.registerSubtypes(new NamedType(BuildBillCommand.class, "RegistryCommand"));
         MAPPER.registerSubtypes(new NamedType(RegistryCompanyCommand.class, "RegistryCompanyCommand"));
         MAPPER.findAndRegisterModules();
     }
@@ -170,7 +168,7 @@ public class RegistrationMenuController {
             user.user.setIdx(new Id(generator.GenerateUserIdx()));
 
             ICommand.Type type = new ICommand.Type(true, false);
-            RegistryCommand command = new RegistryCommand(user.user, type);
+            BuildBillCommand command = new BuildBillCommand(user.user, type);
 
             User initUser = new User();
             initUser.setIdx(DataBase.INIT_USER_ID);

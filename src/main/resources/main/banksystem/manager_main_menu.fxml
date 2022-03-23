@@ -159,7 +159,7 @@
                                                 <Font name="System Italic" size="20.0" />
                                             </font>
                                         </Button>
-                              <Button fx:id="toManagerButton" layoutX="465.0" layoutY="163.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="350.0" style="-fx-background-color: f39c63;" text="Перейти в меню Оператора" textFill="WHITE">
+                              <Button fx:id="toOperatorButton" layoutX="465.0" layoutY="163.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="350.0" style="-fx-background-color: f39c63;" text="Перейти в меню Оператора" textFill="WHITE">
                                  <font>
                                     <Font name="System Italic" size="20.0" />
                                  </font>

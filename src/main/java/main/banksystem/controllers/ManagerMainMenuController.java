@@ -13,6 +13,8 @@ import main.banksystem.DataBase;
 import main.banksystem.commands.ICommand;
 import main.banksystem.containers.Id;
 
+import static main.banksystem.controllers.SwitchMenu.switchMenu;
+
 public class ManagerMainMenuController {
 
     @FXML
@@ -43,11 +45,20 @@ public class ManagerMainMenuController {
     private Button toClientButton;
 
     @FXML
-    private Button toManagerButton;
+    private Button toOperatorButton;
 
     @FXML
     void initialize() {
         createRegistrationAccordion();
+
+        toClientButton.setOnAction(event -> {
+            switchMenu(toClientButton, "/main/banksystem/client_main_menu.fxml");
+        });
+
+        toOperatorButton.setOnAction(event -> {
+            switchMenu(toClientButton, "/main/banksystem/operator_main_menu.fxml");
+        });
+
 
     }
 
