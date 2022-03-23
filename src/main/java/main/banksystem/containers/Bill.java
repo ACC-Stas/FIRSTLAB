@@ -7,11 +7,31 @@ public class Bill implements java.io.Serializable {
         this.billConditions = billConditions;
     }
 
-    private final Id id;
+    private Id id;
     double money;
     BillConditions billConditions;
 
     public Id getId() {
         return id;
+    }
+
+    public void setId(Id id) {
+        this.id = id;
+    }
+
+    public double getMoney() {
+        return money;
+    }
+
+    public void setMoney(double money) {
+        this.money = money;
+    }
+
+    public BillConditions getBillConditions() {
+        return billConditions;
+    }
+
+    public void setBillConditions(BillConditions billConditions) {
+        this.billConditions = billConditions;
     }
 }

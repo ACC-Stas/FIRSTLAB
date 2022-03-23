@@ -20,6 +20,7 @@ import main.banksystem.builders.PassportBuilder;
 import main.banksystem.builders.UserBuilder;
 import main.banksystem.commands.ICommand;
 import main.banksystem.commands.BuildBillCommand;
+import main.banksystem.commands.RegistryCommand;
 import main.banksystem.commands.RegistryCompanyCommand;
 import main.banksystem.containers.*;
 
@@ -168,7 +169,7 @@ public class RegistrationMenuController {
             user.user.setIdx(new Id(generator.GenerateUserIdx()));
 
             ICommand.Type type = new ICommand.Type(true, false);
-            BuildBillCommand command = new BuildBillCommand(user.user, type);
+            RegistryCommand command = new RegistryCommand(user.user, type);
 
             User initUser = new User();
             initUser.setIdx(DataBase.INIT_USER_ID);

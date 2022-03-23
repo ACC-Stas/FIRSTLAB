@@ -7,6 +7,7 @@ import main.banksystem.DataBase;
 import main.banksystem.StringConverter;
 import main.banksystem.containers.Bill;
 import main.banksystem.containers.Id;
+import main.banksystem.containers.Role;
 
 import java.util.Map;
 import java.util.Objects;
@@ -16,6 +17,7 @@ public class BuildBillCommand implements ICommand {
     private ICommand.Type type;
     private Bill bill;
     private String description;
+    private Role role;
     private static final StringConverter<Bill> converter = new StringConverter<>();
 
     public Type getType() {
@@ -44,34 +46,35 @@ public class BuildBillCommand implements ICommand {
         this.description = description;
     }
 
+    @Override
+    public Role getApproveLevel() {
+        return role;
+    }
+
+    @Override
+    public void setApproveLevel(Role role) {
+        this.role = role;
+    }
+
     @JsonCreator
-    public BuildBillCommand(@JsonProperty("user") Bill bill, @JsonProperty("type") ICommand.Type type) {
-        this.bill = user;
+    public BuildBillCommand(@JsonProperty("bill") Bill bill, @JsonProperty("type") ICommand.Type type) {
+        this.bill = bill;
         this.type = type;
-        this.description = String.format("User %s want's to register in system. His passport id is %d",
-                user.getLogin(), user.getPassport().getIdx().getId());
+        this.description = String.format("User want's to create new bill.");
     }
 
     @Override
     public void execute() {
         DataBase dataBase = DataBase.GetInstance();
 
-        Map<Id, User> users = dataBase.DownloadMap(DataBase.USER_PART, User.class);
-        for (User user : users.values()) {
-            if (Objects.equals(this.user.getLogin(), user.getLogin())) {
-                break;
-            }
-        }
-
-
-        dataBase.Save(user.getIdx(), DataBase.USER_PART, converter.Serialize(this.user));
+        Map<Id, Bill> bills = dataBase.DownloadMap(DataBase.BILLS_PART, Bill.class);
+        dataBase.Save(bill.getId(), DataBase.BILLS_PART, converter.Serialize(this.bill));
     }
 
     @Override
     public void undo() {
         DataBase dataBase = DataBase.GetInstance();
-        dataBase.Remove(user.getIdx(), DataBase.USER_PART);
-
+        dataBase.Remove(bill.getId(), DataBase.BILLS_PART);
     }
 
     @Override
