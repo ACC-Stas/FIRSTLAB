@@ -88,10 +88,11 @@ public class RegistryCommand implements ICommand {
 
     @Override
     public void setApproveLevel(Role role) {
+        this.role = role;
     }
 
     @Override
     public Role getApproveLevel() {
-        return null;
+        return role;
     }
 }
