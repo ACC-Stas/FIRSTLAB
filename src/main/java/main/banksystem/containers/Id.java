@@ -32,5 +32,10 @@ public class Id implements java.io.Serializable {
         return Objects.hash(id);
     }
 
+    @Override
+    public String toString() {
+        return Long.toString(id);
+    }
+
     long id;
 }

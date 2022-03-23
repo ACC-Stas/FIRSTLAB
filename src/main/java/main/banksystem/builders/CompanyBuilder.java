@@ -38,11 +38,11 @@ public class CompanyBuilder {
         company.setjName(name);
     }
 
-    public void BuildBunkId(BIC bic) {
+    public void BuildBankId(BIC bic) {
         company.setBankID(bic);
     }
 
-    public void BuildBunkId(String bic) {
+    public void BuildBankId(String bic) {
         Id idx;
         try {
             idx = new Id(Long.parseLong(bic));
@@ -64,7 +64,6 @@ public class CompanyBuilder {
         } catch (IllegalArgumentException e) {
             return;
         }
-
         company.setPAN(idx);
     }
 
@@ -87,6 +86,14 @@ public class CompanyBuilder {
         company.setBillCompanyId(idx);
     }
 
+    public void BuildIsBank(String isBank) {
+        if (isBank == "Bank"){
+            company.setIsBank(true);
+        }
+        else if (isBank == "Company"){
+            company.setIsBank(false);
+        }
+    }
 
     public Result getCompany() {
         Result result = new Result();
@@ -111,8 +118,14 @@ public class CompanyBuilder {
             }
         }
 
-        if (company.getPAN() == null) {
-            result.valid = false;
+        DataBase dataBase = DataBase.GetInstance();
+        Map<Id, Company> companies = dataBase.DownloadMap(DataBase.COMPANY_PART, Company.class);
+        for (Company loopCompany : companies.values()) {
+            if (Objects.equals(company.getPAN(), loopCompany.getPAN())) {
+                result.valid = false;
+                result.description = "PAN is already taken";
+                break;
+            }
         }
 
         if (company.getBankID() == null) {
@@ -120,10 +133,6 @@ public class CompanyBuilder {
         }
 
         if (company.getjAddress() == null) {
-            result.valid = false;
-        }
-
-        if (company.getBillCompanyId() == null) {
             result.valid = false;
         }
 
