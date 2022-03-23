@@ -45,15 +45,15 @@ public class DataBase {
             }
 
             Map<String, String> data = new HashMap<>();
-            FileWriter fileWriter = new FileWriter(file);
             String rowData = encoder.Decode(Files.readString(file.toPath()));
             if (!Objects.equals(rowData, "")) {
                 data = dataConverter.Deserialize(rowData, data.getClass());
             }
             data.put(converter.Serialize(id), object);
             rowData = dataConverter.Serialize(data);
-            fileWriter.write(encoder.Encode(rowData));
 
+            FileWriter fileWriter = new FileWriter(file);
+            fileWriter.write(encoder.Encode(rowData));
             fileWriter.close();
 
         } catch (IOException e) {

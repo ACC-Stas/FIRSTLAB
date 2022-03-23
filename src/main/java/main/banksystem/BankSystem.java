@@ -12,7 +12,7 @@ import java.util.Objects;
 public class BankSystem extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("manager_main_menu.fxml")));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("login_menu.fxml")));
         stage.setScene(new Scene(root));
         stage.setTitle("BankSystem");
         stage.show();
