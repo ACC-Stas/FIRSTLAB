@@ -12,7 +12,7 @@ import main.banksystem.containers.Role;
 import java.util.Map;
 import java.util.Objects;
 
-@JsonTypeName("RegistryCommand")
+@JsonTypeName("BuildBillCommand")
 public class BuildBillCommand implements ICommand {
     private ICommand.Type type;
     private Bill bill;
