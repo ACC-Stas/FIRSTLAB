@@ -162,7 +162,7 @@ public class RegistrationMenuController {
             userBuilder.BuildPassport(passport.passport);
             UserBuilder.Result user = userBuilder.getUser();
             if (!user.valid) {
-                errorLabel.setText("Invalid user");
+                errorLabel.setText("Invalid user" + user.description);
                 return;
             }
 

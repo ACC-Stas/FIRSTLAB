@@ -1,10 +1,12 @@
 package main.banksystem.builders;
 
+import main.banksystem.DataBase;
 import main.banksystem.containers.Id;
 import main.banksystem.containers.Passport;
 import main.banksystem.containers.Role;
 import main.banksystem.containers.User;
 
+import java.util.Map;
 import java.util.Objects;
 
 public class UserBuilder {
@@ -67,6 +69,7 @@ public class UserBuilder {
     public static class Result {
         public boolean valid;
         public User user;
+        public String description = "";
     }
 
     public Result getUser() {
@@ -97,6 +100,16 @@ public class UserBuilder {
 
         if (user.getLogin() == null || Objects.equals(user.getLogin(), "")) {
             result.valid = false;
+        } else {
+            DataBase dataBase = DataBase.GetInstance();
+            Map<Id, User> users = dataBase.DownloadMap(DataBase.USER_PART, User.class);
+            for (User loopUser : users.values()) {
+                if (Objects.equals(user.getLogin(), loopUser.getLogin())) {
+                    result.valid = false;
+                    result.description = "Login is already taken";
+                    break;
+                }
+            }
         }
 
         return result;
