@@ -13,6 +13,9 @@ public class IndexGenerator {
     private final StringConverter<Map<String, Long>> dictionaryConverter;
     private final ObjectMapper objectMapper;
 
+    private static final String USER_IDX = "User";
+    private static final String BILLS_IDX = "Bill";
+
     private IndexGenerator() {
         dictionaryConverter = new StringConverter<>();
         objectMapper = new ObjectMapper();
@@ -27,6 +30,10 @@ public class IndexGenerator {
     }
 
     public Long GenerateUserIdx() {
+        return GenerateIdx(IndexGenerator.USER_IDX);
+    }
+
+    public Long GenerateIdx(String idxName) {
         DataBase dataBase = DataBase.GetInstance();
         String str = dataBase.Download(new Id(0), DataBase.INDEXES_PART);
         Map<String, Long> idxDictionary = null;
@@ -40,13 +47,17 @@ public class IndexGenerator {
 
         if (idxDictionary == null) {
             idxDictionary = new HashMap<>();
-            idxDictionary.put("User", 1L);
+            idxDictionary.put(idxName, 1L);
         }
-        Long userIdx = idxDictionary.get("User");
-        userIdx++;
-        idxDictionary.put("User", userIdx);
+
+        if (!idxDictionary.containsKey(idxName)) {
+            idxDictionary.put(idxName, 1L);
+        }
+        Long idx = idxDictionary.get(idxName);
+        idx++;
+        idxDictionary.put(idxName, idx);
 
         dataBase.Save(new Id(0), DataBase.INDEXES_PART, dictionaryConverter.Serialize(idxDictionary));
-        return userIdx;
+        return idx;
     }
 }
