@@ -5,7 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import main.banksystem.DataBase;
 import main.banksystem.StringConverter;
+import main.banksystem.containers.Id;
 import main.banksystem.containers.User;
+
+import java.util.Map;
+import java.util.Objects;
 
 @JsonTypeName("RegistryCommand")
 public class RegistryCommand implements ICommand {
@@ -51,6 +55,15 @@ public class RegistryCommand implements ICommand {
     @Override
     public void execute() {
         DataBase dataBase = DataBase.GetInstance();
+
+        Map<Id, User> users = dataBase.DownloadMap(DataBase.USER_PART, User.class);
+        for (User user : users.values()) {
+            if (Objects.equals(this.user.getLogin(), user.getLogin())) {
+                break;
+            }
+        }
+
+
         dataBase.Save(user.getIdx(), DataBase.USER_PART, converter.Serialize(this.user));
     }
 

@@ -1,7 +1,9 @@
 package main.banksystem.builders;
 
+import main.banksystem.DataBase;
 import main.banksystem.containers.*;
 
+import java.util.Map;
 import java.util.Objects;
 
 public class CompanyBuilder {
@@ -18,6 +20,7 @@ public class CompanyBuilder {
     public static class Result {
         public boolean valid;
         public Company company;
+        public String description = "";
     }
 
     public void BuildType(Company.Type type) {
@@ -96,6 +99,16 @@ public class CompanyBuilder {
 
         if (company.getjName() == null || Objects.equals(company.getjName(), "")) {
             result.valid = false;
+        } else {
+            DataBase dataBase = DataBase.GetInstance();
+            Map<Id, Company> companies = dataBase.DownloadMap(DataBase.COMPANY_PART, Company.class);
+            for (Company company : companies.values()) {
+                if (Objects.equals(this.company.getjName(), company.getjName())) {
+                    result.valid = false;
+                    result.description = "Company name is already taken";
+                    break;
+                }
+            }
         }
 
         if (company.getPAN() == null) {
