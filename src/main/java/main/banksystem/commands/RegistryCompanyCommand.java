@@ -3,6 +3,7 @@ package main.banksystem.commands;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import main.banksystem.DataBase;
 import main.banksystem.StringConverter;
+import main.banksystem.containers.Role;
 import main.banksystem.containers.User;
 
 @JsonTypeName("RegistryCompanyCommand")
@@ -10,6 +11,7 @@ public class RegistryCompanyCommand implements ICommand {
 
     private ICommand.Type type;
     private final User user;
+    private Role role;
     private final StringConverter<User> converter;
 
     @Override
@@ -20,6 +22,16 @@ public class RegistryCompanyCommand implements ICommand {
     @Override
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public Role getApproveLevel() {
+        return role;
+    }
+
+    @Override
+    public void setApproveLevel(Role role) {
+        this.role = role;
     }
 
     private String description;

@@ -10,6 +10,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import main.banksystem.builders.CompanyBuilder;
 import main.banksystem.containers.Company;
 
 public class CompanyRegistrationMenuController {
@@ -60,6 +61,8 @@ public class CompanyRegistrationMenuController {
 
         registrationButton.setOnAction(event -> {
 
+            CompanyBuilder companyBuilder = new CompanyBuilder();
+            //companyBuilder.
         });
     }
 
