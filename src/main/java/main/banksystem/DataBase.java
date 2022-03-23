@@ -188,6 +188,41 @@ public class DataBase {
         return new HashMap<>();
     }
 
+    public <T> Map<Id, Stack<T>> DownloadStack(String dbPart, Class type) {
+        String filename = BASE_ADDRESS + dbPart;
+        File file = new File(filename);
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            String rowData = encoder.Decode(Files.readString(file.toPath()));
+            if (Objects.equals(rowData, "")) {
+                return new HashMap<>();
+            }
+
+            Map<String, String> data = new HashMap<>();
+            data = dataConverter.Deserialize(rowData, data.getClass());
+
+            StringConverter<Stack<String>> stackConverter = new StringConverter<>();
+            StringConverter<T> converterT = new StringConverter<>();
+
+            Map<Id, Stack<T>> result = new HashMap<>();
+            for (Map.Entry<String, String> entry : data.entrySet()) {
+                Stack<String> stack = stackConverter.Deserialize(entry.getValue(), Stack.class);
+                Stack<T> stackT = converterT.Deserialize(stack, type);
+                result.put(converter.Deserialize(entry.getKey(), Id.class), stackT);
+            }
+
+            return result;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return new HashMap<>();
+    }
+
     public Map<Id, String> DownloadList(String dbPart) {
         String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
