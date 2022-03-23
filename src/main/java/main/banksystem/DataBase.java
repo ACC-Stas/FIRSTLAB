@@ -61,6 +61,49 @@ public class DataBase {
         }
     }
 
+    public <T> void SaveT(Id id, String dbPart, T object) {
+        String fileName = BASE_ADDRESS + dbPart;
+        File file = new File(fileName);
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            Map<String, String> data = new HashMap<>();
+            FileWriter fileWriter = new FileWriter(file);
+            String rowData = encoder.Decode(Files.readString(file.toPath()));
+            if (!Objects.equals(rowData, "")) {
+                data = dataConverter.Deserialize(rowData, data.getClass());
+            }
+            StringConverter<T> converterT = new StringConverter<>();
+            data.put(converter.Serialize(id), converterT.Serialize(object));
+            rowData = dataConverter.Serialize(data);
+            fileWriter.write(encoder.Encode(rowData));
+
+            fileWriter.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public <T> void SaveQueue(Id id, String dbPart, Queue<T> queue) {
+        StringConverter<Queue<String>> queueConverter = new StringConverter<>();
+        StringConverter<T> converterT = new StringConverter<>();
+        Queue<String> stringQueue = converterT.Serialize(queue);
+        String rawData = queueConverter.Serialize(stringQueue);
+        this.Save(id, dbPart, rawData);
+    }
+
+    public <T> void SaveStack(Id id, String dbPart, Stack<T> stack) {
+        StringConverter<Stack<String>> stackConverter = new StringConverter<>();
+        StringConverter<T> converterT = new StringConverter<>();
+
+        Stack<String> stringStack = converterT.Serialize(stack);
+        String rawData = stackConverter.Serialize(stringStack);
+        this.Save(id, dbPart, rawData);
+    }
+
     public String Download(Id id, String dbPart) {
         String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
