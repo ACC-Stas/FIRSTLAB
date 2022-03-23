@@ -90,7 +90,7 @@ public class DataBase {
     }
 
     public <T> T Download(Id id, String dbPart, Class type) {
-        String filename = baseAddress + dbPart;
+        String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
         try {
             if (!file.exists()) {
@@ -120,6 +120,36 @@ public class DataBase {
         }
 
         return null;
+    }
+
+    public <T> Map<Id, T> DownloadMap(String dbPart, Class type) { // don't work for T = queue, list, stack, map...
+        String filename = BASE_ADDRESS + dbPart;
+        File file = new File(filename);
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            String rowData = encoder.Decode(Files.readString(file.toPath()));
+            if (Objects.equals(rowData, "")) {
+                return new HashMap<>();
+            }
+            Map<String, String> data = new HashMap<>();
+            data = dataConverter.Deserialize(rowData, data.getClass());
+
+            Map<Id, T> result = new HashMap<>();
+            for (Map.Entry<String, String> entry : data.entrySet()) {
+                StringConverter<T> converterT = new StringConverter<>();
+                result.put(converter.Deserialize(entry.getKey(), Id.class), converterT.Deserialize(entry.getValue(), type));
+            }
+
+            return result;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return new HashMap<>();
     }
 
     public Map<Id, String> DownloadList(String dbPart) {
