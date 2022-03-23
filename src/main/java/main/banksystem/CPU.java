@@ -9,9 +9,6 @@ import java.util.Stack;
 public class CPU {
     public CPU(User cpuUser) {
         dataBase = DataBase.GetInstance();
-        queueConverter = new StringConverter<>();
-        stackConverter = new StringConverter<>();
-        commandConverter = new StringConverter<>();
         this.cpuUser = cpuUser;
     }
     public User getCpuUser() {
@@ -24,9 +21,9 @@ public class CPU {
 
     private User cpuUser;
     private final DataBase dataBase;
-    private final StringConverter<ICommand> commandConverter;
-    private final StringConverter<Queue<String>> queueConverter;
-    private final StringConverter<Stack<String>> stackConverter;
+    private static final StringConverter<ICommand> commandConverter = new StringConverter<>();
+    private static final StringConverter<Queue<String>> queueConverter = new StringConverter<>();
+    private static final StringConverter<Stack<String>> stackConverter = new StringConverter<>();
 
     public void HeldCommand(ICommand command) {
         if (command.GetType().isApprovable()) {

@@ -26,6 +26,7 @@ public class DataBase {
     public static final String INDEXES_PART = "indexes.txt";
     public static final String BILLS_PART = "bills.txt";
     public static final Id INIT_USER_ID = new Id(-1L); // special user to register others
+    private static final String BASE_ADDRESS = "database/";
 
     public static DataBase GetInstance() {
         if (instance == null) {
@@ -35,8 +36,7 @@ public class DataBase {
     }
 
     public void Save(Id id, String dbPart, String object) {
-        Remove(id, dbPart);
-        String fileName = baseAddress + dbPart;
+        String fileName = BASE_ADDRESS + dbPart;
         File file = new File(fileName);
         try {
             if (!file.exists()) {
@@ -61,7 +61,7 @@ public class DataBase {
     }
 
     public String Download(Id id, String dbPart) {
-        String filename = baseAddress + dbPart;
+        String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
         try {
             if (!file.exists()) {
@@ -90,7 +90,7 @@ public class DataBase {
     }
 
     public Map<Id, String> DownloadList(String dbPart) {
-        String filename = baseAddress + dbPart;
+        String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
         try {
             if (!file.exists()) {
@@ -119,7 +119,7 @@ public class DataBase {
     }
 
     public void Remove(Id id, String dbPart) {
-        String filename = baseAddress + dbPart;
+        String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
         try {
             if (!file.exists()) {
@@ -149,5 +149,4 @@ public class DataBase {
         }
     }
 
-    private final String baseAddress = "database/";
 }
