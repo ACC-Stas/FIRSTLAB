@@ -89,6 +89,39 @@ public class DataBase {
         return "";
     }
 
+    public <T> T Download(Id id, String dbPart, Class type) {
+        String filename = baseAddress + dbPart;
+        File file = new File(filename);
+        try {
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+
+            String rowData = encoder.Decode(Files.readString(file.toPath()));
+            if (Objects.equals(rowData, "")) {
+                return null;
+            }
+            Map<String, String> data = new HashMap<>();
+            data = dataConverter.Deserialize(rowData, data.getClass());
+            String idStr = converter.Serialize(id);
+
+            if (!data.containsKey(idStr)) {
+                return null;
+            }
+
+            String rowObject = data.get(idStr);
+            StringConverter<T> converterT = new StringConverter<>();
+            T object = converterT.Deserialize(rowObject, type);
+
+            return object;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
     public Map<Id, String> DownloadList(String dbPart) {
         String filename = baseAddress + dbPart;
         File file = new File(filename);
