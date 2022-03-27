@@ -60,19 +60,23 @@ public class CreateBillMenuController {
             }
             catch (Exception e) {
                 errorLabel.setText("Invalid input");
+                return;
             }
             if (value < 0){
                 errorLabel.setText("Invalid input");
+                return;
             }
             IndexGenerator indexGenerator = IndexGenerator.getInstance();
             Bill bill = new Bill(new Id(indexGenerator.generateIdx(IndexGenerator.BILLS_IDX)), value, BillConditions.ACTIVE);
 
-            ICommand.Type type = new ICommand.Type(true, false);
-            BuildBillCommand command = new BuildBillCommand(bill, type);
-
             ProgramStatus programStatus = ProgramStatus.getInstance();
+            ICommand.Type type = new ICommand.Type(false, true);
+            BuildBillCommand command = new BuildBillCommand(bill, type, programStatus.getUser().getIdx(), new Id(Long.parseLong(bankChoice.getValue())));
+
             CPU cpu = new CPU(programStatus.getUser());
             cpu.heldCommand(command);
+
+            createButton.getScene().getWindow().hide();
         });
     }
 

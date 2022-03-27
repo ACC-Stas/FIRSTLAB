@@ -63,7 +63,7 @@ public class BuildBillCommand implements ICommand {
         Map<Id, User> users = dataBase.downloadMap(DataBase.USER_PART, User.class);
         User user = users.get(userId);
         user.getBillIds().add(bill.getId());
-        dataBase.save(user.getIdx(), DataBase.USER_PART, User.class);
+        dataBase.save(user.getIdx(), DataBase.USER_PART, user);
 
         Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
         Company bank = companies.get(bankId);

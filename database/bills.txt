@@ -1,0 +1,1 @@
+{"{\"id\":5}":"{\"id\":{\"id\":5},\"money\":100.0,\"billConditions\":\"ACTIVE\"}","{\"id\":4}":"{\"id\":{\"id\":4},\"money\":1000.0,\"billConditions\":\"ACTIVE\"}","{\"id\":6}":"{\"id\":{\"id\":6},\"money\":1000.0,\"billConditions\":\"ACTIVE\"}","{\"id\":3}":"{\"id\":{\"id\":3},\"money\":1000.0,\"billConditions\":\"ACTIVE\"}"}

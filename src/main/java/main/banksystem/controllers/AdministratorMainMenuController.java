@@ -16,6 +16,7 @@ import main.banksystem.containers.Company;
 import main.banksystem.containers.Id;
 import main.banksystem.containers.User;
 
+import static main.banksystem.controllers.SwitchMenu.newMenu;
 import static main.banksystem.controllers.SwitchMenu.switchMenu;
 
 public class AdministratorMainMenuController {
@@ -82,19 +83,19 @@ public class AdministratorMainMenuController {
         });
 
         toClientButton.setOnAction(event -> {
-            switchMenu(toClientButton, "/main/banksystem/client/client_main_menu.fxml");
+            newMenu("/main/banksystem/client/client_main_menu.fxml");
         });
 
         toOperatorButton.setOnAction(event -> {
-            switchMenu(toClientButton, "/main/banksystem/operator/operator_main_menu.fxml");
+            newMenu("/main/banksystem/operator/operator_main_menu.fxml");
         });
 
         toManagerButton.setOnAction(event -> {
-            switchMenu(toClientButton, "/main/banksystem/manager/manager_main_menu.fxml");
+            newMenu("/main/banksystem/manager/manager_main_menu.fxml");
         });
 
         toSpecialistButton.setOnAction(event -> {
-            switchMenu(toClientButton, "/main/banksystem/specialist/specialist_main_menu.fxml");
+            newMenu("/main/banksystem/specialist/specialist_main_menu.fxml");
         });
     }
 

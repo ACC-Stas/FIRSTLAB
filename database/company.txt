@@ -1,1 +1,1 @@
-{"{\"id\":3}":"{\"jName\":\"ABOBA BANK 3\",\"type\":\"IE\",\"bankID\":{\"id\":{\"id\":1}},\"jAddress\":{\"country\":\"ABOBA BANK 3\",\"city\":\"ABOBA BANK 3\",\"streetAddress\":\"ABOBA BANK 3\"},\"billCompanyId\":null,\"isBank\":true,\"billsIds\":[],\"pan\":{\"id\":3}}"}
+{"{\"id\":3}":"{\"jName\":\"ABOBA BANK 3\",\"type\":\"IE\",\"bankID\":{\"id\":{\"id\":1}},\"jAddress\":{\"country\":\"ABOBA BANK 3\",\"city\":\"ABOBA BANK 3\",\"streetAddress\":\"ABOBA BANK 3\"},\"billCompanyId\":null,\"isBank\":true,\"billsIds\":[{\"id\":3},{\"id\":4},{\"id\":6}],\"pan\":{\"id\":3}}"}
