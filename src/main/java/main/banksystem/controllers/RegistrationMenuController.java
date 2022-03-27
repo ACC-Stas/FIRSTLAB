@@ -164,7 +164,7 @@ public class RegistrationMenuController {
             user.user.setIdx(new Id(generator.generateIdx(IndexGenerator.USER_IDX)));
 
             ICommand.Type type = new ICommand.Type(true, false);
-            RegistryCommand command = new RegistryCommand(user.user);
+            RegistryCommand command = new RegistryCommand(user.user, type);
 
             User initUser = new User();
             initUser.setIdx(DataBase.INIT_USER_ID);

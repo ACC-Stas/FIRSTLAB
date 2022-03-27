@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import main.banksystem.CPU;
 import main.banksystem.DataBase;
 import main.banksystem.builders.AddressBuilder;
 import main.banksystem.builders.CompanyBuilder;
@@ -18,6 +19,9 @@ import main.banksystem.commands.ICommand;
 import main.banksystem.commands.RegistryCompanyCommand;
 import main.banksystem.containers.Company;
 import main.banksystem.containers.Id;
+import main.banksystem.containers.User;
+
+import static main.banksystem.controllers.SwitchMenu.switchMenu;
 
 public class CompanyRegistrationMenuController {
 
@@ -106,13 +110,15 @@ public class CompanyRegistrationMenuController {
                 return;
             }
 
-            RegistryCompanyCommand command = new RegistryCompanyCommand(company.company);
+            ICommand.Type type = new ICommand.Type(true, false);
+            RegistryCompanyCommand command = new RegistryCompanyCommand(company.company, type);
 
-            Company initCompany = new Company();
-            //initCompany.setPAN(DataBase.COMPANY_PART);
-            //CPU cpu = new CPU(initCompany);
-            //cpu.HeldCommand(command);
+            User initCompanyUser = new User();
+            initCompanyUser.setIdx(DataBase.INIT_COMPANY_ID);
+            CPU cpu = new CPU(initCompanyUser);
+            cpu.heldCommand(command);
 
+            switchMenu(registrationButton, "/main/banksystem/login_menu.fxml");
         });
     }
 

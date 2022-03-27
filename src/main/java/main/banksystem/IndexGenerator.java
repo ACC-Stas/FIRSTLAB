@@ -14,6 +14,7 @@ public class IndexGenerator {
     private final ObjectMapper objectMapper;
 
     public static final String USER_IDX = "User";
+    public static final String COMPANY_IDX = "Company";
     public static final String BILLS_IDX = "Bill";
 
     private IndexGenerator() {

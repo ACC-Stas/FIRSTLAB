@@ -33,7 +33,7 @@ public class TransferCommand implements ICommand {
     }
 
     @JsonCreator
-    public TransferCommand(@JsonProperty("transfer") Transfer transfer) {
+    public TransferCommand(Transfer transfer) {
         this.transfer = transfer;
     }
 
