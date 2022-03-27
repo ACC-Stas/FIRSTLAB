@@ -1,4 +1,4 @@
-package main.banksystem.controllers;
+package main.banksystem.controllers.manager;
 
 import java.net.URL;
 
@@ -7,7 +7,6 @@ import java.util.Queue;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import eu.hansolo.tilesfx.Command;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;

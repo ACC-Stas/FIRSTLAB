@@ -6,6 +6,8 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import main.banksystem.ProgramStatus;
 
 import static main.banksystem.controllers.SwitchMenu.newMenu;
 
@@ -60,6 +62,9 @@ public class ClientMainMenuController {
     private Button freezeBillButton;
 
     @FXML
+    private Label idLabel;
+
+    @FXML
     private Accordion installmentAccordion;
 
     @FXML
@@ -76,6 +81,10 @@ public class ClientMainMenuController {
 
     @FXML
     void initialize() {
+
+        ProgramStatus programStatus = ProgramStatus.getInstance();
+        idLabel.setText(programStatus.getUser().getIdx().toString());
+
         createBillButton.setOnAction(event ->{
             newMenu("/main/banksystem/client/create_bill_menu.fxml");
         });

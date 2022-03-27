@@ -29,4 +29,12 @@ module main.banksystem {
     opens main.banksystem.builders to javafx.fxml;
     exports main.banksystem.controllers.client;
     opens main.banksystem.controllers.client to javafx.fxml;
+    exports main.banksystem.controllers.administrator;
+    opens main.banksystem.controllers.administrator to javafx.fxml;
+    exports main.banksystem.controllers.manager;
+    opens main.banksystem.controllers.manager to javafx.fxml;
+    exports main.banksystem.controllers.operator;
+    opens main.banksystem.controllers.operator to javafx.fxml;
+    exports main.banksystem.controllers.specialist;
+    opens main.banksystem.controllers.specialist to javafx.fxml;
 }

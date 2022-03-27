@@ -1,4 +1,4 @@
-package main.banksystem.controllers;
+package main.banksystem.controllers.administrator;
 
 import java.net.URL;
 import java.util.Map;
@@ -12,12 +12,11 @@ import javafx.scene.layout.VBox;
 import main.banksystem.CPU;
 import main.banksystem.DataBase;
 import main.banksystem.commands.ICommand;
-import main.banksystem.containers.Company;
 import main.banksystem.containers.Id;
 import main.banksystem.containers.User;
+import main.banksystem.controllers.manager.ManagerMainMenuController;
 
 import static main.banksystem.controllers.SwitchMenu.newMenu;
-import static main.banksystem.controllers.SwitchMenu.switchMenu;
 
 public class AdministratorMainMenuController {
 
