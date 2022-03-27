@@ -5,8 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import main.banksystem.DataBase;
 import main.banksystem.IndexGenerator;
-import main.banksystem.containers.Bill;
-import main.banksystem.containers.Id;
+import main.banksystem.containers.*;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @JsonTypeName("BuildBillCommand")
@@ -14,6 +16,8 @@ public class BuildBillCommand implements ICommand {
     private ICommand.Type type;
     private Bill bill;
     private String description;
+    private Id userId;
+    private Id bankId;
 
     public Bill getUser() {
         return bill;
@@ -34,9 +38,11 @@ public class BuildBillCommand implements ICommand {
     }
 
     @JsonCreator
-    public BuildBillCommand(@JsonProperty("bill") Bill bill, @JsonProperty("type") ICommand.Type type) {
+    public BuildBillCommand(Bill bill, ICommand.Type type, Id userId, Id bankId) {
         this.bill = bill;
         this.type = type;
+        this.bankId = bankId;
+        this.userId = userId;
         this.description = String.format("User want's to create new bill.");
     }
 
@@ -47,18 +53,38 @@ public class BuildBillCommand implements ICommand {
 
         if (!bills.containsKey(bill.getId())){
             dataBase.save(bill.getId(), DataBase.BILLS_PART, this.bill);
-
         }
         else {
             IndexGenerator generator = IndexGenerator.getInstance();
-            dataBase.save(new Id(generator.generateIdx(IndexGenerator.BILLS_IDX)), DataBase.BILLS_PART, this.bill);
+            bill.setId(new Id(generator.generateIdx(IndexGenerator.BILLS_IDX)));
+            dataBase.save(bill.getId(), DataBase.BILLS_PART, this.bill);
         }
+
+        Map<Id, User> users = dataBase.downloadMap(DataBase.USER_PART, User.class);
+        User user = users.get(userId);
+        user.getBillIds().add(bill.getId());
+        dataBase.save(user.getIdx(), DataBase.USER_PART, User.class);
+
+        Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
+        Company bank = companies.get(bankId);
+        bank.getBillsIds().add(bill.getId());
+        dataBase.save(bank.getPAN(), DataBase.COMPANY_PART, bank);
     }
 
     @Override
     public void undo() {
         DataBase dataBase = DataBase.getInstance();
         dataBase.remove(bill.getId(), DataBase.BILLS_PART);
+
+        Map<Id, User> users = dataBase.downloadMap(DataBase.USER_PART, User.class);
+        User user = users.get(userId);
+        user.getBillIds().remove(bill.getId());
+        dataBase.save(user.getIdx(), DataBase.USER_PART, User.class);
+
+        Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
+        Company bank = companies.get(bankId);
+        bank.getBillsIds().remove(bill.getId());
+        dataBase.save(bank.getPAN(), DataBase.COMPANY_PART, bank);
     }
 
     @Override
@@ -70,4 +96,29 @@ public class BuildBillCommand implements ICommand {
     public void setType(ICommand.Type type) {
         this.type = type;
     }
+
+    public Bill getBill() {
+        return bill;
+    }
+
+    public void setBill(Bill bill) {
+        this.bill = bill;
+    }
+
+    public Id getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Id userId) {
+        this.userId = userId;
+    }
+
+    public Id getBankId() {
+        return bankId;
+    }
+
+    public void setBankId(Id bankId) {
+        this.bankId = bankId;
+    }
+
 }
