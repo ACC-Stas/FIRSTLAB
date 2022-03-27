@@ -4,6 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Company implements java.io.Serializable {
+    private String jName;
+    private Type type;
+    private Id PAN;
+    private BIC bankID;
+    private Address jAddress;
+    private Id billCompanyId;
+    private boolean isBank;
+    private List<Id> billsIds;
+
     public Company(String jName, Type type, Id PAN, BIC bankID, Address jAddress, Id billCompanyId) {
         this.jName = jName;
         this.type = type;
@@ -94,17 +103,5 @@ public class Company implements java.io.Serializable {
 
     public void setBillsIds(List<Id> billsIds) {
         this.billsIds = billsIds;
-    }
-
-    private String jName;
-    private Type type;
-    private Id PAN;
-    private BIC bankID;
-    private Address jAddress;
-    private Id billCompanyId;
-    private boolean isBank;
-    private List<Id> billsIds;
-
-    public void paySalary() {
     }
 }

@@ -7,11 +7,11 @@ import java.util.Objects;
 public class FullNameBuilder {
     private FullName fullName;
 
-    public void reset() {
+    public FullNameBuilder() {
         fullName = new FullName();
     }
 
-    public FullNameBuilder() {
+    public void reset() {
         fullName = new FullName();
     }
 

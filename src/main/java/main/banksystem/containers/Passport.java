@@ -21,6 +21,13 @@ public class Passport {
         this.birthday = null;
     }
 
+    private FullName fullName;
+    private Citizenship citizenship;
+    private Sex sex;
+    private Address address;
+    private Id idx;
+    private LocalDate birthday;
+
     public FullName getFullName() {
         return fullName;
     }
@@ -68,11 +75,4 @@ public class Passport {
     public void setBirthday(LocalDate birthday) {
         this.birthday = birthday;
     }
-
-    private FullName fullName;
-    private Citizenship citizenship;
-    private Sex sex;
-    private Address address;
-    private Id idx;
-    private LocalDate birthday;
 }

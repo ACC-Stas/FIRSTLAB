@@ -11,6 +11,10 @@ public class AddressBuilder {
         address = new Address();
     }
 
+    public void reset() {
+        address = new Address();
+    }
+
     public void buildCity(String city) {
         address.setCity(city);
     }
@@ -21,10 +25,6 @@ public class AddressBuilder {
 
     public void buildStreetAddress(String streetAddress) {
         address.setStreetAddress(streetAddress);
-    }
-
-    public void reset() {
-        address = new Address();
     }
 
     public static class Result {

@@ -3,10 +3,24 @@ package main.banksystem.containers;
 import main.banksystem.containers.Bill;
 
 public class Deposit implements java.io.Serializable {
-    public Deposit(long bankBillId, double percent, Bill bill){
+    public Deposit(long bankBillId, double percent, Bill bill, Id id){
         this.bankBillId = bankBillId;
         this.percent = percent;
         this.bill = bill;
+        this.id = id;
+    }
+
+    long bankBillId;
+    double percent;
+    Bill bill;
+    Id id;
+
+    public Id getId() {
+        return id;
+    }
+
+    public void setId(Id id) {
+        this.id = id;
     }
 
     public long getBankBillId() {
@@ -32,8 +46,4 @@ public class Deposit implements java.io.Serializable {
     public void setBill(Bill bill) {
         this.bill = bill;
     }
-
-    long bankBillId;
-    double percent;
-    Bill bill;
 }

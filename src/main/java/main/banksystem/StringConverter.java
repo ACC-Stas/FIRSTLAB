@@ -12,25 +12,20 @@ public class StringConverter<T> {
         MAPPER.findAndRegisterModules();
     }
 
+    public String serialize(T object) {
+        try {
+            return MAPPER.writeValueAsString(object);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     public Queue<String> serialize(Queue<T> objects) {
         Queue<String> output = new LinkedList<>();
 
         for (T object : objects) {
             output.add(this.serialize(object));
-        }
-
-        return output;
-    }
-
-    public Queue<T> deserialize(Queue<String> strings, Class type) {
-        Queue<T> output = new LinkedList<>();
-
-        if (strings == null) {
-            return null;
-        }
-
-        for (String string : strings) {
-            output.add(this.deserialize(string, type));
         }
 
         return output;
@@ -54,8 +49,32 @@ public class StringConverter<T> {
         return output;
     }
 
+    public T deserialize(String string, Class type) {
+        T object = null;
+        try {
+            object = (T) MAPPER.readValue(string, type);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return object;
+    }
+
     public Stack<T> deserialize(Stack<String> strings, Class type) {
         Stack<T> output = new Stack<>();
+
+        if (strings == null) {
+            return null;
+        }
+
+        for (String string : strings) {
+            output.add(this.deserialize(string, type));
+        }
+
+        return output;
+    }
+
+    public Queue<T> deserialize(Queue<String> strings, Class type) {
+        Queue<T> output = new LinkedList<>();
 
         if (strings == null) {
             return null;
@@ -82,22 +101,4 @@ public class StringConverter<T> {
         return output;
     }
 
-    public String serialize(T object) {
-        try {
-            return MAPPER.writeValueAsString(object);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return "";
-    }
-
-    public T deserialize(String string, Class type) {
-        T object = null;
-        try {
-            object = (T) MAPPER.readValue(string, type);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-        return object;
-    }
 }

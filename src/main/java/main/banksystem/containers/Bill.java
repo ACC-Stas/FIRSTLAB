@@ -1,7 +1,7 @@
 package main.banksystem.containers;
 
 public class Bill {
-    public Bill(Id id, double money, BillConditions billConditions){
+    public Bill(Id id, double money, BillConditions billConditions) {
         this.id = id;
         this.money = money;
         this.billConditions = billConditions;

@@ -17,6 +17,13 @@ public class Transfer implements java.io.Serializable {
         this.value = -10;
     }
 
+    BIC bankFrom;
+    Id billFromId;
+    BIC bankTo;
+    Id billToId;
+    double value;
+
+
     public BIC getBankFrom() {
         return bankFrom;
     }
@@ -56,12 +63,5 @@ public class Transfer implements java.io.Serializable {
     public void setValue(double value) {
         this.value = value;
     }
-
-    BIC bankFrom;
-    Id billFromId;
-    BIC bankTo;
-    Id billToId;
-    double value;
-
 
 }

@@ -18,6 +18,15 @@ public class User implements java.io.Serializable {
         this.billIds = new ArrayList<Id>();
     }
 
+    private Passport passport;
+    private Id idx;
+    private String number;
+    private String email;
+    private String password;
+    private String login;
+    private Role role;
+    private ArrayList<Id> billIds;
+
     public Passport getPassport() {
         return passport;
     }
@@ -81,13 +90,4 @@ public class User implements java.io.Serializable {
     public void setBillIds(ArrayList<Id> billIds) {
         this.billIds = billIds;
     }
-
-    private Passport passport;
-    private Id idx;
-    private String number;
-    private String email;
-    private String password;
-    private String login;
-    private Role role;
-    private ArrayList<Id> billIds;
 }
