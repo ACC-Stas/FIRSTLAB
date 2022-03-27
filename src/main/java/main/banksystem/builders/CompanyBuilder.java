@@ -81,10 +81,10 @@ public class CompanyBuilder {
     }
 
     public void buildIsBank(String isBank) {
-        if (isBank == "Bank"){
+        if (Objects.equals(isBank, "Bank")){
             company.setIsBank(true);
         }
-        else if (isBank == "Company"){
+        else if (Objects.equals(isBank, "Company")){
             company.setIsBank(false);
         }
     }

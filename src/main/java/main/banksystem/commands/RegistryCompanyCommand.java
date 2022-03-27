@@ -37,7 +37,7 @@ public class RegistryCompanyCommand implements ICommand {
         this.company = company;
         this.type = type;
         this.description = String.format("Company %s want's to register in system. Its PAN id is %d",
-                company.getjName(), company.getPAN());
+                company.getjName(), company.getPAN().getId());
 
     }
 
