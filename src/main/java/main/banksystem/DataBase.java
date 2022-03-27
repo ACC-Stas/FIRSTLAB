@@ -74,7 +74,6 @@ public class DataBase {
             }
 
             Map<String, String> data = new HashMap<>();
-            FileWriter fileWriter = new FileWriter(file);
             String rowData = encoder.decode(Files.readString(file.toPath()));
             if (!Objects.equals(rowData, "")) {
                 data = dataConverter.deserialize(rowData, data.getClass());
@@ -82,6 +81,7 @@ public class DataBase {
             StringConverter<T> converterT = new StringConverter<>();
             data.put(converter.serialize(id), converterT.serialize(object));
             rowData = dataConverter.serialize(data);
+            FileWriter fileWriter = new FileWriter(file);
             fileWriter.write(encoder.encode(rowData));
 
             fileWriter.close();

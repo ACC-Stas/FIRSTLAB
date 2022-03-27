@@ -71,11 +71,11 @@ public class AdministratorMainMenuController {
         });
 
         toManagerButton.setOnAction(event -> {
-            switchMenu(toClientButton, "/main/banksystem/operator/manager_main_menu.fxml");
+            switchMenu(toClientButton, "/main/banksystem/manager/manager_main_menu.fxml");
         });
 
         toSpecialistButton.setOnAction(event -> {
-            switchMenu(toClientButton, "/main/banksystem/operator/specialist_main_menu.fxml");
+            switchMenu(toClientButton, "/main/banksystem/specialist/specialist_main_menu.fxml");
         });
     }
 
