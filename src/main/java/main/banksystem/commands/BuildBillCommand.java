@@ -38,15 +38,16 @@ public class BuildBillCommand implements ICommand {
         this.type = type;
         this.bankId = bankId;
         this.userId = userId;
-        this.description = String.format("User want's to create new bill.");
+        this.description = String.format("User creating new bill %d.", bill.getId().getId());
     }
 
+    @JsonCreator
     public BuildBillCommand() {
         this.bill = null;
         this.type = null;
         this.bankId = null;
         this.userId = null;
-        this.description = String.format("User want's to create new bill.");
+        this.description = String.format("User creating new bill.");
     }
 
     @Override

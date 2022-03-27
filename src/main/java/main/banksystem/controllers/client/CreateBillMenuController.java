@@ -75,7 +75,6 @@ public class CreateBillMenuController {
 
             CPU cpu = new CPU(programStatus.getUser());
             cpu.heldCommand(command);
-
             createButton.getScene().getWindow().hide();
         });
     }

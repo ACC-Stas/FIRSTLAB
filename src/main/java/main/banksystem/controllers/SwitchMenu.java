@@ -26,7 +26,7 @@ public class SwitchMenu {
         stage.setScene(new Scene(root));
         stage.show();
     }
-    static public void newMenu(String path){
+    static public void newMenu(Button button, String path){
         FXMLLoader loader = new FXMLLoader(SwitchMenu.class.getResource(path));
 
         try {
