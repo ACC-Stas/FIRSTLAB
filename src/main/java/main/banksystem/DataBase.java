@@ -103,6 +103,15 @@ public class DataBase {
         this.save(id, dbPart, rawData);
     }
 
+    public <T> void saveList(Id id, String dbPart, List<T> list) {
+        StringConverter<List<String>> stackConverter = new StringConverter<>();
+        StringConverter<T> converterT = new StringConverter<>();
+
+        List<String> stringStack = converterT.serialize(list);
+        String rawData = stackConverter.serialize(stringStack);
+        this.save(id, dbPart, rawData);
+    }
+
     public String download(Id id, String dbPart) {
         String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
@@ -265,7 +274,7 @@ public class DataBase {
         return new HashMap<>();
     }
 
-    public Map<Id, String> downloadList(String dbPart) {
+    public <T> Map<Id, List<T>> downloadList(String dbPart, Class type) {
         String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
         try {
@@ -277,12 +286,18 @@ public class DataBase {
             if (Objects.equals(rowData, "")) {
                 return new HashMap<>();
             }
+
             Map<String, String> data = new HashMap<>();
             data = dataConverter.deserialize(rowData, data.getClass());
 
-            Map<Id, String> result = new HashMap<>();
+            StringConverter<List<String>> listConverter = new StringConverter<>();
+            StringConverter<T> converterT = new StringConverter<>();
+
+            Map<Id, List<T>> result = new HashMap<>();
             for (Map.Entry<String, String> entry : data.entrySet()) {
-                result.put(converter.deserialize(entry.getKey(), Id.class), entry.getValue());
+                List<String> list = listConverter.deserialize(entry.getValue(), List.class);
+                List<T> listT = converterT.deserialize(list, type);
+                result.put(converter.deserialize(entry.getKey(), Id.class), listT);
             }
 
             return result;
