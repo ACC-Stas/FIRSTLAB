@@ -37,12 +37,19 @@ public class BuildBillCommand implements ICommand {
         this.description = description;
     }
 
-    @JsonCreator
     public BuildBillCommand(Bill bill, ICommand.Type type, Id userId, Id bankId) {
         this.bill = bill;
         this.type = type;
         this.bankId = bankId;
         this.userId = userId;
+        this.description = String.format("User want's to create new bill.");
+    }
+
+    public BuildBillCommand() {
+        this.bill = null;
+        this.type = null;
+        this.bankId = null;
+        this.userId = null;
         this.description = String.format("User want's to create new bill.");
     }
 
