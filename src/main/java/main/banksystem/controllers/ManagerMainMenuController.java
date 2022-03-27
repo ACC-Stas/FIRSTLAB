@@ -7,9 +7,11 @@ import java.util.Queue;
 import java.util.ResourceBundle;
 import java.util.Set;
 
+import eu.hansolo.tilesfx.Command;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import main.banksystem.CPU;
 import main.banksystem.DataBase;
 import main.banksystem.commands.ICommand;
 import main.banksystem.containers.Id;
@@ -60,8 +62,6 @@ public class ManagerMainMenuController {
         toOperatorButton.setOnAction(event -> {
             switchMenu(toClientButton, "/main/banksystem/operator/operator_main_menu.fxml");
         });
-
-
     }
 
     void createCreditAccordion(){
@@ -89,7 +89,12 @@ public class ManagerMainMenuController {
                 Button approve = new Button("Approve");
                 approve.setOnAction(event -> {
 
-                    command.execute();
+                    ICommand.Type commandType = new ICommand.Type(false, true);
+                    command.setType(commandType);
+                    User user = new User();
+                    user.setIdx(DataBase.INIT_USER_ID);
+                    CPU cpu = new CPU(user);
+                    cpu.heldCommand(command);
 
                     queues.get(DataBase.INIT_USER_ID).remove(command);
                     dataBase.saveQueue(DataBase.INIT_USER_ID, DataBase.QUEUE_PART, queues.get(DataBase.INIT_USER_ID));
