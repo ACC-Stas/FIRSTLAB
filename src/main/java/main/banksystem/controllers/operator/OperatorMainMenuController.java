@@ -9,8 +9,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import main.banksystem.DataBase;
+import main.banksystem.ProgramStatus;
 import main.banksystem.commands.ICommand;
 import main.banksystem.containers.Id;
+import main.banksystem.containers.SalaryProject;
 import main.banksystem.containers.User;
 import main.banksystem.controllers.manager.ManagerMainMenuController;
 
@@ -69,11 +71,7 @@ public class OperatorMainMenuController {
 
     }
 
-    void createSalaryAccordion() {
-        salaryAccordion.getPanes().clear();
-        DataBase dataBase = DataBase.getInstance();
-        Map<Id, Stack<ICommand>> salaries = dataBase.downloadStack(DataBase.STACK_PART, ICommand.class);
-    }
+
 
     void createUserAccordion(Id id){
         historyAccordion.getPanes().clear();
@@ -85,7 +83,7 @@ public class OperatorMainMenuController {
         }
 
         for (ICommand command : commands.get(id)) {
-            //if ne user
+            //if no user
             TitledPane titledPane = new TitledPane();
             titledPane.getStylesheets().add(ManagerMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
             titledPane.setText(command.getDescription());

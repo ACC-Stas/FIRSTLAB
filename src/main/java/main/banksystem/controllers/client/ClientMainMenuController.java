@@ -14,6 +14,7 @@ import main.banksystem.DataBase;
 import main.banksystem.ProgramStatus;
 import main.banksystem.containers.Bill;
 import main.banksystem.containers.Id;
+import main.banksystem.containers.SalaryProject;
 import main.banksystem.containers.User;
 import main.banksystem.controllers.manager.ManagerMainMenuController;
 
@@ -90,6 +91,7 @@ public class ClientMainMenuController {
     @FXML
     void initialize() {
         createBillAccordion();
+        createSalaryAccordion();
 
         ProgramStatus programStatus = ProgramStatus.getInstance();
         idLabel.setText(programStatus.getUser().getIdx().toString());
@@ -129,6 +131,54 @@ public class ClientMainMenuController {
         }
 
 
+    }
+
+    void createSalaryAccordion() {
+        salaryAccordion.getPanes().clear();
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, SalaryProject> salaries = dataBase.downloadMap(DataBase.SALARY_PART, SalaryProject.class);
+
+        ProgramStatus programStatus = ProgramStatus.getInstance();
+        for (Id id : programStatus.getUser().getSalaryIds()) {
+            SalaryProject salary = salaries.get(id);
+            TitledPane titledPane = new TitledPane();
+            titledPane.getStylesheets().add(ManagerMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+            titledPane.setText(id.toString());
+
+            VBox content = new VBox();
+            Label value = new Label("Значение: " + String.valueOf(salary.getSum()));
+            Label bill = new Label("Привязанный счёт: " + String.valueOf(salary.getBillToId()));
+
+            content.getChildren().add(value);
+            content.getChildren().add(bill);
+            titledPane.setContent(content);
+
+            salaryAccordion.getPanes().addAll(titledPane);
+        }
+    }
+
+    void createDepositAccordion() {
+        salaryAccordion.getPanes().clear();
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, SalaryProject> salaries = dataBase.downloadMap(DataBase.SALARY_PART, SalaryProject.class);
+
+        ProgramStatus programStatus = ProgramStatus.getInstance();
+        for (Id id : programStatus.getUser().getSalaryIds()) {
+            SalaryProject salary = salaries.get(id);
+            TitledPane titledPane = new TitledPane();
+            titledPane.getStylesheets().add(ManagerMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+            titledPane.setText(id.toString());
+
+            VBox content = new VBox();
+            Label value = new Label("Значение: " + String.valueOf(salary.getSum()));
+            Label bill = new Label("Привязанный счёт: " + String.valueOf(salary.getBillToId()));
+
+            content.getChildren().add(value);
+            content.getChildren().add(bill);
+            titledPane.setContent(content);
+
+            salaryAccordion.getPanes().addAll(titledPane);
+        }
     }
 
 }

@@ -42,17 +42,18 @@ public class CloseCreditMenuController {
     @FXML
     void initialize() {
         ProgramStatus status = ProgramStatus.getInstance();
-        Id id = status.getUser().getIdx();
-
         DataBase dataBase = DataBase.getInstance();
-        Map<Id, List<Credit>> credits = dataBase.downloadList(DataBase.CREDIT_PART, Credit.class);
+        Map<Id, Credit> credits = dataBase.downloadMap(DataBase.CREDIT_PART, Credit.class);
 
-        for(Credit credit : credits.get(id)) {
-            creditList.add("Осталось выплатить " + credit.getSumToPay() + "$");
+        for (Id id : status.getUser().getCreditIds()) {
+            creditList.add(String.valueOf(credits.get(id).getSumToPay()));
         }
         creditChoice.setItems(creditList);
 
-
+        creditChoice.setOnAction(event -> {
+            valueSlider.setMin(0);
+            valueSlider.setMax(credits.get(new Id(Long.parseLong(creditChoice.getValue()))).getSumToPay());
+        });
     }
 
 }

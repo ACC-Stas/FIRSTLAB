@@ -14,8 +14,11 @@ public class IndexGenerator {
     private final ObjectMapper objectMapper;
 
     public static final String USER_IDX = "User";
-    public static final String COMPANY_IDX = "Company";
+    public static final String SALARY_IDX = "Salary";
     public static final String BILLS_IDX = "Bill";
+    public static final String CREDIT_IDX = "Credit";
+    public static final String INSTALLMENT_IDX = "Installment";
+    public static final String DEPOSIT_IDX = "Deposit";
 
     private IndexGenerator() {
         dictionaryConverter = new StringConverter<>();

@@ -13,11 +13,17 @@ public class User implements java.io.Serializable {
         this.login = login;
         this.billIds = new ArrayList<Id>();
         this.salaryIds = new ArrayList<Id>();
+        this.creditIds = new ArrayList<Id>();
+        this.installmentIds = new ArrayList<Id>();
+        this.depositIds = new ArrayList<Id>();
     }
 
     public User() {
         this.billIds = new ArrayList<Id>();
         this.salaryIds = new ArrayList<Id>();
+        this.creditIds = new ArrayList<Id>();
+        this.installmentIds = new ArrayList<Id>();
+        this.depositIds = new ArrayList<Id>();
     }
 
     private Passport passport;
@@ -29,6 +35,9 @@ public class User implements java.io.Serializable {
     private Role role;
     private ArrayList<Id> billIds;
     private ArrayList<Id> salaryIds;
+    private ArrayList<Id> creditIds;
+    private ArrayList<Id> installmentIds;
+    private ArrayList<Id> depositIds;
 
     public ArrayList<Id> getSalaryIds() {
         return salaryIds;
@@ -101,4 +110,29 @@ public class User implements java.io.Serializable {
     public void setBillIds(ArrayList<Id> billIds) {
         this.billIds = billIds;
     }
+
+    public ArrayList<Id> getCreditIds() {
+        return creditIds;
+    }
+
+    public void setCreditIds(ArrayList<Id> creditIds) {
+        this.creditIds = creditIds;
+    }
+
+    public ArrayList<Id> getInstallmentIds() {
+        return installmentIds;
+    }
+
+    public void setInstallmentIds(ArrayList<Id> installmentIds) {
+        this.installmentIds = installmentIds;
+    }
+
+    public ArrayList<Id> getDepositIds() {
+        return depositIds;
+    }
+
+    public void setDepositIds(ArrayList<Id> depositIds) {
+        this.depositIds = depositIds;
+    }
+
 }
