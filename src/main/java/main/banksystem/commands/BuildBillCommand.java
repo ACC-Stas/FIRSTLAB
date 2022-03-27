@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import main.banksystem.DataBase;
-import main.banksystem.StringConverter;
 import main.banksystem.containers.Bill;
 import main.banksystem.containers.Id;
 import main.banksystem.containers.Role;
@@ -17,7 +16,6 @@ public class BuildBillCommand implements ICommand {
     private Bill bill;
     private String description;
     private Role role;
-    private static final StringConverter<Bill> converter = new StringConverter<>();
 
     public Bill getUser() {
         return bill;
@@ -59,7 +57,7 @@ public class BuildBillCommand implements ICommand {
         DataBase dataBase = DataBase.getInstance();
 
         Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
-        dataBase.save(bill.getId(), DataBase.BILLS_PART, converter.serialize(this.bill));
+        dataBase.save(bill.getId(), DataBase.BILLS_PART, this.bill);
     }
 
     @Override
