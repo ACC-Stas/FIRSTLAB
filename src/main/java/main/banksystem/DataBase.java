@@ -27,6 +27,7 @@ public class DataBase {
     public static final String CREDITS_PART = "credits.txt";
     public static final String BILLS_PART = "bills.txt";
     public static final Id INIT_USER_ID = new Id(-1L); // special user to register others
+    public static final Id INIT_COMPANY_ID = new Id(-2L); // special user to register companies
     private static final String BASE_ADDRESS = "database/";
 
     public static DataBase getInstance() {
