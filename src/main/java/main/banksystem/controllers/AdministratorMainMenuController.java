@@ -4,12 +4,15 @@ import java.net.URL;
 import java.util.Map;
 import java.util.Queue;
 import java.util.ResourceBundle;
+import java.util.Stack;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import main.banksystem.CPU;
 import main.banksystem.DataBase;
 import main.banksystem.commands.ICommand;
+import main.banksystem.containers.Company;
 import main.banksystem.containers.Id;
 import main.banksystem.containers.User;
 
@@ -60,7 +63,23 @@ public class AdministratorMainMenuController {
     void initialize() {
         createCompanyRegistrationAccordion();
 
+        findButton.setOnAction(event -> {
+            DataBase dataBase = DataBase.getInstance();
+            Map<Id, User> users = dataBase.downloadMap(DataBase.USER_PART, User.class);
+            Id idx = null;
+            try {
+                idx = new Id(Long.parseLong(idUserField.getText()));
+            } catch (IllegalArgumentException e) {
+                errorLabel.setText("Wrong input");
+            }
 
+            if (users.containsKey(idx)) {
+                createUserAccordion(idx);
+            }
+            else {
+                errorLabel.setText("Wrong ID");
+            }
+        });
 
         toClientButton.setOnAction(event -> {
             switchMenu(toClientButton, "/main/banksystem/client/client_main_menu.fxml");
@@ -71,12 +90,46 @@ public class AdministratorMainMenuController {
         });
 
         toManagerButton.setOnAction(event -> {
-            switchMenu(toClientButton, "/main/banksystem/operator/manager_main_menu.fxml");
+            switchMenu(toClientButton, "/main/banksystem/manager/manager_main_menu.fxml");
         });
 
         toSpecialistButton.setOnAction(event -> {
-            switchMenu(toClientButton, "/main/banksystem/operator/specialist_main_menu.fxml");
+            switchMenu(toClientButton, "/main/banksystem/specialist/specialist_main_menu.fxml");
         });
+    }
+
+    void createUserAccordion(Id id){
+        historyAccordion.getPanes().clear();
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Stack<ICommand>> commands = dataBase.downloadStack(DataBase.STACK_PART, ICommand.class);
+
+        if (!commands.containsKey(id)) {
+            return;
+        }
+
+        for (ICommand command : commands.get(id)) {
+            TitledPane titledPane = new TitledPane();
+            titledPane.getStylesheets().add(ManagerMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+            titledPane.setText(command.getDescription());
+
+            VBox content = new VBox();
+            Button cancel = new Button("Cancel");
+            cancel.setOnAction(event -> {
+
+                command.undo();
+
+                commands.get(id).remove(command);
+                dataBase.saveStack(id, DataBase.STACK_PART, commands.get(id));
+                historyAccordion.getPanes().remove(titledPane);
+
+                initialize();
+            });
+
+            content.getChildren().add(cancel);
+            titledPane.setContent(content);
+
+            historyAccordion.getPanes().addAll(titledPane);
+        }
     }
 
     void createCompanyRegistrationAccordion(){
