@@ -171,7 +171,7 @@ public class RegistrationMenuController {
             CPU cpu = new CPU(initUser);
             cpu.heldCommand(command);
 
-            switchMenu(registrationButton, "/main/banksystem/client_main_menu.fxml");
+            switchMenu(registrationButton, "/main/banksystem/login_menu.fxml");
         });
     }
 

@@ -23,16 +23,6 @@ public class RegistryCompanyCommand implements ICommand {
         this.description = description;
     }
 
-    @Override
-    public Role getApproveLevel() {
-        return role;
-    }
-
-    @Override
-    public void setApproveLevel(Role role) {
-        this.role = role;
-    }
-
     private String description;
 
     public RegistryCompanyCommand(Company company, ICommand.Type type) {

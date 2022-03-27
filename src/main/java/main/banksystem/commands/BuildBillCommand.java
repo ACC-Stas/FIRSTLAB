@@ -35,16 +35,6 @@ public class BuildBillCommand implements ICommand {
         this.description = description;
     }
 
-    @Override
-    public Role getApproveLevel() {
-        return role;
-    }
-
-    @Override
-    public void setApproveLevel(Role role) {
-        this.role = role;
-    }
-
     @JsonCreator
     public BuildBillCommand(@JsonProperty("bill") Bill bill, @JsonProperty("type") ICommand.Type type) {
         this.bill = bill;

@@ -32,10 +32,6 @@ public interface ICommand extends Serializable {
 
     void setDescription(String description);
 
-    Role getApproveLevel();
-
-    void setApproveLevel(Role role);
-
     class Type {
         public Type(boolean approvable, boolean saveable) {
             this.approvable = approvable;

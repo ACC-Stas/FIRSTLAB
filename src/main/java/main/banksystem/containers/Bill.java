@@ -1,10 +1,15 @@
 package main.banksystem.containers;
 
-public class Bill implements java.io.Serializable {
+public class Bill {
     public Bill(Id id, double money, BillConditions billConditions){
         this.id = id;
         this.money = money;
         this.billConditions = billConditions;
+    }
+    public Bill() {
+        this.id = null;
+        this.money = 0;
+        this.billConditions = null;
     }
 
     public Bill() {

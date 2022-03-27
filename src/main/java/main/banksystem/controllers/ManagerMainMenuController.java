@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.Map;
 import java.util.Queue;
 import java.util.ResourceBundle;
+import java.util.Set;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -12,6 +13,7 @@ import javafx.scene.layout.VBox;
 import main.banksystem.DataBase;
 import main.banksystem.commands.ICommand;
 import main.banksystem.containers.Id;
+import main.banksystem.containers.User;
 
 import static main.banksystem.controllers.SwitchMenu.switchMenu;
 
@@ -59,6 +61,15 @@ public class ManagerMainMenuController {
             switchMenu(toClientButton, "/main/banksystem/operator_main_menu.fxml");
         });
 
+
+    }
+
+    void createCreditAccordion(){
+        creditsAndInstallmentAccordion.getPanes().clear();
+
+        DataBase dataBase = DataBase.GetInstance();
+        Map<Id, User> users = dataBase.DownloadMap(DataBase.USER_PART, User.class);
+        Set<Id> ids = users.keySet();
 
     }
 
