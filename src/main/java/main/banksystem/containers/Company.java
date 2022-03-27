@@ -21,6 +21,7 @@ public class Company implements java.io.Serializable {
         this.bankID = null;
         this.jAddress = null;
         this.billCompanyId = null;
+        this.isBank = false;
         billsIds = new ArrayList<>();
     }
 
@@ -79,6 +80,14 @@ public class Company implements java.io.Serializable {
         this.billCompanyId = billCompanyId;
     }
 
+    public boolean isBank() {
+        return isBank;
+    }
+
+    public void setIsBank(boolean bank) {
+        isBank = bank;
+    }
+
     public List<Id> getBillsIds() {
         return billsIds;
     }
@@ -93,6 +102,7 @@ public class Company implements java.io.Serializable {
     private BIC bankID;
     private Address jAddress;
     private Id billCompanyId;
+    private boolean isBank;
     private List<Id> billsIds;
 
     public void paySalary() {

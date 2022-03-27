@@ -28,6 +28,8 @@
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -36,25 +38,25 @@
                     </rowConstraints>
                     <children>
                         <ChoiceBox fx:id="typeChoice" prefHeight="36.0" prefWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <TextField fx:id="countryField" prefHeight="36.0" prefWidth="250.0" promptText="Страна" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-                        <TextField fx:id="cityField" prefHeight="36.0" prefWidth="250.0" promptText="Город" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-                        <TextField fx:id="streetField" prefHeight="36.0" prefWidth="250.0" promptText="Улица, дом" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-                        <Label text="Юридический адрес:" GridPane.rowIndex="2">
+                        <TextField fx:id="countryField" prefHeight="36.0" prefWidth="250.0" promptText="Страна" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                        <TextField fx:id="cityField" prefHeight="36.0" prefWidth="250.0" promptText="Город" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                        <TextField fx:id="streetField" prefHeight="36.0" prefWidth="250.0" promptText="Улица, дом" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                        <Label text="Юридический адрес:" GridPane.rowIndex="4">
                             <font>
                                 <Font name="System Italic" size="20.0" />
                             </font>
                         </Label>
-                        <Label text="Страна:" GridPane.rowIndex="3">
+                        <Label text="Страна:" GridPane.rowIndex="5">
                             <font>
                                 <Font name="System Italic" size="20.0" />
                             </font>
                         </Label>
-                        <Label text="Город:" GridPane.rowIndex="4">
+                        <Label text="Город:" GridPane.rowIndex="6">
                             <font>
                                 <Font name="System Italic" size="20.0" />
                             </font>
                         </Label>
-                        <Label text="Улица, дом:" GridPane.rowIndex="5">
+                        <Label text="Улица, дом:" GridPane.rowIndex="7">
                             <font>
                                 <Font name="System Italic" size="20.0" />
                             </font>
@@ -70,12 +72,24 @@
                             </font>
                         </Label>
                         <TextField fx:id="jNameField" prefHeight="36.0" prefWidth="250.0" promptText="Название" GridPane.columnIndex="2" />
-                      <Label text="Выберите под-тип:" GridPane.rowIndex="6">
+                      <Label text="Выберите под-тип:" GridPane.rowIndex="8">
                           <font>
                               <Font name="System Italic" size="20.0" />
                           </font>
                       </Label>
-                      <ChoiceBox fx:id="bankChoice" prefHeight="36.0" prefWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                      <ChoiceBox fx:id="bankChoice" prefHeight="36.0" prefWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                  <Label text="Банк сотрудник:" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="System Italic" size="20.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="friendChoice" prefHeight="36.0" prefWidth="250.0" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Label text="PAN:" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="System Italic" size="20.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="panField" prefHeight="36.0" prefWidth="250.0" promptText="PAN" GridPane.columnIndex="2" GridPane.rowIndex="3" />
                     </children>
                 </GridPane>
                 <Button fx:id="registrationButton" layoutX="438.0" layoutY="515.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="404.0" style="-fx-background-color: #f39c63;" text="Зарегистрировать" textFill="WHITE">
