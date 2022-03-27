@@ -9,6 +9,14 @@ public class Credit implements java.io.Serializable {
         this.id = id;
     }
 
+    public Credit(){
+        this.bankBillId = null;
+        this.sourceBillId = null;
+        this.sumToPay = -1;
+        this.percent = -1;
+        this.id = null;
+    }
+
     Id bankBillId;
     Id sourceBillId;
     double sumToPay;
