@@ -1,6 +1,7 @@
 package main.banksystem.commands;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import main.banksystem.DataBase;
 import main.banksystem.StringConverter;
@@ -33,11 +34,10 @@ public class RegistryCompanyCommand implements ICommand {
     }
 
     @JsonCreator
-    public RegistryCompanyCommand(Company company, ICommand.Type type) {
+    public RegistryCompanyCommand(@JsonProperty ("company") Company company, @JsonProperty ("type") ICommand.Type type) {
         this.company = company;
         this.type = type;
-        this.description = String.format("Company %s want's to register in system. Its PAN id is %d",
-                company.getjName(), company.getPAN().getId());
+        this.description = "No description";
 
     }
 
