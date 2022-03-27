@@ -82,19 +82,19 @@ public class AdministratorMainMenuController {
         });
 
         toClientButton.setOnAction(event -> {
-            newMenu("/main/banksystem/client/client_main_menu.fxml");
+            newMenu(toClientButton, "/main/banksystem/client/client_main_menu.fxml");
         });
 
         toOperatorButton.setOnAction(event -> {
-            newMenu("/main/banksystem/operator/operator_main_menu.fxml");
+            newMenu(toOperatorButton, "/main/banksystem/operator/operator_main_menu.fxml");
         });
 
         toManagerButton.setOnAction(event -> {
-            newMenu("/main/banksystem/manager/manager_main_menu.fxml");
+            newMenu(toManagerButton, "/main/banksystem/manager/manager_main_menu.fxml");
         });
 
         toSpecialistButton.setOnAction(event -> {
-            newMenu("/main/banksystem/specialist/specialist_main_menu.fxml");
+            newMenu(toSpecialistButton, "/main/banksystem/specialist/specialist_main_menu.fxml");
         });
     }
 

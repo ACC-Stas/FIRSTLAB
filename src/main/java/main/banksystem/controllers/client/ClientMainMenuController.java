@@ -95,13 +95,13 @@ public class ClientMainMenuController {
         idLabel.setText(programStatus.getUser().getIdx().toString());
 
         createBillButton.setOnAction(event ->{
-            newMenu("/main/banksystem/client/create_bill_menu.fxml");
+            newMenu(createBillButton, "/main/banksystem/client/create_bill_menu.fxml");
         });
         withdrawBillButton.setOnAction(event ->{
-            newMenu("/main/banksystem/client/withdraw_menu.fxml");
+            newMenu(withdrawBillButton, "/main/banksystem/client/withdraw_menu.fxml");
         });
         transferBillButton.setOnAction(event ->{
-            newMenu("/main/banksystem/client/transfer_menu.fxml");
+            newMenu(transferBillButton, "/main/banksystem/client/transfer_menu.fxml");
         });
     }
 

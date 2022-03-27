@@ -7,8 +7,6 @@ import main.banksystem.DataBase;
 import main.banksystem.IndexGenerator;
 import main.banksystem.containers.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @JsonTypeName("BuildBillCommand")
@@ -42,15 +40,16 @@ public class BuildBillCommand implements ICommand {
         this.type = type;
         this.bankId = bankId;
         this.userId = userId;
-        this.description = String.format("User want's to create new bill.");
+        this.description = String.format("User creating new bill %d.", bill.getId().getId());
     }
 
+    @JsonCreator
     public BuildBillCommand() {
         this.bill = null;
         this.type = null;
         this.bankId = null;
         this.userId = null;
-        this.description = String.format("User want's to create new bill.");
+        this.description = String.format("User creating new bill.");
     }
 
     @Override
@@ -86,7 +85,7 @@ public class BuildBillCommand implements ICommand {
         Map<Id, User> users = dataBase.downloadMap(DataBase.USER_PART, User.class);
         User user = users.get(userId);
         user.getBillIds().remove(bill.getId());
-        dataBase.save(user.getIdx(), DataBase.USER_PART, User.class);
+        dataBase.save(user.getIdx(), DataBase.USER_PART, user);
 
         Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
         Company bank = companies.get(bankId);
