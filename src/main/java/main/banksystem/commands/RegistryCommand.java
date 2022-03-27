@@ -20,12 +20,9 @@ public class RegistryCommand implements ICommand {
     private Role role;
     private static final StringConverter<User> converter = new StringConverter<>();
 
+    @Override
     public Type getType() {
         return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
     }
 
     public User getUser() {
@@ -57,9 +54,9 @@ public class RegistryCommand implements ICommand {
 
     @Override
     public void execute() {
-        DataBase dataBase = DataBase.GetInstance();
+        DataBase dataBase = DataBase.getInstance();
 
-        Map<Id, User> users = dataBase.DownloadMap(DataBase.USER_PART, User.class);
+        Map<Id, User> users = dataBase.downloadMap(DataBase.USER_PART, User.class);
         for (User user : users.values()) {
             if (Objects.equals(this.user.getLogin(), user.getLogin())) {
                 break;
@@ -67,23 +64,18 @@ public class RegistryCommand implements ICommand {
         }
 
 
-        dataBase.Save(user.getIdx(), DataBase.USER_PART, converter.Serialize(this.user));
+        dataBase.save(user.getIdx(), DataBase.USER_PART, converter.serialize(this.user));
     }
 
     @Override
     public void undo() {
-        DataBase dataBase = DataBase.GetInstance();
-        dataBase.Remove(user.getIdx(), DataBase.USER_PART);
+        DataBase dataBase = DataBase.getInstance();
+        dataBase.remove(user.getIdx(), DataBase.USER_PART);
 
     }
 
     @Override
-    public Type GetType() {
-        return type;
-    }
-
-    @Override
-    public void SetType(ICommand.Type type) {
+    public void setType(ICommand.Type type) {
         this.type = type;
     }
 

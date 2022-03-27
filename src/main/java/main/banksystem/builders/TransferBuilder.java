@@ -4,7 +4,6 @@ import main.banksystem.DataBase;
 import main.banksystem.containers.*;
 
 import java.util.Map;
-import java.util.Objects;
 
 public class TransferBuilder {
     private Transfer transfer;
@@ -13,29 +12,29 @@ public class TransferBuilder {
         transfer = new Transfer();
     }
 
-    public void Reset() {
+    public void reset() {
         transfer = new Transfer();
     }
 
-    public void BuildBillToId(Id id) {
-        DataBase dataBase = DataBase.GetInstance();
-        Map<Id, Bill> bills = dataBase.DownloadMap(DataBase.BILLS_PART, Bill.class);
+    public void buildBillToId(Id id) {
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
         if (!bills.containsKey(id)) {
             return;
         }
         transfer.setBillToId(id);
     }
 
-    public void BuildBillFromId(Id id) {
-        DataBase dataBase = DataBase.GetInstance();
-        Map<Id, Bill> bills = dataBase.DownloadMap(DataBase.BILLS_PART, Bill.class);
+    public void buildBillFromId(Id id) {
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
         if (!bills.containsKey(id)) {
             return;
         }
         transfer.setBillToId(id);
     }
 
-    public void BuildValue(double value) {
+    public void buildValue(double value) {
         transfer.setValue(value);
     }
 

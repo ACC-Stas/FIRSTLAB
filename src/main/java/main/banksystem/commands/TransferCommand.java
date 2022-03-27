@@ -31,14 +31,6 @@ public class TransferCommand implements ICommand {
         this.role = role;
     }
 
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
-    }
-
     @Override
     public String getDescription() {
         return description;
@@ -56,8 +48,8 @@ public class TransferCommand implements ICommand {
 
     @Override
     public void execute() {
-        DataBase dataBase = DataBase.GetInstance();
-        Map<Id, Bill> bills = dataBase.DownloadMap(DataBase.BILLS_PART, Bill.class);
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
 
         description = "Everything is good";
         if (!bills.containsKey(transfer.getBillFromId())) {
@@ -90,14 +82,14 @@ public class TransferCommand implements ICommand {
         from.setMoney(from.getMoney() - transfer.getValue());
         to.setMoney(to.getMoney() + transfer.getValue());
 
-        dataBase.SaveT(from.getId(), DataBase.BILLS_PART, from);
-        dataBase.SaveT(to.getId(), DataBase.BILLS_PART, to);
+        dataBase.save(from.getId(), DataBase.BILLS_PART, from);
+        dataBase.save(to.getId(), DataBase.BILLS_PART, to);
     }
 
     @Override
     public void undo() {
-        DataBase dataBase = DataBase.GetInstance();
-        Map<Id, Bill> bills = dataBase.DownloadMap(DataBase.BILLS_PART, Bill.class);
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
 
         description = "Everything is good";
         if (!bills.containsKey(transfer.getBillFromId())) {
@@ -130,17 +122,17 @@ public class TransferCommand implements ICommand {
         from.setMoney(from.getMoney() + transfer.getValue());
         to.setMoney(to.getMoney() - transfer.getValue());
 
-        dataBase.SaveT(from.getId(), DataBase.BILLS_PART, from);
-        dataBase.SaveT(to.getId(), DataBase.BILLS_PART, to);
+        dataBase.save(from.getId(), DataBase.BILLS_PART, from);
+        dataBase.save(to.getId(), DataBase.BILLS_PART, to);
     }
 
     @Override
-    public Type GetType() {
+    public Type getType() {
         return type;
     }
 
     @Override
-    public void SetType(ICommand.Type type) {
+    public void setType(ICommand.Type type) {
         this.type = type;
     }
 

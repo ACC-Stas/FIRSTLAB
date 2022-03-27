@@ -11,19 +11,19 @@ public class AddressBuilder {
         address = new Address();
     }
 
-    public void BuildCity(String city) {
+    public void buildCity(String city) {
         address.setCity(city);
     }
 
-    public void BuildCountry(String country) {
+    public void buildCountry(String country) {
         address.setCountry(country);
     }
 
-    public void BuildStreetAddress(String streetAddress) {
+    public void buildStreetAddress(String streetAddress) {
         address.setStreetAddress(streetAddress);
     }
 
-    public void Reset() {
+    public void reset() {
         address = new Address();
     }
 

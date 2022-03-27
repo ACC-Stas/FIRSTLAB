@@ -10,9 +10,9 @@ import main.banksystem.containers.Role;
 public class RegistryCompanyCommand implements ICommand {
 
     private ICommand.Type type;
-    private Company company;
+    private final Company company;
     private Role role;
-    private static StringConverter<Company> converter;
+    private final StringConverter<Company> converter;
 
     @Override
     public String getDescription() {
@@ -34,24 +34,24 @@ public class RegistryCompanyCommand implements ICommand {
 
     @Override
     public void execute() {
-        DataBase dataBase = DataBase.GetInstance();
-        dataBase.Save(company.getPAN(), DataBase.COMPANY_PART, converter.Serialize(this.company));
+        DataBase dataBase = DataBase.getInstance();
+        dataBase.save(company.getPAN(), DataBase.COMPANY_PART, converter.serialize(this.company));
     }
 
     @Override
     public void undo() {
-        DataBase dataBase = DataBase.GetInstance();
-        dataBase.Remove(company.getPAN(), DataBase.COMPANY_PART);
+        DataBase dataBase = DataBase.getInstance();
+        dataBase.remove(company.getPAN(), DataBase.COMPANY_PART);
 
     }
 
     @Override
-    public ICommand.Type GetType() {
+    public ICommand.Type getType() {
         return type;
     }
 
     @Override
-    public void SetType(ICommand.Type type) {
+    public void setType(ICommand.Type type) {
         this.type = type;
     }
 }

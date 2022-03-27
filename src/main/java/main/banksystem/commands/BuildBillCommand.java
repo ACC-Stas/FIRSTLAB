@@ -19,14 +19,6 @@ public class BuildBillCommand implements ICommand {
     private Role role;
     private static final StringConverter<Bill> converter = new StringConverter<>();
 
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
-    }
-
     public Bill getUser() {
         return bill;
     }
@@ -54,25 +46,25 @@ public class BuildBillCommand implements ICommand {
 
     @Override
     public void execute() {
-        DataBase dataBase = DataBase.GetInstance();
+        DataBase dataBase = DataBase.getInstance();
 
-        Map<Id, Bill> bills = dataBase.DownloadMap(DataBase.BILLS_PART, Bill.class);
-        dataBase.Save(bill.getId(), DataBase.BILLS_PART, converter.Serialize(this.bill));
+        Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
+        dataBase.save(bill.getId(), DataBase.BILLS_PART, converter.serialize(this.bill));
     }
 
     @Override
     public void undo() {
-        DataBase dataBase = DataBase.GetInstance();
-        dataBase.Remove(bill.getId(), DataBase.BILLS_PART);
+        DataBase dataBase = DataBase.getInstance();
+        dataBase.remove(bill.getId(), DataBase.BILLS_PART);
     }
 
     @Override
-    public Type GetType() {
+    public Type getType() {
         return type;
     }
 
     @Override
-    public void SetType(ICommand.Type type) {
+    public void setType(ICommand.Type type) {
         this.type = type;
     }
 }

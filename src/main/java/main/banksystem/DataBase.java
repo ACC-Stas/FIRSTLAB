@@ -4,7 +4,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.*;
 
-import main.banksystem.commands.ICommand;
 import main.banksystem.containers.Id;
 
 public class DataBase {
@@ -29,14 +28,14 @@ public class DataBase {
     public static final Id INIT_USER_ID = new Id(-1L); // special user to register others
     private static final String BASE_ADDRESS = "database/";
 
-    public static DataBase GetInstance() {
+    public static DataBase getInstance() {
         if (instance == null) {
             instance = new DataBase();
         }
         return instance;
     }
 
-    public void Save(Id id, String dbPart, String object) {
+    public void save(Id id, String dbPart, String object) {
         String fileName = BASE_ADDRESS + dbPart;
         File file = new File(fileName);
         try {
@@ -45,15 +44,15 @@ public class DataBase {
             }
 
             Map<String, String> data = new HashMap<>();
-            String rowData = encoder.Decode(Files.readString(file.toPath()));
+            String rowData = encoder.decode(Files.readString(file.toPath()));
             if (!Objects.equals(rowData, "")) {
-                data = dataConverter.Deserialize(rowData, data.getClass());
+                data = dataConverter.deserialize(rowData, data.getClass());
             }
-            data.put(converter.Serialize(id), object);
-            rowData = dataConverter.Serialize(data);
+            data.put(converter.serialize(id), object);
+            rowData = dataConverter.serialize(data);
 
             FileWriter fileWriter = new FileWriter(file);
-            fileWriter.write(encoder.Encode(rowData));
+            fileWriter.write(encoder.encode(rowData));
             fileWriter.close();
 
         } catch (IOException e) {
@@ -61,7 +60,7 @@ public class DataBase {
         }
     }
 
-    public <T> void SaveT(Id id, String dbPart, T object) {
+    public <T> void save(Id id, String dbPart, T object) {
         String fileName = BASE_ADDRESS + dbPart;
         File file = new File(fileName);
         try {
@@ -71,14 +70,14 @@ public class DataBase {
 
             Map<String, String> data = new HashMap<>();
             FileWriter fileWriter = new FileWriter(file);
-            String rowData = encoder.Decode(Files.readString(file.toPath()));
+            String rowData = encoder.decode(Files.readString(file.toPath()));
             if (!Objects.equals(rowData, "")) {
-                data = dataConverter.Deserialize(rowData, data.getClass());
+                data = dataConverter.deserialize(rowData, data.getClass());
             }
             StringConverter<T> converterT = new StringConverter<>();
-            data.put(converter.Serialize(id), converterT.Serialize(object));
-            rowData = dataConverter.Serialize(data);
-            fileWriter.write(encoder.Encode(rowData));
+            data.put(converter.serialize(id), converterT.serialize(object));
+            rowData = dataConverter.serialize(data);
+            fileWriter.write(encoder.encode(rowData));
 
             fileWriter.close();
 
@@ -87,24 +86,24 @@ public class DataBase {
         }
     }
 
-    public <T> void SaveQueue(Id id, String dbPart, Queue<T> queue) {
+    public <T> void saveQueue(Id id, String dbPart, Queue<T> queue) {
         StringConverter<Queue<String>> queueConverter = new StringConverter<>();
         StringConverter<T> converterT = new StringConverter<>();
-        Queue<String> stringQueue = converterT.Serialize(queue);
-        String rawData = queueConverter.Serialize(stringQueue);
-        this.Save(id, dbPart, rawData);
+        Queue<String> stringQueue = converterT.serialize(queue);
+        String rawData = queueConverter.serialize(stringQueue);
+        this.save(id, dbPart, rawData);
     }
 
-    public <T> void SaveStack(Id id, String dbPart, Stack<T> stack) {
+    public <T> void saveStack(Id id, String dbPart, Stack<T> stack) {
         StringConverter<Stack<String>> stackConverter = new StringConverter<>();
         StringConverter<T> converterT = new StringConverter<>();
 
-        Stack<String> stringStack = converterT.Serialize(stack);
-        String rawData = stackConverter.Serialize(stringStack);
-        this.Save(id, dbPart, rawData);
+        Stack<String> stringStack = converterT.serialize(stack);
+        String rawData = stackConverter.serialize(stringStack);
+        this.save(id, dbPart, rawData);
     }
 
-    public String Download(Id id, String dbPart) {
+    public String download(Id id, String dbPart) {
         String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
         try {
@@ -112,13 +111,13 @@ public class DataBase {
                 file.createNewFile();
             }
 
-            String rowData = encoder.Decode(Files.readString(file.toPath()));
+            String rowData = encoder.decode(Files.readString(file.toPath()));
             if (Objects.equals(rowData, "")) {
                 return "";
             }
             Map<String, String> data = new HashMap<>();
-            data = dataConverter.Deserialize(rowData, data.getClass());
-            String idStr = converter.Serialize(id);
+            data = dataConverter.deserialize(rowData, data.getClass());
+            String idStr = converter.serialize(id);
 
             if (!data.containsKey(idStr)) {
                 return "";
@@ -133,7 +132,7 @@ public class DataBase {
         return "";
     }
 
-    public <T> T Download(Id id, String dbPart, Class type) {
+    public <T> T download(Id id, String dbPart, Class type) {
         String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
         try {
@@ -141,13 +140,13 @@ public class DataBase {
                 file.createNewFile();
             }
 
-            String rowData = encoder.Decode(Files.readString(file.toPath()));
+            String rowData = encoder.decode(Files.readString(file.toPath()));
             if (Objects.equals(rowData, "")) {
                 return null;
             }
             Map<String, String> data = new HashMap<>();
-            data = dataConverter.Deserialize(rowData, data.getClass());
-            String idStr = converter.Serialize(id);
+            data = dataConverter.deserialize(rowData, data.getClass());
+            String idStr = converter.serialize(id);
 
             if (!data.containsKey(idStr)) {
                 return null;
@@ -155,7 +154,7 @@ public class DataBase {
 
             String rowObject = data.get(idStr);
             StringConverter<T> converterT = new StringConverter<>();
-            T object = converterT.Deserialize(rowObject, type);
+            T object = converterT.deserialize(rowObject, type);
 
             return object;
 
@@ -166,7 +165,7 @@ public class DataBase {
         return null;
     }
 
-    public <T> Map<Id, T> DownloadMap(String dbPart, Class type) { // don't work for T = queue, list, stack, map...
+    public <T> Map<Id, T> downloadMap(String dbPart, Class type) { // don't work for T = queue, list, stack, map...
         String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
         try {
@@ -174,17 +173,17 @@ public class DataBase {
                 file.createNewFile();
             }
 
-            String rowData = encoder.Decode(Files.readString(file.toPath()));
+            String rowData = encoder.decode(Files.readString(file.toPath()));
             if (Objects.equals(rowData, "")) {
                 return new HashMap<>();
             }
             Map<String, String> data = new HashMap<>();
-            data = dataConverter.Deserialize(rowData, data.getClass());
+            data = dataConverter.deserialize(rowData, data.getClass());
 
             Map<Id, T> result = new HashMap<>();
             for (Map.Entry<String, String> entry : data.entrySet()) {
                 StringConverter<T> converterT = new StringConverter<>();
-                result.put(converter.Deserialize(entry.getKey(), Id.class), converterT.Deserialize(entry.getValue(), type));
+                result.put(converter.deserialize(entry.getKey(), Id.class), converterT.deserialize(entry.getValue(), type));
             }
 
             return result;
@@ -196,7 +195,7 @@ public class DataBase {
         return new HashMap<>();
     }
 
-    public <T> Map<Id, Queue<T>> DownloadQueue(String dbPart, Class type) {
+    public <T> Map<Id, Queue<T>> downloadQueue(String dbPart, Class type) {
         String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
         try {
@@ -204,22 +203,22 @@ public class DataBase {
                 file.createNewFile();
             }
 
-            String rowData = encoder.Decode(Files.readString(file.toPath()));
+            String rowData = encoder.decode(Files.readString(file.toPath()));
             if (Objects.equals(rowData, "")) {
                 return new HashMap<>();
             }
 
             Map<String, String> data = new HashMap<>();
-            data = dataConverter.Deserialize(rowData, data.getClass());
+            data = dataConverter.deserialize(rowData, data.getClass());
 
             StringConverter<Queue<String>> queueConverter = new StringConverter<>();
             StringConverter<T> converterT = new StringConverter<>();
 
             Map<Id, Queue<T>> result = new HashMap<>();
             for (Map.Entry<String, String> entry : data.entrySet()) {
-                Queue<String> queue = queueConverter.Deserialize(entry.getValue(), Queue.class);
-                Queue<T> queueT = converterT.Deserialize(queue, type);
-                result.put(converter.Deserialize(entry.getKey(), Id.class), queueT);
+                Queue<String> queue = queueConverter.deserialize(entry.getValue(), Queue.class);
+                Queue<T> queueT = converterT.deserialize(queue, type);
+                result.put(converter.deserialize(entry.getKey(), Id.class), queueT);
             }
 
             return result;
@@ -231,7 +230,7 @@ public class DataBase {
         return new HashMap<>();
     }
 
-    public <T> Map<Id, Stack<T>> DownloadStack(String dbPart, Class type) {
+    public <T> Map<Id, Stack<T>> downloadStack(String dbPart, Class type) {
         String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
         try {
@@ -239,22 +238,22 @@ public class DataBase {
                 file.createNewFile();
             }
 
-            String rowData = encoder.Decode(Files.readString(file.toPath()));
+            String rowData = encoder.decode(Files.readString(file.toPath()));
             if (Objects.equals(rowData, "")) {
                 return new HashMap<>();
             }
 
             Map<String, String> data = new HashMap<>();
-            data = dataConverter.Deserialize(rowData, data.getClass());
+            data = dataConverter.deserialize(rowData, data.getClass());
 
             StringConverter<Stack<String>> stackConverter = new StringConverter<>();
             StringConverter<T> converterT = new StringConverter<>();
 
             Map<Id, Stack<T>> result = new HashMap<>();
             for (Map.Entry<String, String> entry : data.entrySet()) {
-                Stack<String> stack = stackConverter.Deserialize(entry.getValue(), Stack.class);
-                Stack<T> stackT = converterT.Deserialize(stack, type);
-                result.put(converter.Deserialize(entry.getKey(), Id.class), stackT);
+                Stack<String> stack = stackConverter.deserialize(entry.getValue(), Stack.class);
+                Stack<T> stackT = converterT.deserialize(stack, type);
+                result.put(converter.deserialize(entry.getKey(), Id.class), stackT);
             }
 
             return result;
@@ -266,7 +265,7 @@ public class DataBase {
         return new HashMap<>();
     }
 
-    public Map<Id, String> DownloadList(String dbPart) {
+    public Map<Id, String> downloadList(String dbPart) {
         String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
         try {
@@ -274,16 +273,16 @@ public class DataBase {
                 file.createNewFile();
             }
 
-            String rowData = encoder.Decode(Files.readString(file.toPath()));
+            String rowData = encoder.decode(Files.readString(file.toPath()));
             if (Objects.equals(rowData, "")) {
                 return new HashMap<>();
             }
             Map<String, String> data = new HashMap<>();
-            data = dataConverter.Deserialize(rowData, data.getClass());
+            data = dataConverter.deserialize(rowData, data.getClass());
 
             Map<Id, String> result = new HashMap<>();
             for (Map.Entry<String, String> entry : data.entrySet()) {
-                result.put(converter.Deserialize(entry.getKey(), Id.class), entry.getValue());
+                result.put(converter.deserialize(entry.getKey(), Id.class), entry.getValue());
             }
 
             return result;
@@ -295,7 +294,7 @@ public class DataBase {
         return new HashMap<>();
     }
 
-    public void Remove(Id id, String dbPart) {
+    public void remove(Id id, String dbPart) {
         String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
         try {
@@ -303,14 +302,14 @@ public class DataBase {
                 file.createNewFile();
             }
 
-            String rowData = encoder.Decode(Files.readString(file.toPath()));
+            String rowData = encoder.decode(Files.readString(file.toPath()));
             if (Objects.equals(rowData, "")) {
                 return;
             }
 
             Map<String, String> data = new HashMap<>();
-            data = dataConverter.Deserialize(rowData, data.getClass());
-            String idStr = converter.Serialize(id);
+            data = dataConverter.deserialize(rowData, data.getClass());
+            String idStr = converter.serialize(id);
             if (!data.containsKey(idStr)) {
                 return;
             }
@@ -318,7 +317,7 @@ public class DataBase {
             data.remove(idStr);
 
             FileWriter fileWriter = new FileWriter(file);
-            fileWriter.write(encoder.Encode(dataConverter.Serialize(data)));
+            fileWriter.write(encoder.encode(dataConverter.serialize(data)));
             fileWriter.close();
 
         } catch (IOException e) {

@@ -12,6 +12,12 @@ public class Bill {
         this.billConditions = null;
     }
 
+    public Bill() {
+        this.id = null;
+        this.money = -10;
+        this.billConditions = null;
+    }
+
     private Id id;
     double money;
     BillConditions billConditions;

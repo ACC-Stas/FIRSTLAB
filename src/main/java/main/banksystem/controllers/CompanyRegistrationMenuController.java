@@ -2,8 +2,6 @@ package main.banksystem.controllers;
 
 import java.net.URL;
 import java.util.Map;
-import java.util.Objects;
-import java.util.Queue;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -13,16 +11,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import main.banksystem.CPU;
 import main.banksystem.DataBase;
 import main.banksystem.builders.AddressBuilder;
 import main.banksystem.builders.CompanyBuilder;
 import main.banksystem.commands.ICommand;
-import main.banksystem.commands.RegistryCommand;
 import main.banksystem.commands.RegistryCompanyCommand;
 import main.banksystem.containers.Company;
 import main.banksystem.containers.Id;
-import main.banksystem.containers.User;
 
 public class CompanyRegistrationMenuController {
 
@@ -74,8 +69,8 @@ public class CompanyRegistrationMenuController {
         typeChoice.setItems(typeList);
         typeChoice.setValue(typeList.get(0));
 
-        DataBase dataBase = DataBase.GetInstance();
-        Map<Id, Company> companies = dataBase.DownloadMap(DataBase.COMPANY_PART, Company.class);
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
         for (Company company : companies.values()) {
             if (company.isBank()) {
                 friendList.add(company.getPAN().toString());
@@ -89,9 +84,9 @@ public class CompanyRegistrationMenuController {
         registrationButton.setOnAction(event -> {
 
             AddressBuilder addressBuilder = new AddressBuilder();
-            addressBuilder.BuildCity(cityField.getText());
-            addressBuilder.BuildCountry(countryField.getText());
-            addressBuilder.BuildStreetAddress(streetField.getText());
+            addressBuilder.buildCity(cityField.getText());
+            addressBuilder.buildCountry(countryField.getText());
+            addressBuilder.buildStreetAddress(streetField.getText());
             AddressBuilder.Result address = addressBuilder.getAddress();
             if (!address.valid) {
                 errorLabel.setText("Invalid address");
@@ -99,12 +94,12 @@ public class CompanyRegistrationMenuController {
             }
 
             CompanyBuilder companyBuilder = new CompanyBuilder();
-            companyBuilder.BuildAddress(address.address);
-            companyBuilder.BuildName(jNameField.getText());
-            companyBuilder.BuildIsBank(bankChoice.getValue());
-            companyBuilder.BuildType(typeChoice.getValue());
-            companyBuilder.BuildPAN(panField.getText());
-            companyBuilder.BuildBankId(friendChoice.getValue());
+            companyBuilder.buildAddress(address.address);
+            companyBuilder.buildName(jNameField.getText());
+            companyBuilder.buildIsBank(bankChoice.getValue());
+            companyBuilder.buildType(typeChoice.getValue());
+            companyBuilder.buildPAN(panField.getText());
+            companyBuilder.buildBankId(friendChoice.getValue());
             CompanyBuilder.Result company = companyBuilder.getCompany();
             if (!company.valid) {
                 errorLabel.setText("Invalid input");

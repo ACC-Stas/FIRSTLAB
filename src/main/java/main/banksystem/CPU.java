@@ -1,7 +1,5 @@
 package main.banksystem;
 import main.banksystem.commands.ICommand;
-import main.banksystem.commands.RegistryCommand;
-import main.banksystem.commands.RegistryCompanyCommand;
 import main.banksystem.containers.User;
 
 import java.util.LinkedList;
@@ -10,7 +8,7 @@ import java.util.Stack;
 
 public class CPU {
     public CPU(User cpuUser) {
-        dataBase = DataBase.GetInstance();
+        dataBase = DataBase.getInstance();
         this.cpuUser = cpuUser;
     }
     public User getCpuUser() {
@@ -27,37 +25,37 @@ public class CPU {
     private static final StringConverter<Queue<String>> queueConverter = new StringConverter<>();
     private static final StringConverter<Stack<String>> stackConverter = new StringConverter<>();
 
-    public void HeldCommand(ICommand command) {
-        if ((command.getClass() == RegistryCommand.class) || (command.getClass() == RegistryCompanyCommand.class)) {
-            String rawData = dataBase.Download(cpuUser.getIdx(), DataBase.QUEUE_PART);
-            Queue<String> stringQueue = queueConverter.Deserialize(rawData, Queue.class);
-            Queue<ICommand> queue = commandConverter.Deserialize(stringQueue, ICommand.class);
+    public void heldCommand(ICommand command) {
+        if (command.getType().isApprovable()) {
+            String rawData = dataBase.download(cpuUser.getIdx(), DataBase.QUEUE_PART);
+            Queue<String> stringQueue = queueConverter.deserialize(rawData, Queue.class);
+            Queue<ICommand> queue = commandConverter.deserialize(stringQueue, ICommand.class);
 
             if (queue == null) {
                 queue = new LinkedList<>();
             }
             queue.add(command);
 
-            stringQueue = commandConverter.Serialize(queue);
-            rawData = queueConverter.Serialize(stringQueue);
-            dataBase.Save(cpuUser.getIdx(), DataBase.QUEUE_PART, rawData);
+            stringQueue = commandConverter.serialize(queue);
+            rawData = queueConverter.serialize(stringQueue);
+            dataBase.save(cpuUser.getIdx(), DataBase.QUEUE_PART, rawData);
             return;
         }
 
         command.execute();
-        if (command.GetType().isSaveable()) {
-            String rawData = dataBase.Download(cpuUser.getIdx(), DataBase.STACK_PART);
-            Stack<String> stringStack = stackConverter.Deserialize(rawData, Stack.class);
-            Stack<ICommand> stack = commandConverter.Deserialize(stringStack, ICommand.class);
+        if (command.getType().isSaveable()) {
+            String rawData = dataBase.download(cpuUser.getIdx(), DataBase.STACK_PART);
+            Stack<String> stringStack = stackConverter.deserialize(rawData, Stack.class);
+            Stack<ICommand> stack = commandConverter.deserialize(stringStack, ICommand.class);
 
             if (stack == null) {
                 stack = new Stack<>();
             }
             stack.push(command);
 
-            stringStack = commandConverter.Serialize(stack);
-            rawData = stackConverter.Serialize(stringStack);
-            dataBase.Save(cpuUser.getIdx(), DataBase.STACK_PART, rawData);
+            stringStack = commandConverter.serialize(stack);
+            rawData = stackConverter.serialize(stringStack);
+            dataBase.save(cpuUser.getIdx(), DataBase.STACK_PART, rawData);
         }
     }
 }

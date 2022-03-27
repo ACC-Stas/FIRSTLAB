@@ -7,7 +7,7 @@ public class Encoder {
         this.key = key;
     }
 
-    String Encode(String input) {
+    String encode(String input) {
         char[] inputArray = input.toCharArray();
         char[] outputArray = new char[inputArray.length];
         for (int i = 0; i < inputArray.length; ++i) {
@@ -16,7 +16,7 @@ public class Encoder {
         return String.valueOf(outputArray);
     }
 
-    String Decode(String input) {
+    String decode(String input) {
         char[] inputArray = input.toCharArray();
         char[] outputArray = new char[inputArray.length];
         for (int i = 0; i < inputArray.length; ++i) {
