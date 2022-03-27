@@ -11,6 +11,8 @@ public class Id implements java.io.Serializable {
         this.id = 0L;
     }
 
+    long id;
+
     public long getId() {
         return id;
     }
@@ -36,6 +38,4 @@ public class Id implements java.io.Serializable {
     public String toString() {
         return Long.toString(id);
     }
-
-    long id;
 }

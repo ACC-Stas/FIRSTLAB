@@ -17,12 +17,6 @@ public class CompanyBuilder {
         company = new Company();
     }
 
-    public static class Result {
-        public boolean valid;
-        public Company company;
-        public String description = "";
-    }
-
     public void buildType(Company.Type type) {
         company.setType(type);
     }
@@ -93,6 +87,12 @@ public class CompanyBuilder {
         else if (isBank == "Company"){
             company.setIsBank(false);
         }
+    }
+
+    public static class Result {
+        public boolean valid;
+        public Company company;
+        public String description = "";
     }
 
     public Result getCompany() {
