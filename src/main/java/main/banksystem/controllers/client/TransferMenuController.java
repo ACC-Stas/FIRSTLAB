@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.banksystem.CPU;
 import main.banksystem.ProgramStatus;
+import main.banksystem.builders.TransferBuilder;
 import main.banksystem.commands.BuildBillCommand;
 import main.banksystem.commands.ICommand;
 import main.banksystem.commands.TransferCommand;
@@ -53,13 +54,26 @@ public class TransferMenuController {
         billFromChoice.setItems(billList);
 
         transferButton.setOnAction(event -> {
-            Transfer transfer = new Transfer();
-            ICommand.Type type = new ICommand.Type(false, true);
-            TransferCommand command = new TransferCommand(transfer, type);
+            TransferBuilder transferBuilder = new TransferBuilder();
+            transferBuilder.buildBillFromId(billFromChoice.getValue());
+            transferBuilder.buildBillToId(billToField.getText());
+            transferBuilder.buildValue(valueField.getText());
+            TransferBuilder.Result transfer = transferBuilder.getTransfer();
+            if (!transfer.valid) {
+                errorLabel.setText(transfer.description);
+            }
+            else {
+                ICommand.Type type = new ICommand.Type(false, true);
+                TransferCommand command = new TransferCommand(transfer.transfer, type);
 
-            CPU cpu = new CPU(status.getUser());
-            cpu.heldCommand(command);
-            transferButton.getScene().getWindow().hide();
+                CPU cpu = new CPU(status.getUser());
+                cpu.heldCommand(command);
+                if (command.getDescription() == "Everything is good") {
+                    transferButton.getScene().getWindow().hide();
+                } else {
+                    errorLabel.setText(command.getDescription());
+                }
+            }
         });
 
     }

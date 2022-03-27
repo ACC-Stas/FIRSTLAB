@@ -2,6 +2,7 @@ package main.banksystem.controllers.client;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -11,7 +12,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import main.banksystem.DataBase;
 import main.banksystem.ProgramStatus;
+import main.banksystem.containers.Bill;
 import main.banksystem.containers.Id;
 
 public class WithdrawMenuController {
@@ -38,6 +41,7 @@ public class WithdrawMenuController {
 
     @FXML
     void initialize() {
+
         ProgramStatus status = ProgramStatus.getInstance();
         ArrayList<Id> ids = status.getUser().getBillIds();
         for(Id id : ids) {
@@ -46,8 +50,28 @@ public class WithdrawMenuController {
         billFromChoice.setItems(billList);
 
         withdrawButton.setOnAction(event -> {
-            String billFrom = billFromChoice.getValue();
-            String value = valueField.getText();
+
+            double value = -1;
+            try {
+                value = Double.parseDouble(valueField.getText());
+            }
+            catch (Exception e) {
+                errorLabel.setText("Invalid input");
+                return;
+            }
+
+            DataBase dataBase = DataBase.getInstance();
+            Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
+            Bill bill = bills.get(new Id(Long.parseLong(billFromChoice.getValue())));
+
+            if (value < 0 || bill.getMoney() < value){
+                errorLabel.setText("Invalid input");
+                return;
+            }
+
+            dataBase.save(bill.getId(), DataBase.BILLS_PART, bill);
+
+            withdrawButton.getScene().getWindow().hide();
         });
 
     }

@@ -1,5 +1,6 @@
 package main.banksystem.containers;
 
+import main.banksystem.commands.ICommand;
 import main.banksystem.commands.TransferCommand;
 
 public class SalaryProject {
@@ -11,7 +12,7 @@ public class SalaryProject {
     public SalaryProject() {
         billFromId = null;
         billToId = null;
-        sum = -5;
+        sum = -1;
         salaryProjectId = null;
     }
 
@@ -60,6 +61,7 @@ public class SalaryProject {
         transfer.setBillToId(this.billToId);
         transfer.setValue(this.sum);
 
-        return new TransferCommand(transfer);
+        ICommand.Type type = new ICommand.Type(false, true);
+        return new TransferCommand(transfer, type);
     }
 }

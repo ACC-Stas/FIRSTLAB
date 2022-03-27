@@ -25,6 +25,18 @@ public class TransferBuilder {
         transfer.setBillToId(id);
     }
 
+    public void buildBillToId(String string) {
+        long id = -1;
+        try {
+            id = Long.parseLong(string);
+        }
+        catch (Exception e) {
+            return;
+        }
+        Id idx = new Id(id);
+        buildBillToId(idx);
+    }
+
     public void buildBillFromId(Id id) {
         DataBase dataBase = DataBase.getInstance();
         Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
@@ -34,8 +46,31 @@ public class TransferBuilder {
         transfer.setBillToId(id);
     }
 
+    public void buildBillFromId(String string) {
+        long id = -1;
+        try {
+            id = Long.parseLong(string);
+        }
+        catch (Exception e) {
+            return;
+        }
+        Id idx = new Id(id);
+        buildBillFromId(idx);
+    }
+
     public void buildValue(double value) {
         transfer.setValue(value);
+    }
+
+    public void buildValue(String string) {
+        double value = -1;
+        try {
+            value = Double.parseDouble(string);
+        }
+        catch (Exception e) {
+            return;
+        }
+        buildValue(value);
     }
 
     public static class Result {
@@ -44,7 +79,7 @@ public class TransferBuilder {
         public String description = "";
     }
 
-    public Result getUser() {
+    public Result getTransfer() {
         Result result = new Result();
         result.transfer = this.transfer;
 
