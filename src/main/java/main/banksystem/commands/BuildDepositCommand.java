@@ -3,7 +3,6 @@ package main.banksystem.commands;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import main.banksystem.DataBase;
-import main.banksystem.containers.Credit;
 import main.banksystem.containers.Deposit;
 import main.banksystem.containers.Id;
 
@@ -54,20 +53,20 @@ public class BuildDepositCommand implements ICommand {
     @Override
     public void execute() {
         DataBase dataBase = DataBase.getInstance();
-        Map<Id, Credit> credits = dataBase.downloadMap(DataBase.CREDITS_PART, Credit.class);
+        Map<Id, Deposit> deposits = dataBase.downloadMap(DataBase.DEPOSIT_PART, Deposit.class);
 
-        if (credits.containsKey(deposit.getId())) {
+        if (deposits.containsKey(deposit.getId())) {
             return;
         }
 
-        dataBase.save(deposit.getId(), DataBase.CREDITS_PART, deposit);
+        dataBase.save(deposit.getId(), DataBase.DEPOSIT_PART, deposit);
 
     }
 
     @Override
     public void undo() {
         DataBase dataBase = DataBase.getInstance();
-        dataBase.remove(deposit.getId(), DataBase.CREDITS_PART);
+        dataBase.remove(deposit.getId(), DataBase.DEPOSIT_PART);
     }
 
     @Override

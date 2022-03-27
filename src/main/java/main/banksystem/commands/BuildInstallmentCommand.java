@@ -3,7 +3,6 @@ package main.banksystem.commands;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import main.banksystem.DataBase;
-import main.banksystem.containers.Credit;
 import main.banksystem.containers.Id;
 import main.banksystem.containers.Installment;
 
@@ -54,20 +53,20 @@ public class BuildInstallmentCommand implements ICommand {
     @Override
     public void execute() {
         DataBase dataBase = DataBase.getInstance();
-        Map<Id, Credit> credits = dataBase.downloadMap(DataBase.CREDITS_PART, Credit.class);
+        Map<Id, Installment> installments = dataBase.downloadMap(DataBase.INSTALLMENT_PART, Installment.class);
 
-        if (credits.containsKey(installment.getId())) {
+        if (installments.containsKey(installment.getId())) {
             return;
         }
 
-        dataBase.save(installment.getId(), DataBase.CREDITS_PART, installment);
+        dataBase.save(installment.getId(), DataBase.INSTALLMENT_PART, installment);
 
     }
 
     @Override
     public void undo() {
         DataBase dataBase = DataBase.getInstance();
-        dataBase.remove(installment.getId(), DataBase.CREDITS_PART);
+        dataBase.remove(installment.getId(), DataBase.INSTALLMENT_PART);
     }
 
     @Override
