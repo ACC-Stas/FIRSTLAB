@@ -3,24 +3,22 @@ package main.banksystem.builders;
 import main.banksystem.DataBase;
 import main.banksystem.containers.*;
 
-import javax.xml.transform.Source;
+public class InstallmentBuilder {
+    private Installment installment;
 
-public class CreditBuilder {
-    private Credit credit;
-
-    public CreditBuilder() {
-        this.credit = new Credit();
+    public InstallmentBuilder() {
+        this.installment = new Installment();
     }
 
     public void reset() {
-        this.credit = new Credit();
+        this.installment = new Installment();
     }
 
-    public void buildBankBillId(Id bankBillId) {
-        credit.setBankBillId(bankBillId);
+    public void buildCompanyBillId(Id id) {
+        installment.setCompanyBillId(id);
     }
 
-    public void buildBankBillId(String string) {
+    public void buildCompanyBillId(String string) {
         long number = -1;
         try {
             number = Long.parseLong(string);
@@ -28,11 +26,11 @@ public class CreditBuilder {
             return;
         }
 
-        this.buildBankBillId(new Id(number));
+        this.buildCompanyBillId(new Id(number));
     }
 
     public void buildSourceBillId(Id SourceId) {
-        credit.setSourceBillId(SourceId);
+        installment.setSourceBillId(SourceId);
     }
 
     public void buildSourceBillId(String string) {
@@ -47,7 +45,7 @@ public class CreditBuilder {
     }
 
     public void buildSumToPay(double sum) {
-        credit.setSumToPay(sum);
+        installment.setSumToPay(sum);
     }
 
     public void buildSumToPay(String sum) {
@@ -62,7 +60,7 @@ public class CreditBuilder {
     }
 
     public void buildPercent(double sum) {
-        credit.setPercent(sum);
+        installment.setPercent(sum);
     }
 
     public void buildPercent(String sum) {
@@ -77,7 +75,7 @@ public class CreditBuilder {
     }
 
     public void buildId(Id id) {
-        credit.setId(id);
+        installment.setId(id);
     }
 
     public void buildId(String string) {
@@ -92,49 +90,50 @@ public class CreditBuilder {
     }
 
     public static class Result {
-        public Credit credit;
+        public Installment installment;
         public boolean valid;
         public String description = "";
     }
 
-    public Result getCredit() {
+    public Result getInstallment() {
         Result result = new Result();
         result.valid = true;
-        result.credit = this.credit;
+        result.installment = this.installment;
 
-        if (credit.getId() == null || credit.getId().getId() < 0) {
+        if (installment.getId() == null || installment.getId().getId() < 0) {
             result.valid = false;
             result.description = "Invalid credit id";
         }
 
-        if (credit.getSumToPay() < 0) {
+        if (installment.getSumToPay() < 0) {
             result.valid = false;
             result.description = "Invalid credit sum";
         }
 
-        if (credit.getPercent() < 0) {
+        if (installment.getPercent() < 0) {
             result.valid = false;
             result.description = "Invalid percent";
         }
 
-        if (credit.getBankBillId() == null) {
+        if (installment.getCompanyBillId() == null) {
             result.valid = false;
             result.description = "No bunk";
         } else {
+
             DataBase dataBase = DataBase.getInstance();
-            Bill bill = dataBase.download(credit.getBankBillId(), DataBase.COMPANY_PART, Bill.class);
+            Bill bill = dataBase.download(installment.getCompanyBillId(), DataBase.COMPANY_PART, Bill.class);
             if (bill == null) {
                 result.valid = false;
-                result.description = "No such bill in system";
+                result.description = "No such company bill in system";
             }
         }
 
-        if (credit.getSourceBillId() == null) {
+        if (installment.getSourceBillId() == null) {
             result.valid = false;
             result.description = "No source bill id";
         } else {
             DataBase dataBase = DataBase.getInstance();
-            Bill bill = dataBase.download(credit.getSourceBillId(), DataBase.BILLS_PART, Bill.class);
+            Bill bill = dataBase.download(installment.getSourceBillId(), DataBase.BILLS_PART, Bill.class);
             if (bill == null) {
                 result.valid = false;
                 result.description = "No such source bill id in system";
