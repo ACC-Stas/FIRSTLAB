@@ -19,7 +19,7 @@
                         <Font name="System Bold Italic" size="30.0" />
                     </font>
                 </Label>
-                <TabPane layoutY="50.0" prefHeight="560.0" prefWidth="1280.0" stylesheets="@tab_pane_sheet.css" tabClosingPolicy="UNAVAILABLE">
+                <TabPane layoutY="50.0" prefHeight="560.0" prefWidth="1280.0" stylesheets="@../tab_pane_sheet.css" tabClosingPolicy="UNAVAILABLE">
                     <tabs>
                         <Tab text="Просмотр действий специалиста">
                             <content>
@@ -27,7 +27,7 @@
                                     <children>
                                         <Accordion fx:id="historyAccordion" layoutX="50.0" layoutY="80.0" prefHeight="178.0" prefWidth="1180.0">
                                             <panes>
-                                                <TitledPane animated="false" prefHeight="108.0" prefWidth="1180.0" stylesheets="@pane_sheet.css" text="Счёт 1" textFill="WHITE">
+                                                <TitledPane animated="false" prefHeight="108.0" prefWidth="1180.0" stylesheets="@../pane_sheet.css" text="Счёт 1" textFill="WHITE">
                                                     <content>
                                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="138.0" prefWidth="1178.0">
                                                             <children>
@@ -95,7 +95,7 @@
                                     <children>
                                         <Accordion fx:id="creditsAndInstallmentAccordion" layoutX="50.0" layoutY="80.0" prefHeight="178.0" prefWidth="1180.0">
                                             <panes>
-                                                <TitledPane animated="false" prefHeight="108.0" prefWidth="1180.0" stylesheets="@pane_sheet.css" text="Счёт 1" textFill="WHITE">
+                                                <TitledPane animated="false" prefHeight="108.0" prefWidth="1180.0" stylesheets="@../pane_sheet.css" text="Счёт 1" textFill="WHITE">
                                                     <content>
                                                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="138.0" prefWidth="1178.0">
                                                             <children>

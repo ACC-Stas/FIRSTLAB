@@ -27,4 +27,6 @@ module main.banksystem {
     opens main.banksystem.containers to javafx.fxml;
     exports main.banksystem.builders;
     opens main.banksystem.builders to javafx.fxml;
+    exports main.banksystem.controllers.client;
+    opens main.banksystem.controllers.client to javafx.fxml;
 }

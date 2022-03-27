@@ -1,15 +1,19 @@
-package main.banksystem.controllers;
+package main.banksystem.controllers.client;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.Slider;
 
-public class CreateCreditMenuController {
+public class CloseCreditMenuController {
+
+    ObservableList<String> creditList = FXCollections.observableArrayList();
 
     @FXML
     private ResourceBundle resources;
@@ -18,28 +22,16 @@ public class CreateCreditMenuController {
     private URL location;
 
     @FXML
-    private ChoiceBox<String> billChoice;
+    private ChoiceBox<String> creditChoice;
 
     @FXML
     private Label errorLabel;
 
     @FXML
-    private ChoiceBox<String> percentChoice;
-
-    @FXML
-    private TextField percentField;
-
-    @FXML
-    private TabPane percentTabPane;
-
-    @FXML
-    private ChoiceBox<?> periodChoice;
-
-    @FXML
     private Button transferButton;
 
     @FXML
-    private TextField valueField;
+    private Slider valueSlider;
 
     @FXML
     void initialize() {

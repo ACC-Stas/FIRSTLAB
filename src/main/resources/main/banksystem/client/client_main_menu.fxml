@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.banksystem.controllers.ClientMainMenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.banksystem.controllers.client.ClientMainMenuController">
     <children>
         <AnchorPane layoutY="110.0" prefHeight="610.0" prefWidth="1280.0" style="-fx-background-color: #fafafafa;">
             <children>
@@ -18,7 +18,7 @@
                         <Font name="System Bold Italic" size="30.0" />
                     </font>
                 </Label>
-            <TabPane layoutY="50.0" prefHeight="560.0" prefWidth="1280.0" stylesheets="@tab_pane_sheet.css" tabClosingPolicy="UNAVAILABLE">
+            <TabPane layoutY="50.0" prefHeight="560.0" prefWidth="1280.0" stylesheets="@../tab_pane_sheet.css" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                   <Tab text="Мои счета">
                      <content>
@@ -26,7 +26,7 @@
                            <children>
                               <Accordion fx:id="billsAccordion" layoutX="50.0" layoutY="80.0" prefHeight="178.0" prefWidth="1180.0">
                                 <panes>
-                                  <TitledPane animated="false" prefHeight="108.0" prefWidth="1180.0" stylesheets="@pane_sheet.css" text="Счёт 1" textFill="WHITE">
+                                  <TitledPane animated="false" prefHeight="108.0" prefWidth="1180.0" stylesheets="@../pane_sheet.css" text="Счёт 1" textFill="WHITE">
                                     <content>
                                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="138.0" prefWidth="1178.0">
                                              <children>
@@ -117,7 +117,7 @@
                               </Button>
                               <Accordion fx:id="depositAccordion" layoutX="50.0" layoutY="80.0" prefHeight="178.0" prefWidth="1180.0">
                                  <panes>
-                                    <TitledPane animated="false" prefHeight="108.0" prefWidth="1180.0" stylesheets="@pane_sheet.css" text="Счёт 1" textFill="WHITE">
+                                    <TitledPane animated="false" prefHeight="108.0" prefWidth="1180.0" stylesheets="@../pane_sheet.css" text="Счёт 1" textFill="WHITE">
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="138.0" prefWidth="1178.0">
                                              <children>
@@ -179,7 +179,7 @@
                               </Button>
                               <Accordion fx:id="creditAccordion" layoutX="50.0" layoutY="80.0" prefHeight="178.0" prefWidth="1180.0">
                                  <panes>
-                                    <TitledPane animated="false" prefHeight="108.0" prefWidth="1180.0" stylesheets="@pane_sheet.css" text="Счёт 1" textFill="WHITE">
+                                    <TitledPane animated="false" prefHeight="108.0" prefWidth="1180.0" stylesheets="@../pane_sheet.css" text="Счёт 1" textFill="WHITE">
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="138.0" prefWidth="1178.0">
                                              <children>
@@ -241,7 +241,7 @@
                               </Button>
                               <Accordion fx:id="installmentAccordion" layoutX="50.0" layoutY="80.0" prefHeight="178.0" prefWidth="1180.0">
                                  <panes>
-                                    <TitledPane animated="false" prefHeight="108.0" prefWidth="1180.0" stylesheets="@pane_sheet.css" text="Счёт 1" textFill="WHITE">
+                                    <TitledPane animated="false" prefHeight="108.0" prefWidth="1180.0" stylesheets="@../pane_sheet.css" text="Счёт 1" textFill="WHITE">
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="138.0" prefWidth="1178.0">
                                              <children>
@@ -303,7 +303,7 @@
                               </Button>
                               <Accordion fx:id="salaryAccordion" layoutX="50.0" layoutY="80.0" prefHeight="178.0" prefWidth="1180.0">
                                  <panes>
-                                    <TitledPane animated="false" prefHeight="108.0" prefWidth="1180.0" stylesheets="@pane_sheet.css" text="Счёт 1" textFill="WHITE">
+                                    <TitledPane animated="false" prefHeight="108.0" prefWidth="1180.0" stylesheets="@../pane_sheet.css" text="Счёт 1" textFill="WHITE">
                                        <content>
                                           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="138.0" prefWidth="1178.0">
                                              <children>

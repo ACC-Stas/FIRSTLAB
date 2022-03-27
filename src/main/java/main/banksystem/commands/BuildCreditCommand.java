@@ -63,14 +63,4 @@ public class BuildCreditCommand implements ICommand {
     public void setType(ICommand.Type type) {
         this.type = type;
     }
-
-    @Override
-    public void setApproveLevel(Role role) {
-        this.role = role;
-    }
-
-    @Override
-    public Role getApproveLevel() {
-        return role;
-    }
 }

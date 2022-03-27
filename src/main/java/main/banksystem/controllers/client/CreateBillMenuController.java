@@ -1,4 +1,4 @@
-package main.banksystem.controllers;
+package main.banksystem.controllers.client;
 
 import java.net.URL;
 import java.util.ResourceBundle;
