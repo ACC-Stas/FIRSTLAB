@@ -163,6 +163,7 @@ public class RegistrationMenuController {
             IndexGenerator generator = IndexGenerator.getInstance();
             user.user.setIdx(new Id(generator.generateIdx(IndexGenerator.USER_IDX)));
 
+            ICommand.Type type = new ICommand.Type(true, false);
             RegistryCommand command = new RegistryCommand(user.user);
 
             User initUser = new User();

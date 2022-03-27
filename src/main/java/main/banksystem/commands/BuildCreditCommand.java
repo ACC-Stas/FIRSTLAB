@@ -17,7 +17,6 @@ public class BuildCreditCommand implements ICommand {
     private ICommand.Type type;
     private Credit credit;
     private String description;
-    private Role role;
 
     @Override
     public Type getType() {
@@ -73,11 +72,4 @@ public class BuildCreditCommand implements ICommand {
         this.type = type;
     }
 
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
-    }
 }

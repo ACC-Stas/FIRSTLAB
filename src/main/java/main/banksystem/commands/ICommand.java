@@ -24,8 +24,42 @@ public interface ICommand extends Serializable {
 
     void undo();
 
+    Type getType();
+
+    void setType(ICommand.Type type);
+
     String getDescription();
 
     void setDescription(String description);
 
+    class Type {
+        public Type(boolean approvable, boolean saveable) {
+            this.approvable = approvable;
+            this.saveable = saveable;
+        }
+
+        public Type() {
+            this.approvable = false;
+            this.saveable = false;
+        }
+
+        private boolean approvable;
+        private boolean saveable;
+
+        public boolean isSaveable() {
+            return saveable;
+        }
+
+        public void setSaveable(boolean saveable) {
+            this.saveable = saveable;
+        }
+
+        public boolean isApprovable() {
+            return approvable;
+        }
+
+        public void setApprovable(boolean approvable) {
+            this.approvable = approvable;
+        }
+    }
 }
