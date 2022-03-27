@@ -7,8 +7,6 @@ import main.banksystem.DataBase;
 import main.banksystem.IndexGenerator;
 import main.banksystem.containers.Bill;
 import main.banksystem.containers.Id;
-import main.banksystem.containers.Role;
-
 import java.util.Map;
 
 @JsonTypeName("BuildBillCommand")
