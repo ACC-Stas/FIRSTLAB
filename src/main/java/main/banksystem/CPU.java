@@ -25,36 +25,36 @@ public class CPU {
     private static final StringConverter<Queue<String>> queueConverter = new StringConverter<>();
     private static final StringConverter<Stack<String>> stackConverter = new StringConverter<>();
 
-    public void HeldCommand(ICommand command) {
-        if (command.GetType().isApprovable()) {
+    public void heldCommand(ICommand command) {
+        if (command.getType().isApprovable()) {
             String rawData = dataBase.download(cpuUser.getIdx(), DataBase.QUEUE_PART);
-            Queue<String> stringQueue = queueConverter.Deserialize(rawData, Queue.class);
-            Queue<ICommand> queue = commandConverter.Deserialize(stringQueue, ICommand.class);
+            Queue<String> stringQueue = queueConverter.deserialize(rawData, Queue.class);
+            Queue<ICommand> queue = commandConverter.deserialize(stringQueue, ICommand.class);
 
             if (queue == null) {
                 queue = new LinkedList<>();
             }
             queue.add(command);
 
-            stringQueue = commandConverter.Serialize(queue);
-            rawData = queueConverter.Serialize(stringQueue);
+            stringQueue = commandConverter.serialize(queue);
+            rawData = queueConverter.serialize(stringQueue);
             dataBase.save(cpuUser.getIdx(), DataBase.QUEUE_PART, rawData);
             return;
         }
 
         command.execute();
-        if (command.GetType().isSaveable()) {
+        if (command.getType().isSaveable()) {
             String rawData = dataBase.download(cpuUser.getIdx(), DataBase.STACK_PART);
-            Stack<String> stringStack = stackConverter.Deserialize(rawData, Stack.class);
-            Stack<ICommand> stack = commandConverter.Deserialize(stringStack, ICommand.class);
+            Stack<String> stringStack = stackConverter.deserialize(rawData, Stack.class);
+            Stack<ICommand> stack = commandConverter.deserialize(stringStack, ICommand.class);
 
             if (stack == null) {
                 stack = new Stack<>();
             }
             stack.push(command);
 
-            stringStack = commandConverter.Serialize(stack);
-            rawData = stackConverter.Serialize(stringStack);
+            stringStack = commandConverter.serialize(stack);
+            rawData = stackConverter.serialize(stringStack);
             dataBase.save(cpuUser.getIdx(), DataBase.STACK_PART, rawData);
         }
     }

@@ -16,19 +16,19 @@ public class UserBuilder {
         user = new User();
     }
 
-    public void Reset() {
+    public void reset() {
         user = new User();
     }
 
-    public void BuildPassport(Passport passport) {
+    public void buildPassport(Passport passport) {
         user.setPassport(passport);
     }
 
-    public void BuildIdx(Id idx) {
+    public void buildIdx(Id idx) {
         user.setIdx(idx);
     }
 
-    public void BuildIdx(String string) {
+    public void buildIdx(String string) {
         Id idx;
         try {
             idx = new Id(Long.parseLong(string));
@@ -39,30 +39,30 @@ public class UserBuilder {
         user.setIdx(idx);
     }
 
-    public void BuildNumber(String number) {
+    public void buildNumber(String number) {
         user.setNumber(number);
     }
 
-    public void BuildEmail(String email) {
+    public void buildEmail(String email) {
         user.setEmail(email);
     }
 
-    public void BuildPassword(String password) {
+    public void buildPassword(String password) {
         user.setPassword(password);
     }
 
-    public void BuildRole(Role role) {
+    public void buildRole(Role role) {
         user.setRole(role);
     }
 
-    public void BuildRole(String role) {
+    public void buildRole(String role) {
         try {
             user.setRole(Role.valueOf(role));
         } catch (IllegalArgumentException ignored) {
         }
     }
 
-    public void BuildLogin(String login) {
+    public void buildLogin(String login) {
         user.setLogin(login);
     }
 

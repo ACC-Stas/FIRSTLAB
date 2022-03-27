@@ -11,45 +11,45 @@ public class PassportBuilder {
         passport = new Passport();
     }
 
-    public void Reset() {
+    public void reset() {
         passport = new Passport();
     }
 
-    public void BuildFullName(FullName fullName) {
+    public void buildFullName(FullName fullName) {
         passport.setFullName(fullName);
     }
 
-    public void BuildCitizenship(Citizenship citizenship) {
+    public void buildCitizenship(Citizenship citizenship) {
         passport.setCitizenship(citizenship);
     }
 
-    public void BuildCitizenship(String citizenship) {
+    public void buildCitizenship(String citizenship) {
         try {
             passport.setCitizenship(Citizenship.valueOf(citizenship));
         } catch (IllegalArgumentException ignored) {
         }
     }
 
-    public void BuildSex(Sex sex) {
+    public void buildSex(Sex sex) {
         passport.setSex(sex);
     }
 
-    public void BuildSex(String sex) {
+    public void buildSex(String sex) {
         try {
             passport.setSex(Sex.valueOf(sex));
         } catch (IllegalArgumentException ignored) {
         }
     }
 
-    public void BuildAddress(Address address) {
+    public void buildAddress(Address address) {
         passport.setAddress(address);
     }
 
-    public void BuildIdx(Id idx) {
+    public void buildIdx(Id idx) {
         passport.setIdx(idx);
     }
 
-    public void BuildIdx(String string) {
+    public void buildIdx(String string) {
         Id idx;
         try {
             idx = new Id(Long.parseLong(string));
@@ -59,7 +59,7 @@ public class PassportBuilder {
         passport.setIdx(idx);
     }
 
-    public void BuildBirthday(LocalDate birthday) {
+    public void buildBirthday(LocalDate birthday) {
         passport.setBirthday(birthday);
     }
 

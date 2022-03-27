@@ -12,11 +12,11 @@ public class TransferBuilder {
         transfer = new Transfer();
     }
 
-    public void Reset() {
+    public void reset() {
         transfer = new Transfer();
     }
 
-    public void BuildBillToId(Id id) {
+    public void buildBillToId(Id id) {
         DataBase dataBase = DataBase.getInstance();
         Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
         if (!bills.containsKey(id)) {
@@ -25,7 +25,7 @@ public class TransferBuilder {
         transfer.setBillToId(id);
     }
 
-    public void BuildBillFromId(Id id) {
+    public void buildBillFromId(Id id) {
         DataBase dataBase = DataBase.getInstance();
         Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
         if (!bills.containsKey(id)) {
@@ -34,7 +34,7 @@ public class TransferBuilder {
         transfer.setBillToId(id);
     }
 
-    public void BuildValue(double value) {
+    public void buildValue(double value) {
         transfer.setValue(value);
     }
 

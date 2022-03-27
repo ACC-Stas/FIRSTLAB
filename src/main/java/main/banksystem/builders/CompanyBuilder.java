@@ -13,7 +13,7 @@ public class CompanyBuilder {
         company = new Company();
     }
 
-    public void Reset() {
+    public void reset() {
         company = new Company();
     }
 
@@ -23,26 +23,26 @@ public class CompanyBuilder {
         public String description = "";
     }
 
-    public void BuildType(Company.Type type) {
+    public void buildType(Company.Type type) {
         company.setType(type);
     }
 
-    public void BuildType(String type) {
+    public void buildType(String type) {
         try {
             company.setType(Company.Type.valueOf(type));
         } catch (IllegalArgumentException ignored) {
         }
     }
 
-    public void BuildName(String name) {
+    public void buildName(String name) {
         company.setjName(name);
     }
 
-    public void BuildBankId(BIC bic) {
+    public void buildBankId(BIC bic) {
         company.setBankID(bic);
     }
 
-    public void BuildBankId(String bic) {
+    public void buildBankId(String bic) {
         Id idx;
         try {
             idx = new Id(Long.parseLong(bic));
@@ -53,11 +53,11 @@ public class CompanyBuilder {
         company.setBankID(new BIC(idx));
     }
 
-    public void BuildPAN(Id pan) {
+    public void buildPAN(Id pan) {
         company.setPAN(pan);
     }
 
-    public void BuildPAN(String pan) {
+    public void buildPAN(String pan) {
         Id idx;
         try {
             idx = new Id(Long.parseLong(pan));
@@ -67,15 +67,15 @@ public class CompanyBuilder {
         company.setPAN(idx);
     }
 
-    public void BuildAddress(Address address) {
+    public void buildAddress(Address address) {
         company.setjAddress(address);
     }
 
-    public void BuildCompanyId(Id id) {
+    public void buildCompanyId(Id id) {
         company.setBillCompanyId(id);
     }
 
-    public void BuildCompanyId(String string) {
+    public void buildCompanyId(String string) {
         Id idx;
         try {
             idx = new Id(Long.parseLong(string));
@@ -86,7 +86,7 @@ public class CompanyBuilder {
         company.setBillCompanyId(idx);
     }
 
-    public void BuildIsBank(String isBank) {
+    public void buildIsBank(String isBank) {
         if (isBank == "Bank"){
             company.setIsBank(true);
         }
@@ -118,8 +118,8 @@ public class CompanyBuilder {
             }
         }
 
-        DataBase dataBase = DataBase.GetInstance();
-        Map<Id, Company> companies = dataBase.DownloadMap(DataBase.COMPANY_PART, Company.class);
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
         for (Company loopCompany : companies.values()) {
             if (Objects.equals(company.getPAN(), loopCompany.getPAN())) {
                 result.valid = false;

@@ -31,14 +31,6 @@ public class TransferCommand implements ICommand {
         this.role = role;
     }
 
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
-    }
-
     @Override
     public String getDescription() {
         return description;
@@ -135,12 +127,12 @@ public class TransferCommand implements ICommand {
     }
 
     @Override
-    public Type GetType() {
+    public Type getType() {
         return type;
     }
 
     @Override
-    public void SetType(ICommand.Type type) {
+    public void setType(ICommand.Type type) {
         this.type = type;
     }
 

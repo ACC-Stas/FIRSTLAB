@@ -3,16 +3,16 @@ package main.banksystem.commands;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import main.banksystem.DataBase;
 import main.banksystem.StringConverter;
+import main.banksystem.containers.Company;
 import main.banksystem.containers.Role;
-import main.banksystem.containers.User;
 
 @JsonTypeName("RegistryCompanyCommand")
 public class RegistryCompanyCommand implements ICommand {
 
     private ICommand.Type type;
-    private final User user;
+    private final Company company;
     private Role role;
-    private final StringConverter<User> converter;
+    private final StringConverter<Company> converter;
 
     @Override
     public String getDescription() {
@@ -36,8 +36,8 @@ public class RegistryCompanyCommand implements ICommand {
 
     private String description;
 
-    RegistryCompanyCommand(User user, ICommand.Type type) {
-        this.user = user;
+    public RegistryCompanyCommand(Company company, ICommand.Type type) {
+        this.company = company;
         this.type = type;
         this.converter = new StringConverter<>();
     }
@@ -45,23 +45,23 @@ public class RegistryCompanyCommand implements ICommand {
     @Override
     public void execute() {
         DataBase dataBase = DataBase.getInstance();
-        dataBase.save(user.getIdx(), DataBase.COMPANY_PART, converter.Serialize(this.user));
+        dataBase.save(company.getPAN(), DataBase.COMPANY_PART, converter.serialize(this.company));
     }
 
     @Override
     public void undo() {
         DataBase dataBase = DataBase.getInstance();
-        dataBase.remove(user.getIdx(), DataBase.COMPANY_PART);
+        dataBase.remove(company.getPAN(), DataBase.COMPANY_PART);
 
     }
 
     @Override
-    public ICommand.Type GetType() {
+    public ICommand.Type getType() {
         return type;
     }
 
     @Override
-    public void SetType(ICommand.Type type) {
+    public void setType(ICommand.Type type) {
         this.type = type;
     }
 }

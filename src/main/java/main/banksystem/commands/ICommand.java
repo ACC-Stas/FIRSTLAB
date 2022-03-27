@@ -23,9 +23,9 @@ public interface ICommand extends Serializable {
 
     void undo();
 
-    Type GetType();
+    Type getType();
 
-    void SetType(ICommand.Type type);
+    void setType(ICommand.Type type);
 
     String getDescription();
 
