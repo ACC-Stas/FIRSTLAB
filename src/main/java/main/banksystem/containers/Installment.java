@@ -9,6 +9,14 @@ public class Installment {
         this.id = id;
     }
 
+    public Installment(){
+        this.companyBillId = null;
+        this.sourceBillId = null;
+        this.sumToPay = -1;
+        this.percent = -1;
+        this.id = null;
+    }
+
     Id companyBillId;
     Id sourceBillId;
     double sumToPay;
