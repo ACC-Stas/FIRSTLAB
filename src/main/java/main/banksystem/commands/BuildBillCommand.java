@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import main.banksystem.DataBase;
+import main.banksystem.IndexGenerator;
 import main.banksystem.StringConverter;
 import main.banksystem.containers.Bill;
 import main.banksystem.containers.Id;
@@ -49,7 +50,13 @@ public class BuildBillCommand implements ICommand {
         DataBase dataBase = DataBase.getInstance();
 
         Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
-        dataBase.save(bill.getId(), DataBase.BILLS_PART, converter.serialize(this.bill));
+        if (!bills.containsKey(bill.getId())) {
+            dataBase.save(bill.getId(), DataBase.BILLS_PART, converter.serialize(this.bill));
+        }
+        else {
+            IndexGenerator indexGenerator = IndexGenerator.getInstance();
+            dataBase.save(new Id(indexGenerator.generateIdx(IndexGenerator.BILLS_IDX)), DataBase.BILLS_PART, converter.serialize(this.bill));
+        }
     }
 
     @Override

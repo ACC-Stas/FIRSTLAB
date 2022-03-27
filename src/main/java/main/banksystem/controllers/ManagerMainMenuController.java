@@ -67,8 +67,8 @@ public class ManagerMainMenuController {
     void createCreditAccordion(){
         creditsAndInstallmentAccordion.getPanes().clear();
 
-        DataBase dataBase = DataBase.GetInstance();
-        Map<Id, User> users = dataBase.DownloadMap(DataBase.USER_PART, User.class);
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, User> users = dataBase.downloadMap(DataBase.USER_PART, User.class);
         Set<Id> ids = users.keySet();
 
     }

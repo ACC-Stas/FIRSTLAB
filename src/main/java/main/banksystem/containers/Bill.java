@@ -6,11 +6,6 @@ public class Bill {
         this.money = money;
         this.billConditions = billConditions;
     }
-    public Bill() {
-        this.id = null;
-        this.money = 0;
-        this.billConditions = null;
-    }
 
     public Bill() {
         this.id = null;
