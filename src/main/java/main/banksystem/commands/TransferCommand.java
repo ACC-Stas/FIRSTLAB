@@ -13,7 +13,6 @@ public class TransferCommand implements ICommand {
     private ICommand.Type type;
     private Transfer transfer;
     private String description = "";
-    private Role role;
 
     public Transfer getTransfer() {
         return transfer;
@@ -21,14 +20,6 @@ public class TransferCommand implements ICommand {
 
     public void setTransfer(Transfer transfer) {
         this.transfer = transfer;
-    }
-
-    public Role getRole() {
-        return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     @Override
@@ -42,7 +33,7 @@ public class TransferCommand implements ICommand {
     }
 
     @JsonCreator
-    public TransferCommand(@JsonProperty("transfer") Transfer transfer) {
+    public TransferCommand(Transfer transfer) {
         this.transfer = transfer;
     }
 

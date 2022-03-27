@@ -56,11 +56,11 @@ public class ManagerMainMenuController {
         createRegistrationAccordion();
 
         toClientButton.setOnAction(event -> {
-            switchMenu(toClientButton, "/main/banksystem/client_main_menu.fxml");
+            switchMenu(toClientButton, "/main/banksystem/client/client_main_menu.fxml");
         });
 
         toOperatorButton.setOnAction(event -> {
-            switchMenu(toClientButton, "/main/banksystem/operator_main_menu.fxml");
+            switchMenu(toClientButton, "/main/banksystem/operator/operator_main_menu.fxml");
         });
     }
 

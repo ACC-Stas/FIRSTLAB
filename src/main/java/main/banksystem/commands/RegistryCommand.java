@@ -14,10 +14,10 @@ import java.util.Objects;
 
 @JsonTypeName("RegistryCommand")
 public class RegistryCommand implements ICommand {
+
     private ICommand.Type type;
     private User user;
     private String description;
-    private Role role;
 
     @Override
     public Type getType() {
@@ -43,10 +43,9 @@ public class RegistryCommand implements ICommand {
     }
 
     @JsonCreator
-    public RegistryCommand(@JsonProperty("user") User user, @JsonProperty("type") ICommand.Type type) {
+    public RegistryCommand(User user, ICommand.Type type) {
         this.user = user;
         this.type = type;
-        this.role = null;
         this.description = String.format("User %s want's to register in system. His passport id is %d",
                 user.getLogin(), user.getPassport().getIdx().getId());
     }
@@ -61,7 +60,6 @@ public class RegistryCommand implements ICommand {
                 break;
             }
         }
-
 
         dataBase.save(user.getIdx(), DataBase.USER_PART, this.user);
     }
