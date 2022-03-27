@@ -5,6 +5,10 @@ public class BIC implements java.io.Serializable {
         this.id = id;
     }
 
+    public BIC(){
+        this.id = null;
+    }
+
     private Id id;
 
     public void setId(Id id) {

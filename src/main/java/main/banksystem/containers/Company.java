@@ -89,7 +89,7 @@ public class Company implements java.io.Serializable {
         this.billCompanyId = billCompanyId;
     }
 
-    public boolean isBank() {
+    public boolean getIsBank() {
         return isBank;
     }
 

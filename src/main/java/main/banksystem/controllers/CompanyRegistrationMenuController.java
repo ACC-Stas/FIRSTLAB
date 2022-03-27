@@ -13,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.banksystem.CPU;
 import main.banksystem.DataBase;
-import main.banksystem.IndexGenerator;
 import main.banksystem.builders.AddressBuilder;
 import main.banksystem.builders.CompanyBuilder;
 import main.banksystem.commands.ICommand;
@@ -77,7 +76,7 @@ public class CompanyRegistrationMenuController {
         DataBase dataBase = DataBase.getInstance();
         Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
         for (Company company : companies.values()) {
-            if (company.isBank()) {
+            if (company.getIsBank()) {
                 friendList.add(company.getPAN().toString());
             }
         }

@@ -129,7 +129,7 @@ public class CompanyBuilder {
         }
 
         if (company.getBankID() == null) {
-            if (company.isBank()) {
+            if (company.getIsBank()) {
                 company.setBankID(new BIC(company.getPAN()));
             }
             if (company.getBankID() == null) {
