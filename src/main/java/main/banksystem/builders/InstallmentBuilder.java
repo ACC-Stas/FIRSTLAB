@@ -60,7 +60,7 @@ public class InstallmentBuilder {
     }
 
     public void buildPercent(double sum) {
-        installment.setSumToPay(sum);
+        installment.setPercent(sum);
     }
 
     public void buildPercent(String sum) {
