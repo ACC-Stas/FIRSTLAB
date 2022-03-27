@@ -13,6 +13,7 @@ public class Credit implements java.io.Serializable {
     Id sourceBillId;
     double sumToPay;
     Id id;
+    double percent;
 
     public Id getId() {
         return id;
@@ -53,6 +54,4 @@ public class Credit implements java.io.Serializable {
     public void setPercent(double percent) {
         this.percent = percent;
     }
-
-    double percent;
 }

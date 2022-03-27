@@ -1,14 +1,10 @@
 package main.banksystem.commands;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import main.banksystem.DataBase;
 import main.banksystem.IndexGenerator;
 import main.banksystem.containers.*;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 @JsonTypeName("BuildBillCommand")
@@ -74,7 +70,7 @@ public class BuildBillCommand implements ICommand {
 
         Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
         Company bank = companies.get(bankId);
-        bank.getBillsIds().add(bill.getId());
+        bank.getSpecialistIds().add(bill.getId());
         dataBase.save(bank.getPAN(), DataBase.COMPANY_PART, bank);
     }
 
@@ -86,11 +82,11 @@ public class BuildBillCommand implements ICommand {
         Map<Id, User> users = dataBase.downloadMap(DataBase.USER_PART, User.class);
         User user = users.get(userId);
         user.getBillIds().remove(bill.getId());
-        dataBase.save(user.getIdx(), DataBase.USER_PART, User.class);
+        dataBase.save(user.getIdx(), DataBase.USER_PART, user);
 
         Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
         Company bank = companies.get(bankId);
-        bank.getBillsIds().remove(bill.getId());
+        bank.getSpecialistIds().remove(bill.getId());
         dataBase.save(bank.getPAN(), DataBase.COMPANY_PART, bank);
     }
 
