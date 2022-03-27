@@ -91,7 +91,7 @@ public class CreditBuilder {
         this.buildId(new Id(number));
     }
 
-    static class Result {
+    public static class Result {
         public Credit credit;
         public boolean valid;
         public String description = "";
@@ -121,15 +121,11 @@ public class CreditBuilder {
             result.valid = false;
             result.description = "No bunk";
         } else {
-
             DataBase dataBase = DataBase.getInstance();
-            Company company = dataBase.download(credit.getBankBillId(), DataBase.COMPANY_PART, Company.class);
-            if (company == null) {
+            Bill bill = dataBase.download(credit.getBankBillId(), DataBase.COMPANY_PART, Bill.class);
+            if (bill == null) {
                 result.valid = false;
-                result.description = "No such bunk in system";
-            } else if (!company.getIsBank()) {
-                result.valid = false;
-                result.description = "It is company id, not bunk";
+                result.description = "No such bill in system";
             }
         }
 

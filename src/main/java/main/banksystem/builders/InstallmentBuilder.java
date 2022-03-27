@@ -89,7 +89,7 @@ public class InstallmentBuilder {
         this.buildId(new Id(number));
     }
 
-    static class Result {
+    public static class Result {
         public Installment installment;
         public boolean valid;
         public String description = "";
@@ -121,13 +121,10 @@ public class InstallmentBuilder {
         } else {
 
             DataBase dataBase = DataBase.getInstance();
-            Company company = dataBase.download(installment.getCompanyBillId(), DataBase.COMPANY_PART, Company.class);
-            if (company == null) {
+            Bill bill = dataBase.download(installment.getCompanyBillId(), DataBase.COMPANY_PART, Bill.class);
+            if (bill == null) {
                 result.valid = false;
-                result.description = "No such company in system";
-            } else if (company.getIsBank()) {
-                result.valid = false;
-                result.description = "It is bunk id, not company";
+                result.description = "No such company bill in system";
             }
         }
 

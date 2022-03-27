@@ -48,7 +48,7 @@ public class SalaryProjectBuilder {
         salaryProject.setSum(sum);
     }
 
-    public void buildSumToPay(String sum) {
+    public void buildSum(String sum) {
         double val = -1;
         try {
             val = Double.parseDouble(sum);
@@ -59,11 +59,11 @@ public class SalaryProjectBuilder {
         this.buildSum(val);
     }
 
-    public void buildId(Id id) {
+    public void buildSalaryProjectId(Id id) {
         salaryProject.setSalaryProjectId(id);
     }
 
-    public void buildId(String string) {
+    public void buildSalaryProjectId(String string) {
         long number = -1;
         try {
             number = Long.parseLong(string);
@@ -71,10 +71,10 @@ public class SalaryProjectBuilder {
             return;
         }
 
-        this.buildId(new Id(number));
+        this.buildSalaryProjectId(new Id(number));
     }
 
-    static class Result {
+    public static class Result {
         public SalaryProject salaryProject;
         public boolean valid;
         public String description = "";

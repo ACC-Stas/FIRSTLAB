@@ -74,7 +74,7 @@ public class DepositBuilder {
         this.buildId(new Id(number));
     }
 
-    static class Result {
+    public static class Result {
         public Deposit deposit;
         public boolean valid;
         public String description = "";
@@ -97,17 +97,14 @@ public class DepositBuilder {
 
         if (deposit.getBankBillId() == null) {
             result.valid = false;
-            result.description = "No bunk";
+            result.description = "No bank bill id";
         } else {
 
             DataBase dataBase = DataBase.getInstance();
-            Company company = dataBase.download(deposit.getBankBillId(), DataBase.COMPANY_PART, Company.class);
-            if (company == null) {
+            Bill bill = dataBase.download(deposit.getBankBillId(), DataBase.COMPANY_PART, Bill.class);
+            if (bill == null) {
                 result.valid = false;
-                result.description = "No such bunk in system";
-            } else if (!company.getIsBank()) {
-                result.valid = false;
-                result.description = "It is company id, not bunk";
+                result.description = "No such bank bill in system";
             }
         }
 
