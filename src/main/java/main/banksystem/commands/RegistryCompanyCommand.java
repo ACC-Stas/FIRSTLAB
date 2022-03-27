@@ -12,7 +12,6 @@ public class RegistryCompanyCommand implements ICommand {
     private ICommand.Type type;
     private final Company company;
     private Role role;
-    private final StringConverter<Company> converter;
 
     @Override
     public String getDescription() {
@@ -29,13 +28,12 @@ public class RegistryCompanyCommand implements ICommand {
     public RegistryCompanyCommand(Company company, ICommand.Type type) {
         this.company = company;
         this.type = type;
-        this.converter = new StringConverter<>();
     }
 
     @Override
     public void execute() {
         DataBase dataBase = DataBase.getInstance();
-        dataBase.save(company.getPAN(), DataBase.COMPANY_PART, converter.serialize(this.company));
+        dataBase.save(company.getPAN(), DataBase.COMPANY_PART, this.company);
     }
 
     @Override

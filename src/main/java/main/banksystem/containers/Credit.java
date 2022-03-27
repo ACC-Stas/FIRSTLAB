@@ -12,6 +12,4 @@ public class Credit implements java.io.Serializable {
     Id sourceBillId;
     double sumToPay;
     double percent;
-
-    void Update(){}
 }

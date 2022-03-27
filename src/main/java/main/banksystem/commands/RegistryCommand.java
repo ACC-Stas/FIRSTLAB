@@ -18,7 +18,6 @@ public class RegistryCommand implements ICommand {
     private User user;
     private String description;
     private Role role;
-    private static final StringConverter<User> converter = new StringConverter<>();
 
     @Override
     public Type getType() {
@@ -64,7 +63,7 @@ public class RegistryCommand implements ICommand {
         }
 
 
-        dataBase.save(user.getIdx(), DataBase.USER_PART, converter.serialize(this.user));
+        dataBase.save(user.getIdx(), DataBase.USER_PART, this.user);
     }
 
     @Override
