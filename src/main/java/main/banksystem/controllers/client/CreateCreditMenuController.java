@@ -46,14 +46,14 @@ public class CreateCreditMenuController {
     private ChoiceBox<String> periodChoice;
 
     @FXML
-    private Button transferButton;
+    private Button creditButton;
 
     @FXML
     private TextField valueField;
 
     @FXML
     void initialize() {
-        /*ProgramStatus status = ProgramStatus.getInstance();
+        ProgramStatus status = ProgramStatus.getInstance();
         ArrayList<Id> ids = status.getUser().getBillIds();
 
         DataBase dataBase = DataBase.getInstance();
@@ -63,7 +63,7 @@ public class CreateCreditMenuController {
             billList.add(String.valueOf(id.getId()) + " " + bills.get(id).getMoney() + "$");
         }
         billChoice.setItems(billList);
-*/
+
         for (Period period : Period.values()) {
             periodList.add(period.toString());
         }
@@ -76,6 +76,9 @@ public class CreateCreditMenuController {
         percentChoice.setItems((percentList));
         percentChoice.setValue(percentList.get(0));
 
+        creditButton.setOnAction(event -> {
+
+        });
 
     }
 

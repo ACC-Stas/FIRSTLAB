@@ -12,10 +12,12 @@ public class User implements java.io.Serializable {
         this.role = role;
         this.login = login;
         this.billIds = new ArrayList<Id>();
+        this.salaryIds = new ArrayList<Id>();
     }
 
     public User() {
         this.billIds = new ArrayList<Id>();
+        this.salaryIds = new ArrayList<Id>();
     }
 
     private Passport passport;
@@ -26,6 +28,15 @@ public class User implements java.io.Serializable {
     private String login;
     private Role role;
     private ArrayList<Id> billIds;
+    private ArrayList<Id> salaryIds;
+
+    public ArrayList<Id> getSalaryIds() {
+        return salaryIds;
+    }
+
+    public void setSalaryIds(ArrayList<Id> salaryIds) {
+        this.salaryIds = salaryIds;
+    }
 
     public Passport getPassport() {
         return passport;

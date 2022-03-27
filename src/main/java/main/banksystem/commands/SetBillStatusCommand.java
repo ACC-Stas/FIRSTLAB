@@ -13,12 +13,14 @@ public class SetBillStatusCommand implements ICommand {
     private Id billId;
     private BillConditions previousCondition;
     private BillConditions newCondition;
+    private ICommand.Type type;
     private String description;
 
-    public SetBillStatusCommand(Id billId, BillConditions previousCondition, BillConditions newCondition) {
+    public SetBillStatusCommand(Id billId, BillConditions previousCondition, BillConditions newCondition, ICommand.Type type) {
         this.billId = billId;
         this.previousCondition = previousCondition;
         this.newCondition = newCondition;
+        this.type = type;
         this.description = String.format("Change condition of %d bill from %s to %s",
                 billId.getId(), previousCondition.toString(), newCondition.toString());
     }
@@ -28,6 +30,7 @@ public class SetBillStatusCommand implements ICommand {
         this.billId = null;
         this.previousCondition = null;
         this.newCondition = null;
+        this.type = null;
         this.description = "No description";
     }
 
