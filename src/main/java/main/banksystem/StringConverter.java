@@ -45,8 +45,31 @@ public class StringConverter<T> {
         return output;
     }
 
+    public List<String> serialize(List<T> objects) {
+        List<String> output = new LinkedList<>();
+
+        for (T object : objects) {
+            output.add(this.serialize(object));
+        }
+        return output;
+    }
+
     public Stack<T> deserialize(Stack<String> strings, Class type) {
         Stack<T> output = new Stack<>();
+
+        if (strings == null) {
+            return null;
+        }
+
+        for (String string : strings) {
+            output.add(this.deserialize(string, type));
+        }
+
+        return output;
+    }
+
+    public List<T> deserialize(List<String> strings, Class type) {
+        List<T> output = new Stack<>();
 
         if (strings == null) {
             return null;
