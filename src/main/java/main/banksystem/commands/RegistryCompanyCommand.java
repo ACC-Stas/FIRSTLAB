@@ -5,7 +5,6 @@ import main.banksystem.DataBase;
 import main.banksystem.StringConverter;
 import main.banksystem.containers.Company;
 import main.banksystem.containers.Role;
-import main.banksystem.containers.User;
 
 @JsonTypeName("RegistryCompanyCommand")
 public class RegistryCompanyCommand implements ICommand {
@@ -23,16 +22,6 @@ public class RegistryCompanyCommand implements ICommand {
     @Override
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    @Override
-    public Role getApproveLevel() {
-        return role;
-    }
-
-    @Override
-    public void setApproveLevel(Role role) {
-        this.role = role;
     }
 
     private String description;

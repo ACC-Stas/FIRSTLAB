@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.NamedType;
 import main.banksystem.commands.BuildBillCommand;
+import main.banksystem.commands.RegistryCommand;
 import main.banksystem.commands.RegistryCompanyCommand;
 import java.util.*;
 
@@ -12,7 +13,7 @@ public class StringConverter<T> {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     static {
-        MAPPER.registerSubtypes(new NamedType(BuildBillCommand.class, "RegistryCommand"));
+        MAPPER.registerSubtypes(new NamedType(RegistryCommand.class, "RegistryCommand"));
         MAPPER.registerSubtypes(new NamedType(RegistryCompanyCommand.class, "RegistryCompanyCommand"));
         MAPPER.findAndRegisterModules();
     }

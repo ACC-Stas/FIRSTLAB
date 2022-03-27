@@ -10,7 +10,6 @@ import main.banksystem.containers.Id;
 import main.banksystem.containers.Role;
 
 import java.util.Map;
-import java.util.Objects;
 
 @JsonTypeName("BuildBillCommand")
 public class BuildBillCommand implements ICommand {
@@ -44,16 +43,6 @@ public class BuildBillCommand implements ICommand {
     @Override
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    @Override
-    public Role getApproveLevel() {
-        return role;
-    }
-
-    @Override
-    public void setApproveLevel(Role role) {
-        this.role = role;
     }
 
     @JsonCreator

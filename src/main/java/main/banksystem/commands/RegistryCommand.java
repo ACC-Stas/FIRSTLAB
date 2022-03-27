@@ -50,6 +50,7 @@ public class RegistryCommand implements ICommand {
     public RegistryCommand(@JsonProperty("user") User user, @JsonProperty("type") ICommand.Type type) {
         this.user = user;
         this.type = type;
+        this.role = null;
         this.description = String.format("User %s want's to register in system. His passport id is %d",
                 user.getLogin(), user.getPassport().getIdx().getId());
     }
@@ -86,13 +87,4 @@ public class RegistryCommand implements ICommand {
         this.type = type;
     }
 
-    @Override
-    public void setApproveLevel(Role role) {
-        this.role = role;
-    }
-
-    @Override
-    public Role getApproveLevel() {
-        return role;
-    }
 }

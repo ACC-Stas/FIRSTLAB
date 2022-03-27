@@ -1,5 +1,7 @@
 package main.banksystem;
 import main.banksystem.commands.ICommand;
+import main.banksystem.commands.RegistryCommand;
+import main.banksystem.commands.RegistryCompanyCommand;
 import main.banksystem.containers.User;
 
 import java.util.LinkedList;
@@ -26,7 +28,7 @@ public class CPU {
     private static final StringConverter<Stack<String>> stackConverter = new StringConverter<>();
 
     public void HeldCommand(ICommand command) {
-        if (command.GetType().isApprovable()) {
+        if ((command.getClass() == RegistryCommand.class) || (command.getClass() == RegistryCompanyCommand.class)) {
             String rawData = dataBase.Download(cpuUser.getIdx(), DataBase.QUEUE_PART);
             Queue<String> stringQueue = queueConverter.Deserialize(rawData, Queue.class);
             Queue<ICommand> queue = commandConverter.Deserialize(stringQueue, ICommand.class);

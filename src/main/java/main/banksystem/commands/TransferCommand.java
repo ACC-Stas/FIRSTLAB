@@ -4,11 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import main.banksystem.DataBase;
-import main.banksystem.StringConverter;
 import main.banksystem.containers.*;
 
 import java.util.Map;
-import java.util.Objects;
 
 @JsonTypeName("TransferCommand")
 public class TransferCommand implements ICommand {
@@ -146,13 +144,4 @@ public class TransferCommand implements ICommand {
         this.type = type;
     }
 
-    @Override
-    public void setApproveLevel(Role role) {
-        this.role = role;
-    }
-
-    @Override
-    public Role getApproveLevel() {
-        return role;
-    }
 }
