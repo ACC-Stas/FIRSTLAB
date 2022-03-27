@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.banksystem.CPU;
 import main.banksystem.DataBase;
+import main.banksystem.IndexGenerator;
 import main.banksystem.builders.AddressBuilder;
 import main.banksystem.builders.CompanyBuilder;
 import main.banksystem.commands.ICommand;
