@@ -33,12 +33,14 @@ public class TransferCommand implements ICommand {
     }
 
     @JsonCreator
-    public TransferCommand(Transfer transfer) {
+    public TransferCommand(Transfer transfer, Type type) {
+        this.type = type;
         this.transfer = transfer;
     }
 
     @Override
     public void execute() {
+        type.setSaveable(false);
         DataBase dataBase = DataBase.getInstance();
         Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
 
@@ -75,6 +77,7 @@ public class TransferCommand implements ICommand {
 
         dataBase.save(from.getId(), DataBase.BILLS_PART, from);
         dataBase.save(to.getId(), DataBase.BILLS_PART, to);
+        type.setSaveable(true);
     }
 
     @Override

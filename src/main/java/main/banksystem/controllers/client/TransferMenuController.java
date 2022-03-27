@@ -11,8 +11,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import main.banksystem.CPU;
 import main.banksystem.ProgramStatus;
+import main.banksystem.commands.BuildBillCommand;
+import main.banksystem.commands.ICommand;
+import main.banksystem.commands.TransferCommand;
 import main.banksystem.containers.Id;
+import main.banksystem.containers.Transfer;
 
 public class TransferMenuController {
 
@@ -48,9 +53,13 @@ public class TransferMenuController {
         billFromChoice.setItems(billList);
 
         transferButton.setOnAction(event -> {
-            String billFrom = billFromChoice.getValue();
-            String billTo = billToField.getText();
-            String value = valueField.getText();
+            Transfer transfer = new Transfer();
+            ICommand.Type type = new ICommand.Type(false, true);
+            TransferCommand command = new TransferCommand(transfer, type);
+
+            CPU cpu = new CPU(status.getUser());
+            cpu.heldCommand(command);
+            transferButton.getScene().getWindow().hide();
         });
 
     }
