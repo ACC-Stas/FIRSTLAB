@@ -1,10 +1,7 @@
 package main.banksystem.controllers.client;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.Queue;
-import java.util.ResourceBundle;
+import java.util.*;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,9 +13,7 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import main.banksystem.DataBase;
 import main.banksystem.ProgramStatus;
-import main.banksystem.containers.Bill;
-import main.banksystem.containers.Credit;
-import main.banksystem.containers.Id;
+import main.banksystem.containers.*;
 
 public class CreateCreditMenuController {
 
@@ -58,15 +53,28 @@ public class CreateCreditMenuController {
 
     @FXML
     void initialize() {
-        ProgramStatus status = ProgramStatus.getInstance();
+        /*ProgramStatus status = ProgramStatus.getInstance();
         ArrayList<Id> ids = status.getUser().getBillIds();
 
         DataBase dataBase = DataBase.getInstance();
+        Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
 
         for(Id id : ids) {
-            billList.add(String.valueOf(id.getId()));
+            billList.add(String.valueOf(id.getId()) + " " + bills.get(id).getMoney() + "$");
         }
         billChoice.setItems(billList);
+*/
+        for (Period period : Period.values()) {
+            periodList.add(period.toString());
+        }
+        periodChoice.setItems(periodList);
+        periodChoice.setValue(periodList.get(0));
+
+        for (Percent percent : Percent.values()) {
+            percentList.add(percent.toString());
+        }
+        percentChoice.setItems((percentList));
+        percentChoice.setValue(percentList.get(0));
 
 
     }

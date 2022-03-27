@@ -12,10 +12,8 @@ import java.util.Map;
 
 @JsonTypeName("BuildBillCommand")
 public class BuildBillCommand implements ICommand {
-    private ICommand.Type type;
     private Bill bill;
     private String description;
-    private Role role;
 
     public Bill getUser() {
         return bill;
@@ -36,9 +34,8 @@ public class BuildBillCommand implements ICommand {
     }
 
     @JsonCreator
-    public BuildBillCommand(@JsonProperty("bill") Bill bill, @JsonProperty("type") ICommand.Type type) {
+    public BuildBillCommand(@JsonProperty("bill") Bill bill) {
         this.bill = bill;
-        this.type = type;
         this.description = String.format("User want's to create new bill.");
     }
 
@@ -56,13 +53,4 @@ public class BuildBillCommand implements ICommand {
         dataBase.remove(bill.getId(), DataBase.BILLS_PART);
     }
 
-    @Override
-    public Type getType() {
-        return type;
-    }
-
-    @Override
-    public void setType(ICommand.Type type) {
-        this.type = type;
-    }
 }

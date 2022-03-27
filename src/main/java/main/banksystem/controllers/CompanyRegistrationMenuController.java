@@ -106,8 +106,7 @@ public class CompanyRegistrationMenuController {
                 return;
             }
 
-            ICommand.Type type = new ICommand.Type(true, false);
-            RegistryCompanyCommand command = new RegistryCompanyCommand(company.company, type);
+            RegistryCompanyCommand command = new RegistryCompanyCommand(company.company);
 
             Company initCompany = new Company();
             //initCompany.setPAN(DataBase.COMPANY_PART);

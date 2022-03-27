@@ -14,15 +14,8 @@ import java.util.Objects;
 
 @JsonTypeName("RegistryCommand")
 public class RegistryCommand implements ICommand {
-    private ICommand.Type type;
     private User user;
     private String description;
-    private Role role;
-
-    @Override
-    public Type getType() {
-        return type;
-    }
 
     public User getUser() {
         return user;
@@ -43,10 +36,8 @@ public class RegistryCommand implements ICommand {
     }
 
     @JsonCreator
-    public RegistryCommand(@JsonProperty("user") User user, @JsonProperty("type") ICommand.Type type) {
+    public RegistryCommand(@JsonProperty("user") User user) {
         this.user = user;
-        this.type = type;
-        this.role = null;
         this.description = String.format("User %s want's to register in system. His passport id is %d",
                 user.getLogin(), user.getPassport().getIdx().getId());
     }
@@ -73,9 +64,5 @@ public class RegistryCommand implements ICommand {
 
     }
 
-    @Override
-    public void setType(ICommand.Type type) {
-        this.type = type;
-    }
 
 }

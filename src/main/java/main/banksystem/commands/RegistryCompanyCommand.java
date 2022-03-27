@@ -9,9 +9,7 @@ import main.banksystem.containers.Role;
 @JsonTypeName("RegistryCompanyCommand")
 public class RegistryCompanyCommand implements ICommand {
 
-    private ICommand.Type type;
     private final Company company;
-    private Role role;
 
     @Override
     public String getDescription() {
@@ -25,9 +23,8 @@ public class RegistryCompanyCommand implements ICommand {
 
     private String description;
 
-    public RegistryCompanyCommand(Company company, ICommand.Type type) {
+    public RegistryCompanyCommand(Company company) {
         this.company = company;
-        this.type = type;
     }
 
     @Override
@@ -43,13 +40,4 @@ public class RegistryCompanyCommand implements ICommand {
 
     }
 
-    @Override
-    public ICommand.Type getType() {
-        return type;
-    }
-
-    @Override
-    public void setType(ICommand.Type type) {
-        this.type = type;
-    }
 }
