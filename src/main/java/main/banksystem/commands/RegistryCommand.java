@@ -56,9 +56,9 @@ public class RegistryCommand implements ICommand {
 
     @Override
     public void execute() {
-        DataBase dataBase = DataBase.GetInstance();
+        DataBase dataBase = DataBase.getInstance();
 
-        Map<Id, User> users = dataBase.DownloadMap(DataBase.USER_PART, User.class);
+        Map<Id, User> users = dataBase.downloadMap(DataBase.USER_PART, User.class);
         for (User user : users.values()) {
             if (Objects.equals(this.user.getLogin(), user.getLogin())) {
                 break;
@@ -66,13 +66,13 @@ public class RegistryCommand implements ICommand {
         }
 
 
-        dataBase.Save(user.getIdx(), DataBase.USER_PART, converter.Serialize(this.user));
+        dataBase.save(user.getIdx(), DataBase.USER_PART, converter.Serialize(this.user));
     }
 
     @Override
     public void undo() {
-        DataBase dataBase = DataBase.GetInstance();
-        dataBase.Remove(user.getIdx(), DataBase.USER_PART);
+        DataBase dataBase = DataBase.getInstance();
+        dataBase.remove(user.getIdx(), DataBase.USER_PART);
 
     }
 

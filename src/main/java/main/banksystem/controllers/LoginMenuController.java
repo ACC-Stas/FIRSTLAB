@@ -1,9 +1,8 @@
 package main.banksystem.controllers;
 
 import java.net.URL;
-import java.util.Map;
-import java.util.Objects;
-import java.util.ResourceBundle;
+import java.util.*;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -50,9 +49,8 @@ public class LoginMenuController {
             switchMenu(loginSignUpButton, "/main/banksystem/company_registration_menu.fxml");
         });
         loginSignInButton.setOnAction(actionEvent -> {
-
-            DataBase dataBase = DataBase.GetInstance();
-            Map<Id, User> users = dataBase.DownloadMap(DataBase.USER_PART, User.class);
+            DataBase dataBase = DataBase.getInstance();
+            Map<Id, User> users = dataBase.downloadMap(DataBase.USER_PART, User.class);
             for (User user : users.values()) {
                 if (Objects.equals(user.getLogin(), loginField.getText()) && Objects.equals(user.getPassword(), passwordField.getText())) {
                     switch (user.getRole()) {

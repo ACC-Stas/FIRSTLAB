@@ -12,7 +12,7 @@ import java.io.Serializable;
         property = "__typename"
 )
 @JsonSubTypes({
-        @JsonSubTypes.Type(value = BuildBillCommand.class, name = "RegistryCommand"),
+        @JsonSubTypes.Type(value = RegistryCommand.class, name = "RegistryCommand"),
         @JsonSubTypes.Type(value = RegistryCompanyCommand.class, name = "RegistryCompanyCommand"),
         @JsonSubTypes.Type(value = TransferCommand.class, name = "TransferCommand"),
         @JsonSubTypes.Type(value = BuildBillCommand.class, name = "BuildBillCommand")

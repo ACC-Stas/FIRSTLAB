@@ -4,11 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import main.banksystem.DataBase;
-import main.banksystem.StringConverter;
 import main.banksystem.containers.*;
 
 import java.util.Map;
-import java.util.Objects;
 
 @JsonTypeName("TransferCommand")
 public class TransferCommand implements ICommand {
@@ -58,8 +56,8 @@ public class TransferCommand implements ICommand {
 
     @Override
     public void execute() {
-        DataBase dataBase = DataBase.GetInstance();
-        Map<Id, Bill> bills = dataBase.DownloadMap(DataBase.BILLS_PART, Bill.class);
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
 
         description = "Everything is good";
         if (!bills.containsKey(transfer.getBillFromId())) {
@@ -92,14 +90,14 @@ public class TransferCommand implements ICommand {
         from.setMoney(from.getMoney() - transfer.getValue());
         to.setMoney(to.getMoney() + transfer.getValue());
 
-        dataBase.SaveT(from.getId(), DataBase.BILLS_PART, from);
-        dataBase.SaveT(to.getId(), DataBase.BILLS_PART, to);
+        dataBase.save(from.getId(), DataBase.BILLS_PART, from);
+        dataBase.save(to.getId(), DataBase.BILLS_PART, to);
     }
 
     @Override
     public void undo() {
-        DataBase dataBase = DataBase.GetInstance();
-        Map<Id, Bill> bills = dataBase.DownloadMap(DataBase.BILLS_PART, Bill.class);
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
 
         description = "Everything is good";
         if (!bills.containsKey(transfer.getBillFromId())) {
@@ -132,8 +130,8 @@ public class TransferCommand implements ICommand {
         from.setMoney(from.getMoney() + transfer.getValue());
         to.setMoney(to.getMoney() - transfer.getValue());
 
-        dataBase.SaveT(from.getId(), DataBase.BILLS_PART, from);
-        dataBase.SaveT(to.getId(), DataBase.BILLS_PART, to);
+        dataBase.save(from.getId(), DataBase.BILLS_PART, from);
+        dataBase.save(to.getId(), DataBase.BILLS_PART, to);
     }
 
     @Override

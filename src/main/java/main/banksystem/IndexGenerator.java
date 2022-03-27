@@ -34,8 +34,8 @@ public class IndexGenerator {
     }
 
     public Long GenerateIdx(String idxName) {
-        DataBase dataBase = DataBase.GetInstance();
-        String str = dataBase.Download(new Id(0), DataBase.INDEXES_PART);
+        DataBase dataBase = DataBase.getInstance();
+        String str = dataBase.download(new Id(0), DataBase.INDEXES_PART);
         Map<String, Long> idxDictionary = null;
 
         try {
@@ -57,7 +57,7 @@ public class IndexGenerator {
         idx++;
         idxDictionary.put(idxName, idx);
 
-        dataBase.Save(new Id(0), DataBase.INDEXES_PART, dictionaryConverter.Serialize(idxDictionary));
+        dataBase.save(new Id(0), DataBase.INDEXES_PART, dictionaryConverter.Serialize(idxDictionary));
         return idx;
     }
 }

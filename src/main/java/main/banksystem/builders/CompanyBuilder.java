@@ -100,8 +100,8 @@ public class CompanyBuilder {
         if (company.getjName() == null || Objects.equals(company.getjName(), "")) {
             result.valid = false;
         } else {
-            DataBase dataBase = DataBase.GetInstance();
-            Map<Id, Company> companies = dataBase.DownloadMap(DataBase.COMPANY_PART, Company.class);
+            DataBase dataBase = DataBase.getInstance();
+            Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
             for (Company company : companies.values()) {
                 if (Objects.equals(this.company.getjName(), company.getjName())) {
                     result.valid = false;

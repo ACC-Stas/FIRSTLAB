@@ -65,8 +65,8 @@ public class ManagerMainMenuController {
     void createRegistrationAccordion(){
         registrationAccordion.getPanes().clear();
 
-        DataBase dataBase = DataBase.GetInstance();
-        Map<Id, Queue<ICommand>> queues = dataBase.DownloadQueue(DataBase.QUEUE_PART, ICommand.class);
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Queue<ICommand>> queues = dataBase.downloadQueue(DataBase.QUEUE_PART, ICommand.class);
 
         if (queues.containsKey(DataBase.INIT_USER_ID)) {
             for (ICommand command : queues.get(DataBase.INIT_USER_ID)) {
@@ -81,7 +81,7 @@ public class ManagerMainMenuController {
                     command.execute();
 
                     queues.get(DataBase.INIT_USER_ID).remove(command);
-                    dataBase.SaveQueue(DataBase.INIT_USER_ID, DataBase.QUEUE_PART, queues.get(DataBase.INIT_USER_ID));
+                    dataBase.saveQueue(DataBase.INIT_USER_ID, DataBase.QUEUE_PART, queues.get(DataBase.INIT_USER_ID));
                     registrationAccordion.getPanes().remove(titledPane);
 
                     initialize();
@@ -91,7 +91,7 @@ public class ManagerMainMenuController {
                 disapprove.setOnAction(event -> {
 
                     queues.get(DataBase.INIT_USER_ID).remove(command);
-                    dataBase.SaveQueue(DataBase.INIT_USER_ID, DataBase.QUEUE_PART, queues.get(DataBase.INIT_USER_ID));
+                    dataBase.saveQueue(DataBase.INIT_USER_ID, DataBase.QUEUE_PART, queues.get(DataBase.INIT_USER_ID));
                     registrationAccordion.getPanes().remove(titledPane);
 
                     initialize();

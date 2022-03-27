@@ -101,8 +101,8 @@ public class UserBuilder {
         if (user.getLogin() == null || Objects.equals(user.getLogin(), "")) {
             result.valid = false;
         } else {
-            DataBase dataBase = DataBase.GetInstance();
-            Map<Id, User> users = dataBase.DownloadMap(DataBase.USER_PART, User.class);
+            DataBase dataBase = DataBase.getInstance();
+            Map<Id, User> users = dataBase.downloadMap(DataBase.USER_PART, User.class);
             for (User loopUser : users.values()) {
                 if (Objects.equals(user.getLogin(), loopUser.getLogin())) {
                     result.valid = false;

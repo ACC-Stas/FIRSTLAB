@@ -4,7 +4,6 @@ import java.io.*;
 import java.nio.file.Files;
 import java.util.*;
 
-import main.banksystem.commands.ICommand;
 import main.banksystem.containers.Id;
 
 public class DataBase {
@@ -29,14 +28,14 @@ public class DataBase {
     public static final Id INIT_USER_ID = new Id(-1L); // special user to register others
     private static final String BASE_ADDRESS = "database/";
 
-    public static DataBase GetInstance() {
+    public static DataBase getInstance() {
         if (instance == null) {
             instance = new DataBase();
         }
         return instance;
     }
 
-    public void Save(Id id, String dbPart, String object) {
+    public void save(Id id, String dbPart, String object) {
         String fileName = BASE_ADDRESS + dbPart;
         File file = new File(fileName);
         try {
@@ -61,7 +60,7 @@ public class DataBase {
         }
     }
 
-    public <T> void SaveT(Id id, String dbPart, T object) {
+    public <T> void save(Id id, String dbPart, T object) {
         String fileName = BASE_ADDRESS + dbPart;
         File file = new File(fileName);
         try {
@@ -87,24 +86,24 @@ public class DataBase {
         }
     }
 
-    public <T> void SaveQueue(Id id, String dbPart, Queue<T> queue) {
+    public <T> void saveQueue(Id id, String dbPart, Queue<T> queue) {
         StringConverter<Queue<String>> queueConverter = new StringConverter<>();
         StringConverter<T> converterT = new StringConverter<>();
         Queue<String> stringQueue = converterT.Serialize(queue);
         String rawData = queueConverter.Serialize(stringQueue);
-        this.Save(id, dbPart, rawData);
+        this.save(id, dbPart, rawData);
     }
 
-    public <T> void SaveStack(Id id, String dbPart, Stack<T> stack) {
+    public <T> void saveStack(Id id, String dbPart, Stack<T> stack) {
         StringConverter<Stack<String>> stackConverter = new StringConverter<>();
         StringConverter<T> converterT = new StringConverter<>();
 
         Stack<String> stringStack = converterT.Serialize(stack);
         String rawData = stackConverter.Serialize(stringStack);
-        this.Save(id, dbPart, rawData);
+        this.save(id, dbPart, rawData);
     }
 
-    public String Download(Id id, String dbPart) {
+    public String download(Id id, String dbPart) {
         String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
         try {
@@ -133,7 +132,7 @@ public class DataBase {
         return "";
     }
 
-    public <T> T Download(Id id, String dbPart, Class type) {
+    public <T> T download(Id id, String dbPart, Class type) {
         String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
         try {
@@ -166,7 +165,7 @@ public class DataBase {
         return null;
     }
 
-    public <T> Map<Id, T> DownloadMap(String dbPart, Class type) { // don't work for T = queue, list, stack, map...
+    public <T> Map<Id, T> downloadMap(String dbPart, Class type) { // don't work for T = queue, list, stack, map...
         String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
         try {
@@ -196,7 +195,7 @@ public class DataBase {
         return new HashMap<>();
     }
 
-    public <T> Map<Id, Queue<T>> DownloadQueue(String dbPart, Class type) {
+    public <T> Map<Id, Queue<T>> downloadQueue(String dbPart, Class type) {
         String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
         try {
@@ -231,7 +230,7 @@ public class DataBase {
         return new HashMap<>();
     }
 
-    public <T> Map<Id, Stack<T>> DownloadStack(String dbPart, Class type) {
+    public <T> Map<Id, Stack<T>> downloadStack(String dbPart, Class type) {
         String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
         try {
@@ -266,7 +265,7 @@ public class DataBase {
         return new HashMap<>();
     }
 
-    public Map<Id, String> DownloadList(String dbPart) {
+    public Map<Id, String> downloadList(String dbPart) {
         String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
         try {
@@ -295,7 +294,7 @@ public class DataBase {
         return new HashMap<>();
     }
 
-    public void Remove(Id id, String dbPart) {
+    public void remove(Id id, String dbPart) {
         String filename = BASE_ADDRESS + dbPart;
         File file = new File(filename);
         try {

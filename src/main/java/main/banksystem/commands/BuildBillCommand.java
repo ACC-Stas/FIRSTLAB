@@ -65,16 +65,16 @@ public class BuildBillCommand implements ICommand {
 
     @Override
     public void execute() {
-        DataBase dataBase = DataBase.GetInstance();
+        DataBase dataBase = DataBase.getInstance();
 
-        Map<Id, Bill> bills = dataBase.DownloadMap(DataBase.BILLS_PART, Bill.class);
-        dataBase.Save(bill.getId(), DataBase.BILLS_PART, converter.Serialize(this.bill));
+        Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
+        dataBase.save(bill.getId(), DataBase.BILLS_PART, converter.Serialize(this.bill));
     }
 
     @Override
     public void undo() {
-        DataBase dataBase = DataBase.GetInstance();
-        dataBase.Remove(bill.getId(), DataBase.BILLS_PART);
+        DataBase dataBase = DataBase.getInstance();
+        dataBase.remove(bill.getId(), DataBase.BILLS_PART);
     }
 
     @Override

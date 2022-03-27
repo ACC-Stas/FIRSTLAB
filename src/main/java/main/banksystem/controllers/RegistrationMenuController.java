@@ -31,8 +31,6 @@ public class RegistrationMenuController {
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     static {
-        MAPPER.registerSubtypes(new NamedType(BuildBillCommand.class, "RegistryCommand"));
-        MAPPER.registerSubtypes(new NamedType(RegistryCompanyCommand.class, "RegistryCompanyCommand"));
         MAPPER.findAndRegisterModules();
     }
 

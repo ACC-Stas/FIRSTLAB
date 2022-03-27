@@ -44,14 +44,14 @@ public class RegistryCompanyCommand implements ICommand {
 
     @Override
     public void execute() {
-        DataBase dataBase = DataBase.GetInstance();
-        dataBase.Save(user.getIdx(), DataBase.COMPANY_PART, converter.Serialize(this.user));
+        DataBase dataBase = DataBase.getInstance();
+        dataBase.save(user.getIdx(), DataBase.COMPANY_PART, converter.Serialize(this.user));
     }
 
     @Override
     public void undo() {
-        DataBase dataBase = DataBase.GetInstance();
-        dataBase.Remove(user.getIdx(), DataBase.COMPANY_PART);
+        DataBase dataBase = DataBase.getInstance();
+        dataBase.remove(user.getIdx(), DataBase.COMPANY_PART);
 
     }
 

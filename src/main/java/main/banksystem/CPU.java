@@ -8,7 +8,7 @@ import java.util.Stack;
 
 public class CPU {
     public CPU(User cpuUser) {
-        dataBase = DataBase.GetInstance();
+        dataBase = DataBase.getInstance();
         this.cpuUser = cpuUser;
     }
     public User getCpuUser() {
@@ -27,7 +27,7 @@ public class CPU {
 
     public void HeldCommand(ICommand command) {
         if (command.GetType().isApprovable()) {
-            String rawData = dataBase.Download(cpuUser.getIdx(), DataBase.QUEUE_PART);
+            String rawData = dataBase.download(cpuUser.getIdx(), DataBase.QUEUE_PART);
             Queue<String> stringQueue = queueConverter.Deserialize(rawData, Queue.class);
             Queue<ICommand> queue = commandConverter.Deserialize(stringQueue, ICommand.class);
 
@@ -38,13 +38,13 @@ public class CPU {
 
             stringQueue = commandConverter.Serialize(queue);
             rawData = queueConverter.Serialize(stringQueue);
-            dataBase.Save(cpuUser.getIdx(), DataBase.QUEUE_PART, rawData);
+            dataBase.save(cpuUser.getIdx(), DataBase.QUEUE_PART, rawData);
             return;
         }
 
         command.execute();
         if (command.GetType().isSaveable()) {
-            String rawData = dataBase.Download(cpuUser.getIdx(), DataBase.STACK_PART);
+            String rawData = dataBase.download(cpuUser.getIdx(), DataBase.STACK_PART);
             Stack<String> stringStack = stackConverter.Deserialize(rawData, Stack.class);
             Stack<ICommand> stack = commandConverter.Deserialize(stringStack, ICommand.class);
 
@@ -55,7 +55,7 @@ public class CPU {
 
             stringStack = commandConverter.Serialize(stack);
             rawData = stackConverter.Serialize(stringStack);
-            dataBase.Save(cpuUser.getIdx(), DataBase.STACK_PART, rawData);
+            dataBase.save(cpuUser.getIdx(), DataBase.STACK_PART, rawData);
         }
     }
 }
