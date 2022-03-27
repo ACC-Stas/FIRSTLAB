@@ -42,10 +42,17 @@ public class RegistryCommand implements ICommand {
         this.description = description;
     }
 
-    @JsonCreator
-    public RegistryCommand(@JsonProperty("name") User user, @JsonProperty("type")ICommand.Type type) {
+    public RegistryCommand(User user, ICommand.Type type) {
         this.user = user;
         this.type = type;
+        this.description = String.format("User %s wants to register in system. With passport id %d.",
+                user.getPassport().getFullName().getFirstName(), user.getPassport().getIdx().getId());
+    }
+
+    @JsonCreator
+    public RegistryCommand() {
+        this.user = null;
+        this.type = null;
         this.description = "No description";
     }
 

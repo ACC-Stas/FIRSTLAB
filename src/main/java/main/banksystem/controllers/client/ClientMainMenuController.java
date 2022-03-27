@@ -1,13 +1,21 @@
 package main.banksystem.controllers.client;
 
 import java.net.URL;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.VBox;
+import main.banksystem.DataBase;
 import main.banksystem.ProgramStatus;
+import main.banksystem.containers.Bill;
+import main.banksystem.containers.Id;
+import main.banksystem.containers.User;
+import main.banksystem.controllers.manager.ManagerMainMenuController;
 
 import static main.banksystem.controllers.SwitchMenu.newMenu;
 
@@ -81,6 +89,7 @@ public class ClientMainMenuController {
 
     @FXML
     void initialize() {
+        createBillAccordion();
 
         ProgramStatus programStatus = ProgramStatus.getInstance();
         idLabel.setText(programStatus.getUser().getIdx().toString());
@@ -94,6 +103,32 @@ public class ClientMainMenuController {
         transferBillButton.setOnAction(event ->{
             newMenu("/main/banksystem/client/transfer_menu.fxml");
         });
+    }
+
+    void createBillAccordion() {
+        billsAccordion.getPanes().clear();
+
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
+
+        ProgramStatus programStatus = ProgramStatus.getInstance();
+        for (Id id : programStatus.getUser().getBillIds()) {
+            TitledPane titledPane = new TitledPane();
+            titledPane.getStylesheets().add(ManagerMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+            titledPane.setText(id.toString());
+
+            VBox content = new VBox();
+            Label value = new Label("Value: " + bills.get(id).getMoney());
+            Label status = new Label("Status: " + bills.get(id).getBillConditions().toString());
+
+            content.getChildren().add(value);
+            content.getChildren().add(status);
+            titledPane.setContent(content);
+
+            billsAccordion.getPanes().addAll(titledPane);
+        }
+
+
     }
 
 }

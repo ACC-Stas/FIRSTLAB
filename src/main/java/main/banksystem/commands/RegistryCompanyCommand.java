@@ -33,10 +33,18 @@ public class RegistryCompanyCommand implements ICommand {
         this.description = description;
     }
 
-    @JsonCreator
-    public RegistryCompanyCommand(@JsonProperty ("company") Company company, @JsonProperty ("type") ICommand.Type type) {
+    public RegistryCompanyCommand(Company company, ICommand.Type type) {
         this.company = company;
         this.type = type;
+        this.description = String.format("Company %s wants to register in system. Its PAN %d.",
+                company.getjName(), company.getPAN());
+
+    }
+
+    @JsonCreator
+    public RegistryCompanyCommand() {
+        this.company = null;
+        this.type = null;
         this.description = "No description";
 
     }

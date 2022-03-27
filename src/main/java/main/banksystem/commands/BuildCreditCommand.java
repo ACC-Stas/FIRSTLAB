@@ -41,11 +41,17 @@ public class BuildCreditCommand implements ICommand {
         this.description = description;
     }
 
-    @JsonCreator
     public BuildCreditCommand(Id userId, Credit credit, ICommand.Type type) {
         this.credit = credit;
         this.type = type;
         this.description = String.format("User %d want to create credit %s", userId.getId(), credit.toString());
+    }
+
+    @JsonCreator
+    public BuildCreditCommand() {
+        this.credit = null;
+        this.type = null;
+        this.description = String.format("No description");
     }
 
     @Override
