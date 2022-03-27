@@ -11,6 +11,13 @@ public class CPU {
         dataBase = DataBase.getInstance();
         this.cpuUser = cpuUser;
     }
+
+    private User cpuUser;
+    private final DataBase dataBase;
+    private static final StringConverter<ICommand> commandConverter = new StringConverter<>();
+    private static final StringConverter<Queue<String>> queueConverter = new StringConverter<>();
+    private static final StringConverter<Stack<String>> stackConverter = new StringConverter<>();
+
     public User getCpuUser() {
         return cpuUser;
     }
@@ -18,12 +25,6 @@ public class CPU {
     public void setCpuUser(User cpuUser) {
         this.cpuUser = cpuUser;
     }
-
-    private User cpuUser;
-    private final DataBase dataBase;
-    private static final StringConverter<ICommand> commandConverter = new StringConverter<>();
-    private static final StringConverter<Queue<String>> queueConverter = new StringConverter<>();
-    private static final StringConverter<Stack<String>> stackConverter = new StringConverter<>();
 
     public void heldCommand(ICommand command) {
         if (command.getType().isApprovable()) {

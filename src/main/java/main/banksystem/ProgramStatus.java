@@ -2,12 +2,12 @@ package main.banksystem;
 import main.banksystem.containers.User;
 
 public class ProgramStatus {
+    private User user;
+    private static ProgramStatus status;
+
     private ProgramStatus() {
         User user = null;
     }
-
-    private User user;
-    private static ProgramStatus status;
 
     public User getUser() {
         return user;
