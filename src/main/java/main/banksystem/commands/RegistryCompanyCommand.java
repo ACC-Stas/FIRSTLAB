@@ -4,9 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import main.banksystem.DataBase;
+import main.banksystem.IndexGenerator;
 import main.banksystem.StringConverter;
-import main.banksystem.containers.Company;
-import main.banksystem.containers.Role;
+import main.banksystem.containers.*;
 
 @JsonTypeName("RegistryCompanyCommand")
 public class RegistryCompanyCommand implements ICommand {
@@ -50,7 +50,13 @@ public class RegistryCompanyCommand implements ICommand {
 
     @Override
     public void execute() {
+
+        IndexGenerator indexGenerator = IndexGenerator.getInstance();
+        Bill bill = new Bill(new Id(indexGenerator.generateIdx(IndexGenerator.BILLS_IDX)), 10000, BillConditions.ACTIVE);
+        company.setBillCompanyId(bill.getId());
+
         DataBase dataBase = DataBase.getInstance();
+        dataBase.save(bill.getId(), DataBase.BILLS_PART, bill);
         dataBase.save(company.getPAN(), DataBase.COMPANY_PART, this.company);
     }
 
@@ -58,6 +64,7 @@ public class RegistryCompanyCommand implements ICommand {
     public void undo() {
         DataBase dataBase = DataBase.getInstance();
         dataBase.remove(company.getPAN(), DataBase.COMPANY_PART);
+        dataBase.remove(company.getBillCompanyId(), DataBase.BILLS_PART);
     }
 
     @Override

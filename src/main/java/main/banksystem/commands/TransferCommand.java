@@ -32,10 +32,15 @@ public class TransferCommand implements ICommand {
         this.description = description;
     }
 
-    @JsonCreator
     public TransferCommand(Transfer transfer, Type type) {
         this.type = type;
         this.transfer = transfer;
+    }
+
+    @JsonCreator
+    public TransferCommand() {
+        this.type = null;
+        this.transfer = null;
     }
 
     @Override

@@ -1,1 +1,1 @@
-{"{\"id\":-1}":"[]"}
+{"{\"id\":4}":"[\"{\\\"__typename\\\":\\\"BuildCreditCommand\\\",\\\"type\\\":{\\\"approvable\\\":true,\\\"saveable\\\":false},\\\"credit\\\":{\\\"bankBillId\\\":{\\\"id\\\":4},\\\"sourceBillId\\\":{\\\"id\\\":5},\\\"sumToPay\\\":46.0,\\\"id\\\":{\\\"id\\\":8},\\\"percent\\\":5.0},\\\"description\\\":\\\"\\\",\\\"userId\\\":{\\\"id\\\":4},\\\"transferCommand\\\":null}\"]"}

@@ -11,8 +11,14 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import main.banksystem.CPU;
 import main.banksystem.DataBase;
+import main.banksystem.IndexGenerator;
 import main.banksystem.ProgramStatus;
+import main.banksystem.builders.CreditBuilder;
+import main.banksystem.commands.BuildCreditCommand;
+import main.banksystem.commands.ICommand;
+import main.banksystem.commands.TransferCommand;
 import main.banksystem.containers.*;
 
 public class CreateCreditMenuController {
@@ -60,7 +66,7 @@ public class CreateCreditMenuController {
         Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
 
         for(Id id : ids) {
-            billList.add(String.valueOf(id.getId()) + " " + bills.get(id).getMoney() + "$");
+            billList.add(String.valueOf(id.getId()));
         }
         billChoice.setItems(billList);
 
@@ -78,6 +84,45 @@ public class CreateCreditMenuController {
 
         creditButton.setOnAction(event -> {
 
+            CreditBuilder creditBuilder = new CreditBuilder();
+            creditBuilder.buildId(new Id(1));
+            if (percentTabPane.getSelectionModel().getSelectedIndex() == 0){
+                creditBuilder.buildPercent(Double.parseDouble(percentChoice.getValue()));
+            }
+            else {
+                creditBuilder.buildPercent(Double.parseDouble(percentField.getText()));
+            }
+
+            Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
+            if (companies == null) {
+                errorLabel.setText("No banks");
+                return;
+            }
+            Id billId = new Id(Long.parseLong(billChoice.getValue()));
+            for (Company company : companies.values()) {
+                if (company.getIsBank() && company.getBillsIds().contains(billId)) {
+                    creditBuilder.buildBankBillId(company.getBillCompanyId());
+                    break;
+                }
+            }
+            creditBuilder.buildSourceBillId(billId);
+            creditBuilder.buildSumToPay(valueField.getText());
+            CreditBuilder.Result credit = creditBuilder.getCredit();
+
+            if (!credit.valid) {
+                errorLabel.setText(credit.description);
+                return;
+            }
+
+            IndexGenerator indexGenerator = IndexGenerator.getInstance();
+            credit.credit.setId(new Id(indexGenerator.generateIdx(IndexGenerator.BILLS_IDX)));
+
+            BuildCreditCommand command = new BuildCreditCommand(status.getUser().getIdx(), credit.credit,
+                    new ICommand.Type(true, false));
+            CPU cpu = new CPU(status.getUser());
+            cpu.heldCommand(command);
+
+            creditButton.getScene().getWindow().hide();
         });
 
     }

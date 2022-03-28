@@ -122,7 +122,7 @@ public class CreditBuilder {
             result.description = "No bunk";
         } else {
             DataBase dataBase = DataBase.getInstance();
-            Bill bill = dataBase.download(credit.getBankBillId(), DataBase.COMPANY_PART, Bill.class);
+            Bill bill = dataBase.download(credit.getBankBillId(), DataBase.BILLS_PART, Bill.class);
             if (bill == null) {
                 result.valid = false;
                 result.description = "No such bill in system";

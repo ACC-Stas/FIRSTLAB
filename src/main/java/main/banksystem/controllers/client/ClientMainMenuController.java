@@ -96,6 +96,10 @@ public class ClientMainMenuController {
         ProgramStatus programStatus = ProgramStatus.getInstance();
         idLabel.setText(programStatus.getUser().getIdx().toString());
 
+
+        createCreditButton.setOnAction(event ->{
+            newMenu(createBillButton, "/main/banksystem/client/create_credit_menu.fxml");
+        });
         createBillButton.setOnAction(event ->{
             newMenu(createBillButton, "/main/banksystem/client/create_bill_menu.fxml");
         });

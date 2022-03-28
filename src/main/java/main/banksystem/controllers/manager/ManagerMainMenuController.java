@@ -12,8 +12,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import main.banksystem.CPU;
 import main.banksystem.DataBase;
+import main.banksystem.commands.BuildCreditCommand;
+import main.banksystem.commands.BuildInstallmentCommand;
 import main.banksystem.commands.ICommand;
+import main.banksystem.containers.Credit;
 import main.banksystem.containers.Id;
+import main.banksystem.containers.Installment;
 import main.banksystem.containers.User;
 
 import static main.banksystem.controllers.SwitchMenu.switchMenu;
@@ -53,7 +57,7 @@ public class ManagerMainMenuController {
     @FXML
     void initialize() {
         createRegistrationAccordion();
-
+        createCreditAccordion();
         toClientButton.setOnAction(event -> {
             switchMenu(toClientButton, "/main/banksystem/client/client_main_menu.fxml");
         });
@@ -67,9 +71,55 @@ public class ManagerMainMenuController {
         creditsAndInstallmentAccordion.getPanes().clear();
 
         DataBase dataBase = DataBase.getInstance();
-        Map<Id, User> users = dataBase.downloadMap(DataBase.USER_PART, User.class);
-        Set<Id> ids = users.keySet();
+        Map<Id, Queue<ICommand>> commands = dataBase.downloadQueue(DataBase.QUEUE_PART, ICommand.class);
 
+        if (commands == null) {
+            return;
+        }
+
+        for (Map.Entry<Id, Queue<ICommand>> commandsEntry : commands.entrySet()) {
+            for (ICommand command : commandsEntry.getValue()) {
+                if (command.getClass() == BuildCreditCommand.class ||
+                        command.getClass() == BuildInstallmentCommand.class) {
+                    TitledPane titledPane = new TitledPane();
+                    titledPane.getStylesheets().add(ManagerMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+                    titledPane.setText(command.getDescription());
+
+                    VBox content = new VBox();
+                    Button approve = new Button("Approve");
+                    approve.setOnAction(event -> {
+
+                        command.setType(new ICommand.Type(false, true));
+                        User user = new User();
+                        user.setIdx(commandsEntry.getKey());
+                        CPU cpu = new CPU(user);
+                        cpu.heldCommand(command);
+
+                        commandsEntry.getValue().remove(command);
+                        dataBase.saveQueue(commandsEntry.getKey(), DataBase.QUEUE_PART, commandsEntry.getValue());
+                        creditsAndInstallmentAccordion.getPanes().remove(titledPane);
+
+                        initialize();
+                    });
+
+                    Button disapprove = new Button("Disapprove");
+                    disapprove.setOnAction(event -> {
+
+                        commandsEntry.getValue().remove(command);
+                        dataBase.saveQueue(commandsEntry.getKey(), DataBase.QUEUE_PART, commandsEntry.getValue());
+                        creditsAndInstallmentAccordion.getPanes().remove(titledPane);
+
+                        initialize();
+                    });
+
+                    content.getChildren().add(approve);
+                    content.getChildren().add(disapprove);
+                    titledPane.setContent(content);
+
+                    creditsAndInstallmentAccordion.getPanes().addAll(titledPane);
+                }
+            }
+        }
     }
 
     void createRegistrationAccordion(){
