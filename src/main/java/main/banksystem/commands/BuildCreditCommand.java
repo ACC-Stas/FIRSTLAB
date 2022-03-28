@@ -70,6 +70,7 @@ public class BuildCreditCommand implements ICommand {
         transferBuilder.buildValue(credit.getSumToPay());
         TransferBuilder.Result transfer = transferBuilder.getTransfer();
         if (!transfer.valid) {
+            this.description = transfer.description;
             return;
         }
         this.transferCommand = new TransferCommand(transfer.transfer, new Type(false, false));

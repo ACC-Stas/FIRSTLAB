@@ -43,7 +43,7 @@ public class TransferBuilder {
         if (!bills.containsKey(id)) {
             return;
         }
-        transfer.setBillToId(id);
+        transfer.setBillFromId(id);
     }
 
     public void buildBillFromId(String string) {
@@ -84,12 +84,15 @@ public class TransferBuilder {
         result.transfer = this.transfer;
 
         if (transfer.getBillFromId() == null) {
+            result.description = "Invalid bill from id";
             result.valid = false;
         }
         if (transfer.getBillToId() == null) {
+            result.description = "Invalid bill to id";
             result.valid = false;
         }
         if (transfer.getValue() < 0) {
+            result.description = "Invalid transfer value";
             result.valid = false;
         }
 
