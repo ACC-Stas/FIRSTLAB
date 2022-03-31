@@ -85,11 +85,14 @@ public class OperatorMainMenuController {
         for (ICommand command : commands.get(id)) {
             //if no user
             TitledPane titledPane = new TitledPane();
-            titledPane.getStylesheets().add(ManagerMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+            titledPane.getStylesheets().add(ManagerMainMenuController
+                    .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
             titledPane.setText(command.getDescription());
 
             VBox content = new VBox();
             Button cancel = new Button("Cancel");
+            cancel.getStylesheets().add(ManagerMainMenuController
+                    .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
             cancel.setOnAction(event -> {
 
                 command.undo();

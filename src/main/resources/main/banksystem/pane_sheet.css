@@ -2,6 +2,7 @@
 {
     -fx-text-fill: white;
     -fx-font-style: Italic;
+    -fx-font-size: 14;
 }
 .titled-pane:focused
 {

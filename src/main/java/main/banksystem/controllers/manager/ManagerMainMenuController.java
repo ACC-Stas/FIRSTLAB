@@ -2,10 +2,7 @@ package main.banksystem.controllers.manager;
 
 import java.net.URL;
 
-import java.util.Map;
-import java.util.Queue;
-import java.util.ResourceBundle;
-import java.util.Set;
+import java.util.*;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -15,10 +12,7 @@ import main.banksystem.DataBase;
 import main.banksystem.commands.BuildCreditCommand;
 import main.banksystem.commands.BuildInstallmentCommand;
 import main.banksystem.commands.ICommand;
-import main.banksystem.containers.Credit;
-import main.banksystem.containers.Id;
-import main.banksystem.containers.Installment;
-import main.banksystem.containers.User;
+import main.banksystem.containers.*;
 
 import static main.banksystem.controllers.SwitchMenu.switchMenu;
 
@@ -65,6 +59,60 @@ public class ManagerMainMenuController {
         toOperatorButton.setOnAction(event -> {
             switchMenu(toClientButton, "/main/banksystem/operator/operator_main_menu.fxml");
         });
+
+        findButton.setOnAction(event -> {
+            DataBase dataBase = DataBase.getInstance();
+            Map<Id, User> users = dataBase.downloadMap(DataBase.USER_PART, User.class);
+            Id idx = null;
+            try {
+                idx = new Id(Long.parseLong(idSpecialistField.getText()));
+            } catch (IllegalArgumentException e) {
+                errorLabel.setText("Wrong input");
+            }
+
+            if (users.containsKey(idx) && users.get(idx).getRole() == Role.SPECIALIST) {
+                createSpecialistAccordion(idx);
+            }
+            else {
+                errorLabel.setText("Wrong ID");
+            }
+        });
+    }
+
+    void createSpecialistAccordion(Id id){
+        historyAccordion.getPanes().clear();
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Stack<ICommand>> commands = dataBase.downloadStack(DataBase.STACK_PART, ICommand.class);
+
+        if (!commands.containsKey(id)) {
+            return;
+        }
+
+        for (ICommand command : commands.get(id)) {
+            TitledPane titledPane = new TitledPane();
+            titledPane.getStylesheets().add(ManagerMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+            titledPane.setText(command.getDescription());
+
+            VBox content = new VBox();
+            Button cancel = new Button("Cancel");
+            cancel.getStylesheets().add(ManagerMainMenuController
+                    .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
+            cancel.setOnAction(event -> {
+
+                command.undo();
+
+                commands.get(id).remove(command);
+                dataBase.saveStack(id, DataBase.STACK_PART, commands.get(id));
+                historyAccordion.getPanes().remove(titledPane);
+
+                initialize();
+            });
+
+            content.getChildren().add(cancel);
+            titledPane.setContent(content);
+
+            historyAccordion.getPanes().addAll(titledPane);
+        }
     }
 
     void createCreditAccordion(){
@@ -87,6 +135,8 @@ public class ManagerMainMenuController {
 
                     VBox content = new VBox();
                     Button approve = new Button("Approve");
+                    approve.getStylesheets().add(ManagerMainMenuController
+                            .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
                     approve.setOnAction(event -> {
 
                         command.setType(new ICommand.Type(false, true));
@@ -103,6 +153,8 @@ public class ManagerMainMenuController {
                     });
 
                     Button disapprove = new Button("Disapprove");
+                    disapprove.getStylesheets().add(ManagerMainMenuController
+                            .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
                     disapprove.setOnAction(event -> {
 
                         commandsEntry.getValue().remove(command);
@@ -136,6 +188,8 @@ public class ManagerMainMenuController {
 
                 VBox content = new VBox();
                 Button approve = new Button("Approve");
+                approve.getStylesheets().add(ManagerMainMenuController
+                        .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
                 approve.setOnAction(event -> {
 
                     ICommand.Type commandType = new ICommand.Type(false, true);
@@ -153,6 +207,8 @@ public class ManagerMainMenuController {
                 });
 
                 Button disapprove = new Button("Disapprove");
+                disapprove.getStylesheets().add(ManagerMainMenuController
+                        .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
                 disapprove.setOnAction(event -> {
 
                     queues.get(DataBase.INIT_USER_ID).remove(command);

@@ -115,7 +115,7 @@ public class CreateCreditMenuController {
             }
 
             IndexGenerator indexGenerator = IndexGenerator.getInstance();
-            credit.credit.setId(new Id(indexGenerator.generateIdx(IndexGenerator.BILLS_IDX)));
+            credit.credit.setId(new Id(indexGenerator.generateIdx(IndexGenerator.CREDIT_IDX)));
 
             BuildCreditCommand command = new BuildCreditCommand(status.getUser().getIdx(), credit.credit,
                     new ICommand.Type(true, false));

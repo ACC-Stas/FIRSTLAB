@@ -1,0 +1,1 @@
+{"{\"id\":12}":"{\"bankBillId\":{\"id\":4},\"sourceBillId\":{\"id\":5},\"sumToPay\":50.0,\"id\":{\"id\":12},\"percent\":5.0}","{\"id\":15}":"{\"bankBillId\":{\"id\":4},\"sourceBillId\":{\"id\":5},\"sumToPay\":60.0,\"id\":{\"id\":15},\"percent\":100.0}"}

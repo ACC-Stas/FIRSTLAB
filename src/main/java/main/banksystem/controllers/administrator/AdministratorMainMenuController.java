@@ -109,11 +109,14 @@ public class AdministratorMainMenuController {
 
         for (ICommand command : commands.get(id)) {
             TitledPane titledPane = new TitledPane();
-            titledPane.getStylesheets().add(ManagerMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+            titledPane.getStylesheets().add(ManagerMainMenuController
+                    .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
             titledPane.setText(command.getDescription());
 
             VBox content = new VBox();
             Button cancel = new Button("Cancel");
+            cancel.getStylesheets().add(ManagerMainMenuController
+                    .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
             cancel.setOnAction(event -> {
 
                 command.undo();
@@ -141,11 +144,14 @@ public class AdministratorMainMenuController {
         if (queues.containsKey(DataBase.INIT_COMPANY_ID)) {
             for (ICommand command : queues.get(DataBase.INIT_COMPANY_ID)) {
                 TitledPane titledPane = new TitledPane();
-                titledPane.getStylesheets().add(ManagerMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+                titledPane.getStylesheets().add(ManagerMainMenuController
+                        .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
                 titledPane.setText(command.getDescription());
 
                 VBox content = new VBox();
                 Button approve = new Button("Approve");
+                approve.getStylesheets().add(ManagerMainMenuController
+                        .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
                 approve.setOnAction(event -> {
 
                     ICommand.Type commandType = new ICommand.Type(false, true);
@@ -163,6 +169,8 @@ public class AdministratorMainMenuController {
                 });
 
                 Button disapprove = new Button("Disapprove");
+                disapprove.getStylesheets().add(ManagerMainMenuController
+                        .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
                 disapprove.setOnAction(event -> {
 
                     queues.get(DataBase.INIT_COMPANY_ID).remove(command);

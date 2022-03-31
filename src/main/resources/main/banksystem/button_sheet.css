@@ -1,0 +1,8 @@
+.button {
+    -fx-background-color: #f39c63;
+    -fx-text-fill: white;
+    -fx-font-style: Italic;
+    -fx-pref-width: 150;
+    -fx-pref-height: 36;
+    -fx-font-size: 14;
+}
