@@ -147,5 +147,10 @@
             <Font name="System Bold Italic" size="30.0" />
          </font>
       </Label>
+      <Button fx:id="reloadButton" layoutX="72.0" layoutY="31.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="150.0" style="-fx-background-color: f39c63;" text="Обновить" textFill="WHITE">
+         <font>
+            <Font name="System Bold Italic" size="17.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>

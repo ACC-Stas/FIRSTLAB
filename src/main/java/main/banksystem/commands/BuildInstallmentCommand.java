@@ -63,14 +63,6 @@ public class BuildInstallmentCommand implements ICommand {
         this.installment = installment;
         this.type = type;
         this.description = String.format("User %d want to create installment %s", userId.getId(), installment.toString());
-    }
-
-    @JsonCreator
-    public BuildInstallmentCommand() {
-        this.userId = null;
-        this.installment = null;
-        this.type = null;
-        this.description = String.format("No description");
 
         TransferBuilder transferBuilder = new TransferBuilder();
         transferBuilder.buildBillFromId(installment.getCompanyBillId());
@@ -84,6 +76,15 @@ public class BuildInstallmentCommand implements ICommand {
         this.transferCommand = new TransferCommand(transfer.transfer, new Type(false, false));
     }
 
+    @JsonCreator
+    public BuildInstallmentCommand() {
+        this.userId = null;
+        this.installment = null;
+        this.type = null;
+        this.description = String.format("No description");
+
+    }
+
     @Override
     public void execute() {
         DataBase dataBase = DataBase.getInstance();
@@ -94,7 +95,7 @@ public class BuildInstallmentCommand implements ICommand {
         }
 
         User user = dataBase.download(this.userId, DataBase.USER_PART, User.class);
-        user.getCreditIds().add(this.installment.getId());
+        user.getInstallmentIds().add(this.installment.getId());
         dataBase.save(this.userId, DataBase.USER_PART, user);
         dataBase.save(installment.getId(), DataBase.INSTALLMENT_PART, installment);
 
@@ -107,7 +108,7 @@ public class BuildInstallmentCommand implements ICommand {
         DataBase dataBase = DataBase.getInstance();
 
         User user = dataBase.download(this.userId, DataBase.USER_PART, User.class);
-        user.getCreditIds().remove(this.installment.getId());
+        user.getInstallmentIds().remove(this.installment.getId());
         dataBase.save(this.userId, DataBase.USER_PART, user);
 
         dataBase.remove(installment.getId(), DataBase.INSTALLMENT_PART);

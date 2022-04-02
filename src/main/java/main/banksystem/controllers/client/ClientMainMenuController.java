@@ -74,6 +74,9 @@ public class ClientMainMenuController {
     private Accordion installmentAccordion;
 
     @FXML
+    private Button reloadButton;
+
+    @FXML
     private Accordion salaryAccordion;
 
     @FXML
@@ -95,12 +98,20 @@ public class ClientMainMenuController {
         ProgramStatus programStatus = ProgramStatus.getInstance();
         idLabel.setText(programStatus.getUser().getIdx().toString());
 
-
+        reloadButton.setOnAction(event -> {
+            DataBase dataBase = DataBase.getInstance();
+            Map<Id, User> users = dataBase.downloadMap(DataBase.USER_PART, User.class);
+            programStatus.setUser(users.get(programStatus.getUser().getIdx()));
+            initialize();
+        });
         createCreditButton.setOnAction(event ->{
             newMenu(createBillButton, "/main/banksystem/client/create_credit_menu.fxml");
         });
         createBillButton.setOnAction(event ->{
             newMenu(createBillButton, "/main/banksystem/client/create_bill_menu.fxml");
+        });
+        createInstallmentButton.setOnAction(event ->{
+            newMenu(createInstallmentButton, "/main/banksystem/client/create_installment_menu.fxml");
         });
         withdrawBillButton.setOnAction(event ->{
             newMenu(withdrawBillButton, "/main/banksystem/client/withdraw_menu.fxml");
@@ -176,11 +187,11 @@ public class ClientMainMenuController {
             titledPane.setText(id.toString());
 
             VBox content = new VBox();
-            Label value = new Label("Осталось выплатить: " + credits.get(id).getSumToPay());
-            Label status = new Label("Привязанный счёт: " + credits.get(id).getSourceBillId().toString());
+            Label sum = new Label("Осталось выплатить: " + credits.get(id).getSumToPay());
+            Label bill = new Label("Привязанный счёт: " + credits.get(id).getSourceBillId().toString());
 
-            content.getChildren().add(value);
-            content.getChildren().add(status);
+            content.getChildren().add(sum);
+            content.getChildren().add(bill);
             titledPane.setContent(content);
 
             creditAccordion.getPanes().addAll(titledPane);
@@ -194,7 +205,7 @@ public class ClientMainMenuController {
         Map<Id, Installment> installments = dataBase.downloadMap(DataBase.INSTALLMENT_PART, Installment.class);
 
         ProgramStatus programStatus = ProgramStatus.getInstance();
-        for (Id id : programStatus.getUser().getCreditIds()) {
+        for (Id id : programStatus.getUser().getInstallmentIds()) {
             if (installments.get(id).getSumToPay() <= 0) {
                 continue;
             }
@@ -203,11 +214,11 @@ public class ClientMainMenuController {
             titledPane.setText(id.toString());
 
             VBox content = new VBox();
-            Label value = new Label("Осталось выплатить: " + installments.get(id).getSumToPay());
-            Label status = new Label("Привязанный счёт: " + installments.get(id).getSourceBillId().toString());
+            Label sum = new Label("Осталось выплатить: " + installments.get(id).getSumToPay());
+            Label bill = new Label("Привязанный счёт: " + installments.get(id).getSourceBillId().toString());
 
-            content.getChildren().add(value);
-            content.getChildren().add(status);
+            content.getChildren().add(sum);
+            content.getChildren().add(bill);
             titledPane.setContent(content);
 
             installmentAccordion.getPanes().addAll(titledPane);
