@@ -31,6 +31,11 @@ public class RegistryCompanyCommand implements ICommand {
         this.description = description;
     }
 
+    @Override
+    public String toString() {
+        return description;
+    }
+
     public RegistryCompanyCommand(Company company, ICommand.Type type) {
         this.company = company;
         this.type = type;

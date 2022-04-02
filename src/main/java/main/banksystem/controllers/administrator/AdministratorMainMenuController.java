@@ -8,7 +8,9 @@ import java.util.Stack;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import main.banksystem.CPU;
 import main.banksystem.DataBase;
 import main.banksystem.commands.ICommand;
@@ -33,16 +35,13 @@ public class AdministratorMainMenuController {
     private Button findButton;
 
     @FXML
-    private Button getEncryptedLogsButton;
-
-    @FXML
-    private Button getUnencryptedLogsButton;
-
-    @FXML
     private Accordion historyAccordion;
 
     @FXML
     private TextField idUserField;
+
+    @FXML
+    private Text logText;
 
     @FXML
     private Accordion registrationAccordion;
@@ -63,8 +62,11 @@ public class AdministratorMainMenuController {
     void initialize() {
         createCompanyRegistrationAccordion();
 
+        DataBase dataBase = DataBase.getInstance();
+
+        logText.setText(dataBase.downloadQueue(DataBase.QUEUE_PART, ICommand.class).toString());
+
         findButton.setOnAction(event -> {
-            DataBase dataBase = DataBase.getInstance();
             Map<Id, User> users = dataBase.downloadMap(DataBase.USER_PART, User.class);
             Id idx = null;
             try {

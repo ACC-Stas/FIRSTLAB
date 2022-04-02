@@ -57,12 +57,18 @@ public class BuildSalaryProjectCommand implements ICommand{
         this.description = description;
     }
 
+    @Override
+    public String toString() {
+        return description;
+    }
+
     public BuildSalaryProjectCommand(Id userId, Id companyId, SalaryProject salaryProject, ICommand.Type type) {
         this.companyId = companyId;
         this.userId = userId;
         this.salaryProject = salaryProject;
         this.type = type;
-        this.description = String.format("User %d want to create salary project %s", userId.getId(), salaryProject.toString());
+        this.description = String.format("User %d want to create salary project %s", userId.getId(),
+                salaryProject.getSalaryProjectId().toString());
     }
 
     @JsonCreator

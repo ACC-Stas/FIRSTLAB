@@ -30,6 +30,11 @@ public class BuildBillCommand implements ICommand {
     }
 
     @Override
+    public String toString() {
+        return description;
+    }
+
+    @Override
     public void setDescription(String description) {
         this.description = description;
     }

@@ -38,6 +38,8 @@ public interface ICommand extends Serializable {
 
     void setDescription(String description);
 
+    String toString();
+
     class Type {
         public Type(boolean approvable, boolean saveable) {
             this.approvable = approvable;

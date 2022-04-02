@@ -71,7 +71,7 @@ public class HiringMenuController {
             salaryProjectBuilder.buildSum(valueField.getText());
             salaryProjectBuilder.buildBillFromId(companies.get(new
                     Id(Long.parseLong(companyChoice.getValue()))).getBillCompanyId());
-            salaryProjectBuilder.buildSalaryProjectId(new Id(-1));
+            salaryProjectBuilder.buildSalaryProjectId(new Id(0));
             SalaryProjectBuilder.Result result = salaryProjectBuilder.getSalaryProject();
 
             if (!result.valid) {

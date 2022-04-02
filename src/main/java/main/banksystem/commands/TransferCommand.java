@@ -43,6 +43,11 @@ public class TransferCommand implements ICommand {
     }
 
     @Override
+    public String toString() {
+        return description;
+    }
+
+    @Override
     public void execute() {
         type.setSaveable(false);
         DataBase dataBase = DataBase.getInstance();

@@ -100,7 +100,7 @@ public class SalaryProjectBuilder {
             result.description = "No bill from id";
         } else {
             DataBase dataBase = DataBase.getInstance();
-            Bill bill = dataBase.download(salaryProject.getBillFromId(), DataBase.COMPANY_PART, Bill.class);
+            Bill bill = dataBase.download(salaryProject.getBillFromId(), DataBase.BILLS_PART, Bill.class);
             if (bill == null) {
                 result.valid = false;
                 result.description = "No such bill in system";

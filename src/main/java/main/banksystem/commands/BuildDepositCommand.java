@@ -57,6 +57,11 @@ public class BuildDepositCommand implements ICommand {
         this.description = description;
     }
 
+    @Override
+    public String toString() {
+        return description;
+    }
+
     public BuildDepositCommand(Id userId, Deposit deposit, ICommand.Type type) {
         this.userId = userId;
         this.deposit = deposit;

@@ -57,6 +57,11 @@ public class BuildCreditCommand implements ICommand {
         this.description = description;
     }
 
+    @Override
+    public String toString() {
+        return description;
+    }
+
     public BuildCreditCommand(Id userId, Credit credit, ICommand.Type type) {
         this.userId = userId;
         this.credit = credit;

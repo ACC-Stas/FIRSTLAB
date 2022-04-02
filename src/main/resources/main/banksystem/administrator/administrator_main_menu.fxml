@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.banksystem.controllers.administrator.AdministratorMainMenuController">
     <children>
@@ -47,18 +48,9 @@
                         <Tab text="Просмотр всех логов">
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                                    <children>
-                              <Button fx:id="getEncryptedLogsButton" layoutX="50.0" layoutY="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="300.0" style="-fx-background-color: f39c63;" text="Получить в зашифрованном виде" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Italic" size="13.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="getUnencryptedLogsButton" layoutX="450.0" layoutY="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="300.0" style="-fx-background-color: f39c63;" text="Получить в незашифрованном виде" textFill="WHITE">
-                                 <font>
-                                    <Font name="System Italic" size="13.0" />
-                                 </font>
-                              </Button>
-                                    </children></AnchorPane>
+                           <children>
+                              <Text fx:id="logText" layoutX="30.0" layoutY="17.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="1211.7294921875" />
+                           </children></AnchorPane>
                             </content>
                         </Tab>
                         <Tab text="Подтверждения регистрации предприятия">
