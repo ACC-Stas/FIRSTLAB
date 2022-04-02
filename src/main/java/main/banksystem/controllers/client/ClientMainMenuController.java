@@ -12,9 +12,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 import main.banksystem.DataBase;
 import main.banksystem.ProgramStatus;
-import main.banksystem.entities.Bill;
-import main.banksystem.entities.Id;
-import main.banksystem.entities.SalaryProject;
+import main.banksystem.entities.*;
 import main.banksystem.controllers.manager.ManagerMainMenuController;
 
 import static main.banksystem.controllers.SwitchMenu.newMenu;
@@ -90,7 +88,9 @@ public class ClientMainMenuController {
     @FXML
     void initialize() {
         createBillAccordion();
-        createSalaryAccordion();
+        //createSalaryAccordion();
+        createCreditAccordion();
+        createInstallmentAccordion();
 
         ProgramStatus programStatus = ProgramStatus.getInstance();
         idLabel.setText(programStatus.getUser().getIdx().toString());
@@ -123,8 +123,8 @@ public class ClientMainMenuController {
             titledPane.setText(id.toString());
 
             VBox content = new VBox();
-            Label value = new Label("Value: " + bills.get(id).getMoney());
-            Label status = new Label("Status: " + bills.get(id).getBillConditions().toString());
+            Label value = new Label("Сумма: " + bills.get(id).getMoney());
+            Label status = new Label("Статус: " + bills.get(id).getBillConditions().toString());
 
             content.getChildren().add(value);
             content.getChildren().add(status);
@@ -160,10 +160,64 @@ public class ClientMainMenuController {
         }
     }
 
+    void createCreditAccordion(){
+        creditAccordion.getPanes().clear();
+
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Credit> credits = dataBase.downloadMap(DataBase.CREDIT_PART, Credit.class);
+
+        ProgramStatus programStatus = ProgramStatus.getInstance();
+        for (Id id : programStatus.getUser().getCreditIds()) {
+            if (credits.get(id).getSumToPay() <= 0) {
+                continue;
+            }
+            TitledPane titledPane = new TitledPane();
+            titledPane.getStylesheets().add(ManagerMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+            titledPane.setText(id.toString());
+
+            VBox content = new VBox();
+            Label value = new Label("Осталось выплатить: " + credits.get(id).getSumToPay());
+            Label status = new Label("Привязанный счёт: " + credits.get(id).getSourceBillId().toString());
+
+            content.getChildren().add(value);
+            content.getChildren().add(status);
+            titledPane.setContent(content);
+
+            creditAccordion.getPanes().addAll(titledPane);
+        }
+    }
+
+    void createInstallmentAccordion(){
+        installmentAccordion.getPanes().clear();
+
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Installment> installments = dataBase.downloadMap(DataBase.INSTALLMENT_PART, Installment.class);
+
+        ProgramStatus programStatus = ProgramStatus.getInstance();
+        for (Id id : programStatus.getUser().getCreditIds()) {
+            if (installments.get(id).getSumToPay() <= 0) {
+                continue;
+            }
+            TitledPane titledPane = new TitledPane();
+            titledPane.getStylesheets().add(ManagerMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+            titledPane.setText(id.toString());
+
+            VBox content = new VBox();
+            Label value = new Label("Осталось выплатить: " + installments.get(id).getSumToPay());
+            Label status = new Label("Привязанный счёт: " + installments.get(id).getSourceBillId().toString());
+
+            content.getChildren().add(value);
+            content.getChildren().add(status);
+            titledPane.setContent(content);
+
+            installmentAccordion.getPanes().addAll(titledPane);
+        }
+    }
+
     void createDepositAccordion() {
         salaryAccordion.getPanes().clear();
         DataBase dataBase = DataBase.getInstance();
-        Map<Id, SalaryProject> salaries = dataBase.downloadMap(DataBase.SALARY_PART, SalaryProject.class);
+        Map<Id, SalaryProject> salaries = dataBase.downloadMap(DataBase.DEPOSIT_PART, SalaryProject.class);
 
         ProgramStatus programStatus = ProgramStatus.getInstance();
         for (Id id : programStatus.getUser().getSalaryIds()) {

@@ -1,7 +1,9 @@
 package main.banksystem.controllers.client;
 
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,15 +18,21 @@ import main.banksystem.DataBase;
 import main.banksystem.IndexGenerator;
 import main.banksystem.ProgramStatus;
 import main.banksystem.builders.CreditBuilder;
+import main.banksystem.builders.InstallmentBuilder;
 import main.banksystem.commands.BuildCreditCommand;
+import main.banksystem.commands.BuildInstallmentCommand;
 import main.banksystem.commands.ICommand;
-import main.banksystem.entities.*;
+import main.banksystem.entities.Company;
+import main.banksystem.entities.Id;
+import main.banksystem.entities.Percent;
+import main.banksystem.entities.Period;
 
-public class CreateCreditMenuController {
+public class CreateInstallmentMenuController {
 
     ObservableList<String> billList = FXCollections.observableArrayList();
     ObservableList<String> percentList = FXCollections.observableArrayList();
     ObservableList<String> periodList = FXCollections.observableArrayList();
+    ObservableList<String> companyList = FXCollections.observableArrayList();
 
     @FXML
     private ResourceBundle resources;
@@ -34,6 +42,12 @@ public class CreateCreditMenuController {
 
     @FXML
     private ChoiceBox<String> billChoice;
+
+    @FXML
+    private ChoiceBox<String> companyChoice;
+
+    @FXML
+    private Button installmentButton;
 
     @FXML
     private Label errorLabel;
@@ -49,9 +63,6 @@ public class CreateCreditMenuController {
 
     @FXML
     private ChoiceBox<String> periodChoice;
-
-    @FXML
-    private Button creditButton;
 
     @FXML
     private TextField valueField;
@@ -78,48 +89,46 @@ public class CreateCreditMenuController {
         percentChoice.setItems((percentList));
         percentChoice.setValue(percentList.get(0));
 
-        creditButton.setOnAction(event -> {
-            DataBase dataBase = DataBase.getInstance();
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
 
-            CreditBuilder creditBuilder = new CreditBuilder();
-            creditBuilder.buildId(new Id(1));
+        for (Company company : companies.values()) {
+            if (!company.getIsBank()) {
+                companyList.add(company.getPAN().toString());
+            }
+        }
+        companyChoice.setItems((companyList));
+
+        installmentButton.setOnAction(event -> {
+
+            InstallmentBuilder installmentBuilder = new InstallmentBuilder();
+            installmentBuilder.buildId(new Id(1));
             if (percentTabPane.getSelectionModel().getSelectedIndex() == 0){
-                creditBuilder.buildPercent(Double.parseDouble(percentChoice.getValue()));
+                installmentBuilder.buildPercent(Double.parseDouble(percentChoice.getValue()));
             }
             else {
-                creditBuilder.buildPercent(Double.parseDouble(percentField.getText()));
+                installmentBuilder.buildPercent(Double.parseDouble(percentField.getText()));
             }
-
-            Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
-            if (companies == null) {
-                errorLabel.setText("No banks");
-                return;
-            }
+            installmentBuilder.buildCompanyBillId(companyChoice.getValue());
             Id billId = new Id(Long.parseLong(billChoice.getValue()));
-            for (Company company : companies.values()) {
-                if (company.getIsBank() && company.getBillsIds().contains(billId)) {
-                    creditBuilder.buildBankBillId(company.getBillCompanyId());
-                    break;
-                }
-            }
-            creditBuilder.buildSourceBillId(billId);
-            creditBuilder.buildSumToPay(valueField.getText());
-            CreditBuilder.Result credit = creditBuilder.getCredit();
+            installmentBuilder.buildSourceBillId(billId);
+            installmentBuilder.buildSumToPay(valueField.getText());
+            InstallmentBuilder.Result installment = installmentBuilder.getInstallment();
 
-            if (!credit.valid) {
-                errorLabel.setText(credit.description);
+            if (!installment.valid) {
+                errorLabel.setText(installment.description);
                 return;
             }
 
             IndexGenerator indexGenerator = IndexGenerator.getInstance();
-            credit.credit.setId(new Id(indexGenerator.generateIdx(IndexGenerator.CREDIT_IDX)));
+            installment.installment.setId(new Id(indexGenerator.generateIdx(IndexGenerator.INSTALLMENT_IDX)));
 
-            BuildCreditCommand command = new BuildCreditCommand(status.getUser().getIdx(), credit.credit,
-                    new ICommand.Type(true, false));
+            BuildInstallmentCommand command = new BuildInstallmentCommand(status.getUser().getIdx(),
+                    installment.installment, new ICommand.Type(true, false));
             CPU cpu = new CPU(status.getUser());
             cpu.heldCommand(command);
 
-            creditButton.getScene().getWindow().hide();
+            installmentButton.getScene().getWindow().hide();
         });
 
     }

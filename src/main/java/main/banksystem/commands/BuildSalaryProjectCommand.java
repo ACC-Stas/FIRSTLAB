@@ -53,9 +53,9 @@ public class BuildSalaryProjectCommand implements ICommand{
     @Override
     public void execute() {
         DataBase dataBase = DataBase.getInstance();
-        Map<Id, SalaryProject> credits = dataBase.downloadMap(DataBase.CREDITS_PART, SalaryProject.class);
+        Map<Id, SalaryProject> salaries = dataBase.downloadMap(DataBase.SALARY_PART, SalaryProject.class);
 
-        if (credits.containsKey(salaryProject.getSalaryProjectId())) {
+        if (salaries.containsKey(salaryProject.getSalaryProjectId())) {
             return;
         }
 
