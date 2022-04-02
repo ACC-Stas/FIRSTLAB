@@ -1,10 +1,9 @@
 package main.banksystem.commands;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import main.banksystem.DataBase;
-import main.banksystem.containers.*;
+import main.banksystem.entities.*;
 
 import java.util.Map;
 

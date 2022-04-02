@@ -9,11 +9,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import main.banksystem.DataBase;
-import main.banksystem.ProgramStatus;
 import main.banksystem.commands.ICommand;
-import main.banksystem.containers.Id;
-import main.banksystem.containers.SalaryProject;
-import main.banksystem.containers.User;
+import main.banksystem.entities.Id;
+import main.banksystem.entities.User;
 import main.banksystem.controllers.manager.ManagerMainMenuController;
 
 import static main.banksystem.controllers.SwitchMenu.newMenu;

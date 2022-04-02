@@ -10,8 +10,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import main.banksystem.DataBase;
 import main.banksystem.ProgramStatus;
-import main.banksystem.containers.Id;
-import main.banksystem.containers.User;
+import main.banksystem.entities.Id;
+import main.banksystem.entities.User;
 
 import static main.banksystem.controllers.SwitchMenu.switchMenu;
 

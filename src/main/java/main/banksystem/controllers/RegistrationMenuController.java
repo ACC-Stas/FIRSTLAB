@@ -19,7 +19,7 @@ import main.banksystem.builders.PassportBuilder;
 import main.banksystem.builders.UserBuilder;
 import main.banksystem.commands.ICommand;
 import main.banksystem.commands.RegistryCommand;
-import main.banksystem.containers.*;
+import main.banksystem.entities.*;
 
 import static main.banksystem.controllers.SwitchMenu.switchMenu;
 

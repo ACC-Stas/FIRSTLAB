@@ -1,7 +1,6 @@
 package main.banksystem.controllers.client;
 
 import java.net.URL;
-import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
@@ -14,8 +13,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import main.banksystem.DataBase;
 import main.banksystem.ProgramStatus;
-import main.banksystem.containers.Credit;
-import main.banksystem.containers.Id;
+import main.banksystem.entities.Credit;
+import main.banksystem.entities.Id;
 
 public class CloseCreditMenuController {
 

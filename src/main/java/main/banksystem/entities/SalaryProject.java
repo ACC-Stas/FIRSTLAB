@@ -1,4 +1,4 @@
-package main.banksystem.containers;
+package main.banksystem.entities;
 
 import main.banksystem.commands.ICommand;
 import main.banksystem.commands.TransferCommand;

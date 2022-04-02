@@ -4,10 +4,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import main.banksystem.DataBase;
 import main.banksystem.builders.TransferBuilder;
-import main.banksystem.containers.Credit;
-import main.banksystem.containers.Id;
-import main.banksystem.containers.Transfer;
-import main.banksystem.containers.User;
+import main.banksystem.entities.Credit;
+import main.banksystem.entities.Id;
+import main.banksystem.entities.User;
 
 import java.util.Map;
 

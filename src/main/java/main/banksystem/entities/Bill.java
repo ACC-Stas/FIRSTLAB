@@ -1,4 +1,4 @@
-package main.banksystem.containers;
+package main.banksystem.entities;
 
 public class Bill {
     public Bill(Id id, double money, BillConditions billConditions) {

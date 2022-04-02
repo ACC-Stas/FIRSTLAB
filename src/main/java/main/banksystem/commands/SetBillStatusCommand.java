@@ -3,10 +3,9 @@ package main.banksystem.commands;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import main.banksystem.DataBase;
-import main.banksystem.containers.Bill;
-import main.banksystem.containers.BillConditions;
-import main.banksystem.containers.Id;
-import main.banksystem.containers.User;
+import main.banksystem.entities.Bill;
+import main.banksystem.entities.BillConditions;
+import main.banksystem.entities.Id;
 
 @JsonTypeName("SetBillStatusCommand")
 public class SetBillStatusCommand implements ICommand {

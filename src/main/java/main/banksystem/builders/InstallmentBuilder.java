@@ -1,7 +1,7 @@
 package main.banksystem.builders;
 
 import main.banksystem.DataBase;
-import main.banksystem.containers.*;
+import main.banksystem.entities.*;
 
 public class InstallmentBuilder {
     private Installment installment;

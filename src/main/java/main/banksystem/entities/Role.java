@@ -1,4 +1,4 @@
-package main.banksystem.containers;
+package main.banksystem.entities;
 
 public enum Role implements java.io.Serializable {
     CLIENT,

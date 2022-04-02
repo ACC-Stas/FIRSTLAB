@@ -1,4 +1,4 @@
-package main.banksystem.containers;
+package main.banksystem.entities;
 
 public class Transfer implements java.io.Serializable {
     public Transfer(BIC bankFrom, Id billFromId, BIC bankTo, Id billToId, double value){

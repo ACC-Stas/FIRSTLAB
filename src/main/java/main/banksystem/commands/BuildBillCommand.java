@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import main.banksystem.DataBase;
 import main.banksystem.IndexGenerator;
-import main.banksystem.containers.*;
+import main.banksystem.entities.*;
 
 import java.util.Map;
 

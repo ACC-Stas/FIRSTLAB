@@ -3,8 +3,8 @@ package main.banksystem.commands;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
 import main.banksystem.DataBase;
-import main.banksystem.containers.Id;
-import main.banksystem.containers.SalaryProject;
+import main.banksystem.entities.Id;
+import main.banksystem.entities.SalaryProject;
 
 import java.util.Map;
 
