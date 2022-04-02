@@ -92,6 +92,8 @@ public class BuildCreditCommand implements ICommand {
             return;
         }
 
+        credit.setSumToPay(credit.getSumToPay() + credit.getSumToPay() * credit.getPercent() / 100);
+
         User user = dataBase.download(this.userId, DataBase.USER_PART, User.class);
         user.getCreditIds().add(this.credit.getId());
         dataBase.save(this.userId, DataBase.USER_PART, user);

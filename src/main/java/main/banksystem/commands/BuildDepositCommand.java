@@ -16,6 +16,15 @@ public class BuildDepositCommand implements ICommand {
     private ICommand.Type type;
     private Deposit deposit;
     private String description;
+    private TransferCommand transferCommand;
+
+    public TransferCommand getTransferCommand() {
+        return transferCommand;
+    }
+
+    public void setTransferCommand(TransferCommand transferCommand) {
+        this.transferCommand = transferCommand;
+    }
 
     public Id getUserId() {
         return userId;
@@ -53,6 +62,18 @@ public class BuildDepositCommand implements ICommand {
         this.deposit = deposit;
         this.type = type;
         this.description = String.format("User %d want to create deposit %s", userId.getId(), deposit.toString());
+
+        TransferBuilder transferBuilder = new TransferBuilder();
+        transferBuilder.buildBillFromId(deposit.getBillId());
+        transferBuilder.buildBillToId(deposit.getBankBillId());
+        transferBuilder.buildValue(deposit.getValue());
+        TransferBuilder.Result transfer = transferBuilder.getTransfer();
+        if (!transfer.valid) {
+            this.description = transfer.description;
+            return;
+        }
+        this.transferCommand = new TransferCommand(transfer.transfer, new Type(false, false));
+
     }
 
     @JsonCreator
@@ -72,12 +93,15 @@ public class BuildDepositCommand implements ICommand {
             return;
         }
 
+        deposit.setValue(deposit.getValue() + deposit.getValue() * deposit.getPercent() / 100);
+
         User user = dataBase.download(this.userId, DataBase.USER_PART, User.class);
         user.getDepositIds().add(this.deposit.getId());
         dataBase.save(this.userId, DataBase.USER_PART, user);
 
         dataBase.save(deposit.getId(), DataBase.DEPOSIT_PART, deposit);
 
+        transferCommand.execute();
     }
 
     @Override
@@ -89,6 +113,8 @@ public class BuildDepositCommand implements ICommand {
         dataBase.save(this.userId, DataBase.USER_PART, user);
 
         dataBase.remove(deposit.getId(), DataBase.DEPOSIT_PART);
+
+        transferCommand.undo();
     }
 
     @Override

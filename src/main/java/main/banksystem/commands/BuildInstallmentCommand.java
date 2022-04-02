@@ -94,6 +94,8 @@ public class BuildInstallmentCommand implements ICommand {
             return;
         }
 
+        installment.setSumToPay(installment.getSumToPay() + installment.getSumToPay() * installment.getPercent() / 100);
+
         User user = dataBase.download(this.userId, DataBase.USER_PART, User.class);
         user.getInstallmentIds().add(this.installment.getId());
         dataBase.save(this.userId, DataBase.USER_PART, user);
