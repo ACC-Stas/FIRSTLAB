@@ -97,6 +97,7 @@ public class BuildInstallmentCommand implements ICommand {
         User user = dataBase.download(this.userId, DataBase.USER_PART, User.class);
         user.getInstallmentIds().add(this.installment.getId());
         dataBase.save(this.userId, DataBase.USER_PART, user);
+
         dataBase.save(installment.getId(), DataBase.INSTALLMENT_PART, installment);
 
         transferCommand.execute();
