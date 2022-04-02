@@ -1,23 +1,26 @@
 package main.banksystem.entities;
 
+import main.banksystem.DataBase;
+import main.banksystem.builders.TransferBuilder;
+
 public class Deposit implements java.io.Serializable {
-    public Deposit(Id bankBillId, double percent, Id bill, Id id){
+    public Deposit(Id bankBillId, double percent, Id billId, Id id) {
         this.bankBillId = bankBillId;
         this.percent = percent;
-        this.bill = bill;
+        this.billId = billId;
         this.id = id;
     }
 
     public Deposit() {
         this.bankBillId = null;
         this.percent = -1;
-        this.bill = null;
+        this.billId = null;
         this.id = null;
     }
 
     Id bankBillId;
     double percent;
-    Id bill;
+    Id billId;
     Id id;
 
     public Id getId() {
@@ -44,11 +47,30 @@ public class Deposit implements java.io.Serializable {
         this.percent = percent;
     }
 
-    public Id getBill() {
-        return bill;
+    public Id getBillId() {
+        return billId;
     }
 
-    public void setBill(Id bill) {
-        this.bill = bill;
+    public void setBillId(Id billId) {
+        this.billId = billId;
+    }
+
+    public Transfer buildTransfer() {
+        DataBase dataBase = DataBase.getInstance();
+        Bill bill = dataBase.download(this.billId, DataBase.BILLS_PART, Bill.class);
+        if (bill == null) {
+            return null;
+        }
+
+        TransferBuilder builder = new TransferBuilder();
+        builder.buildValue(bill.money * percent);
+        builder.buildBillFromId(bankBillId);
+        builder.buildBillToId(billId);
+        TransferBuilder.Result transfer = builder.getTransfer();
+        if (!transfer.valid) {
+            return null;
+        }
+
+        return transfer.transfer;
     }
 }
