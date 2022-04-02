@@ -91,7 +91,7 @@ public class ClientMainMenuController {
     @FXML
     void initialize() {
         createBillAccordion();
-        //createSalaryAccordion();
+        createSalaryAccordion();
         createCreditAccordion();
         createInstallmentAccordion();
 
@@ -124,6 +124,12 @@ public class ClientMainMenuController {
         });
         transferBillButton.setOnAction(event ->{
             newMenu(transferBillButton, "/main/banksystem/client/transfer_menu.fxml");
+        });
+        createSalaryButton.setOnAction(event ->{
+            newMenu(createSalaryButton, "/main/banksystem/client/hiring_menu.fxml");
+        });
+        closeSalaryButton.setOnAction(event ->{
+            newMenu(closeSalaryButton, "/main/banksystem/client/firing_menu.fxml");
         });
     }
 
@@ -162,7 +168,8 @@ public class ClientMainMenuController {
         for (Id id : programStatus.getUser().getSalaryIds()) {
             SalaryProject salary = salaries.get(id);
             TitledPane titledPane = new TitledPane();
-            titledPane.getStylesheets().add(ManagerMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+            titledPane.getStylesheets().add(ManagerMainMenuController
+                    .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
             titledPane.setText(id.toString());
 
             VBox content = new VBox();
@@ -189,7 +196,8 @@ public class ClientMainMenuController {
                 continue;
             }
             TitledPane titledPane = new TitledPane();
-            titledPane.getStylesheets().add(ManagerMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+            titledPane.getStylesheets().add(ManagerMainMenuController
+                    .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
             titledPane.setText(id.toString());
 
             VBox content = new VBox();
@@ -216,7 +224,8 @@ public class ClientMainMenuController {
                 continue;
             }
             TitledPane titledPane = new TitledPane();
-            titledPane.getStylesheets().add(ManagerMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+            titledPane.getStylesheets().add(ManagerMainMenuController
+                    .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
             titledPane.setText(id.toString());
 
             VBox content = new VBox();
@@ -240,7 +249,8 @@ public class ClientMainMenuController {
         for (Id id : programStatus.getUser().getSalaryIds()) {
             SalaryProject salary = salaries.get(id);
             TitledPane titledPane = new TitledPane();
-            titledPane.getStylesheets().add(ManagerMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+            titledPane.getStylesheets().add(ManagerMainMenuController
+                    .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
             titledPane.setText(id.toString());
 
             VBox content = new VBox();
