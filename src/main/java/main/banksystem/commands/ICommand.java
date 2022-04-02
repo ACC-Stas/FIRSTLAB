@@ -21,6 +21,7 @@ import java.io.Serializable;
         @JsonSubTypes.Type(value = SetBillStatusCommand.class, name = "SetBillStatusCommand"),
         @JsonSubTypes.Type(value = BuildSalaryProjectCommand.class, name = "BuildSalaryProjectCommand"),
         @JsonSubTypes.Type(value = RepayCreditCommand.class, name = "RepayCreditCommand"),
+        @JsonSubTypes.Type(value = RepayCreditCommand.class, name = "RepayInstallmentCommand")
 })
 @JsonTypeName("ICommand")
 public interface ICommand extends Serializable {
