@@ -16,6 +16,7 @@ module main.banksystem {
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.datatype.jsr310;
     requires com.google.common;
+    requires javafx.media;
 
     opens main.banksystem to javafx.fxml;
     exports main.banksystem;
