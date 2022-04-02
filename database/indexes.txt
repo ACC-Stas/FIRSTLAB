@@ -1,2 +1,1 @@
-<<<<<<< Updated upstream
 {"{\"id\":0}":"{\"User\":5,\"Bill\":16}"}
