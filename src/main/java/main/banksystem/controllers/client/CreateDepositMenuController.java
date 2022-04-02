@@ -13,10 +13,15 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
+import main.banksystem.CPU;
 import main.banksystem.DataBase;
+import main.banksystem.IndexGenerator;
 import main.banksystem.ProgramStatus;
 import main.banksystem.builders.CreditBuilder;
 import main.banksystem.builders.DepositBuilder;
+import main.banksystem.commands.BuildCreditCommand;
+import main.banksystem.commands.BuildDepositCommand;
+import main.banksystem.commands.ICommand;
 import main.banksystem.entities.Company;
 import main.banksystem.entities.Id;
 import main.banksystem.entities.Percent;
@@ -95,7 +100,22 @@ public class CreateDepositMenuController {
                     break;
                 }
             }
-            //depositBuilder.
+            depositBuilder.buildValue(valueField.getText());
+            DepositBuilder.Result result = depositBuilder.getDeposit();
+
+            if (!result.valid) {
+                errorLabel.setText(result.description);
+            }
+
+            IndexGenerator indexGenerator = IndexGenerator.getInstance();
+            result.deposit.setId(new Id(indexGenerator.generateIdx(IndexGenerator.DEPOSIT_IDX)));
+
+            BuildDepositCommand command = new BuildDepositCommand(status.getUser().getIdx(), result.deposit,
+                    new ICommand.Type(false, true));
+            CPU cpu = new CPU(status.getUser());
+            cpu.heldCommand(command);
+
+            depositButton.getScene().getWindow().hide();
         });
     }
 

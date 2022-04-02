@@ -91,6 +91,7 @@ public class ClientMainMenuController {
     @FXML
     void initialize() {
         createBillAccordion();
+        createDepositAccordion();
         createSalaryAccordion();
         createCreditAccordion();
         createInstallmentAccordion();
@@ -103,6 +104,12 @@ public class ClientMainMenuController {
             Map<Id, User> users = dataBase.downloadMap(DataBase.USER_PART, User.class);
             programStatus.setUser(users.get(programStatus.getUser().getIdx()));
             initialize();
+        });
+        createDepositButton.setOnAction(event ->{
+            newMenu(createDepositButton, "/main/banksystem/client/create_deposit_menu.fxml");
+        });
+        closeDepositButton.setOnAction(event ->{
+            newMenu(closeDepositButton, "/main/banksystem/client/close_deposit_menu.fxml");
         });
         createCreditButton.setOnAction(event ->{
             newMenu(createCreditButton, "/main/banksystem/client/create_credit_menu.fxml");
@@ -241,27 +248,27 @@ public class ClientMainMenuController {
     }
 
     void createDepositAccordion() {
-        salaryAccordion.getPanes().clear();
+        depositAccordion.getPanes().clear();
         DataBase dataBase = DataBase.getInstance();
-        Map<Id, SalaryProject> salaries = dataBase.downloadMap(DataBase.DEPOSIT_PART, SalaryProject.class);
+        Map<Id, Deposit> deposits = dataBase.downloadMap(DataBase.DEPOSIT_PART, Deposit.class);
 
         ProgramStatus programStatus = ProgramStatus.getInstance();
-        for (Id id : programStatus.getUser().getSalaryIds()) {
-            SalaryProject salary = salaries.get(id);
+        for (Id id : programStatus.getUser().getDepositIds()) {
+            Deposit deposit = deposits.get(id);
             TitledPane titledPane = new TitledPane();
             titledPane.getStylesheets().add(ManagerMainMenuController
                     .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
             titledPane.setText(id.toString());
 
             VBox content = new VBox();
-            Label value = new Label("Значение: " + String.valueOf(salary.getSum()));
-            Label bill = new Label("Привязанный счёт: " + String.valueOf(salary.getBillToId()));
+            Label value = new Label("Значение: " + String.valueOf(deposit.getValue()));
+            Label bill = new Label("Привязанный счёт: " + String.valueOf(deposit.getBillId()));
 
             content.getChildren().add(value);
             content.getChildren().add(bill);
             titledPane.setContent(content);
 
-            salaryAccordion.getPanes().addAll(titledPane);
+            depositAccordion.getPanes().addAll(titledPane);
         }
     }
 

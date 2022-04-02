@@ -74,6 +74,21 @@ public class DepositBuilder {
         this.buildId(new Id(number));
     }
 
+    public void buildValue(double sum) {
+        deposit.setValue(sum);
+    }
+
+    public void buildValue(String sum) {
+        double val = -1;
+        try {
+            val = Double.parseDouble(sum);
+        } catch (Exception e) {
+            return;
+        }
+
+        this.buildValue(val);
+    }
+
     public static class Result {
         public Deposit deposit;
         public boolean valid;
@@ -106,6 +121,10 @@ public class DepositBuilder {
                 result.valid = false;
                 result.description = "No such bank bill in system";
             }
+        }
+        if (deposit.getValue() < 0) {
+            result.valid = false;
+            result.description = "Invalid deposit value";
         }
 
         if (deposit.getBillId() == null) {
