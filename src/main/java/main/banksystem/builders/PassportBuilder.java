@@ -1,6 +1,6 @@
 package main.banksystem.builders;
 
-import main.banksystem.containers.*;
+import main.banksystem.entities.*;
 
 import java.time.LocalDate;
 

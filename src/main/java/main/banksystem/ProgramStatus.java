@@ -1,5 +1,5 @@
 package main.banksystem;
-import main.banksystem.containers.User;
+import main.banksystem.entities.User;
 
 public class ProgramStatus {
     private User user;

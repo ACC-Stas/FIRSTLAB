@@ -14,8 +14,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.banksystem.DataBase;
 import main.banksystem.ProgramStatus;
-import main.banksystem.containers.Bill;
-import main.banksystem.containers.Id;
+import main.banksystem.entities.Bill;
+import main.banksystem.entities.Id;
 
 public class WithdrawMenuController {
 

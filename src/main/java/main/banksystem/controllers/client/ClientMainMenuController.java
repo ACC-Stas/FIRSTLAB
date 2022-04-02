@@ -12,10 +12,9 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 import main.banksystem.DataBase;
 import main.banksystem.ProgramStatus;
-import main.banksystem.containers.Bill;
-import main.banksystem.containers.Id;
-import main.banksystem.containers.SalaryProject;
-import main.banksystem.containers.User;
+import main.banksystem.entities.Bill;
+import main.banksystem.entities.Id;
+import main.banksystem.entities.SalaryProject;
 import main.banksystem.controllers.manager.ManagerMainMenuController;
 
 import static main.banksystem.controllers.SwitchMenu.newMenu;

@@ -1,4 +1,4 @@
-package main.banksystem.containers;
+package main.banksystem.entities;
 
 public class FullName implements java.io.Serializable {
     private String firstName;

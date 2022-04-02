@@ -1,27 +1,26 @@
-package main.banksystem.containers;
+package main.banksystem.entities;
 
-public class Credit implements java.io.Serializable {
-    public Credit(Id bankBillId, Id sourceBillId, double sumToPay, double percent, Id id){
-        this.bankBillId = bankBillId;
+public class Installment {
+    public Installment(Id companyBillId, Id sourceBillId, double sumToPay, double percent, Id id){
+        this.companyBillId = companyBillId;
         this.sourceBillId = sourceBillId;
         this.sumToPay = sumToPay;
         this.percent = percent;
         this.id = id;
     }
 
-    public Credit(){
-        this.bankBillId = null;
+    public Installment(){
+        this.companyBillId = null;
         this.sourceBillId = null;
         this.sumToPay = -1;
         this.percent = -1;
         this.id = null;
     }
 
-    Id bankBillId;
+    Id companyBillId;
     Id sourceBillId;
     double sumToPay;
     Id id;
-    double percent;
 
     public Id getId() {
         return id;
@@ -31,12 +30,12 @@ public class Credit implements java.io.Serializable {
         this.id = id;
     }
 
-    public Id getBankBillId() {
-        return bankBillId;
+    public Id getCompanyBillId() {
+        return companyBillId;
     }
 
-    public void setBankBillId(Id bankBillId) {
-        this.bankBillId = bankBillId;
+    public void setCompanyBillId(Id companyBillId) {
+        this.companyBillId = companyBillId;
     }
 
     public Id getSourceBillId() {
@@ -62,4 +61,6 @@ public class Credit implements java.io.Serializable {
     public void setPercent(double percent) {
         this.percent = percent;
     }
+
+    double percent;
 }

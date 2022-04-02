@@ -1,6 +1,4 @@
-package main.banksystem.containers;
-
-import main.banksystem.containers.Bill;
+package main.banksystem.entities;
 
 public class Deposit implements java.io.Serializable {
     public Deposit(Id bankBillId, double percent, Id bill, Id id){

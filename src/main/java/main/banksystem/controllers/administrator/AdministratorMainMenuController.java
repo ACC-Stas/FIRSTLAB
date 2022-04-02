@@ -12,8 +12,8 @@ import javafx.scene.layout.VBox;
 import main.banksystem.CPU;
 import main.banksystem.DataBase;
 import main.banksystem.commands.ICommand;
-import main.banksystem.containers.Id;
-import main.banksystem.containers.User;
+import main.banksystem.entities.Id;
+import main.banksystem.entities.User;
 import main.banksystem.controllers.manager.ManagerMainMenuController;
 
 import static main.banksystem.controllers.SwitchMenu.newMenu;

@@ -17,9 +17,9 @@ import main.banksystem.builders.AddressBuilder;
 import main.banksystem.builders.CompanyBuilder;
 import main.banksystem.commands.ICommand;
 import main.banksystem.commands.RegistryCompanyCommand;
-import main.banksystem.containers.Company;
-import main.banksystem.containers.Id;
-import main.banksystem.containers.User;
+import main.banksystem.entities.Company;
+import main.banksystem.entities.Id;
+import main.banksystem.entities.User;
 
 import static main.banksystem.controllers.SwitchMenu.switchMenu;
 

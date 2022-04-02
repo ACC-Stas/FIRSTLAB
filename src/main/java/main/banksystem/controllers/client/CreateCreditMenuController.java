@@ -18,8 +18,7 @@ import main.banksystem.ProgramStatus;
 import main.banksystem.builders.CreditBuilder;
 import main.banksystem.commands.BuildCreditCommand;
 import main.banksystem.commands.ICommand;
-import main.banksystem.commands.TransferCommand;
-import main.banksystem.containers.*;
+import main.banksystem.entities.*;
 
 public class CreateCreditMenuController {
 

@@ -17,7 +17,7 @@ import main.banksystem.IndexGenerator;
 import main.banksystem.ProgramStatus;
 import main.banksystem.commands.BuildBillCommand;
 import main.banksystem.commands.ICommand;
-import main.banksystem.containers.*;
+import main.banksystem.entities.*;
 
 public class CreateBillMenuController {
 

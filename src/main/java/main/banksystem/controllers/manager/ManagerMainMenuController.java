@@ -12,7 +12,7 @@ import main.banksystem.DataBase;
 import main.banksystem.commands.BuildCreditCommand;
 import main.banksystem.commands.BuildInstallmentCommand;
 import main.banksystem.commands.ICommand;
-import main.banksystem.containers.*;
+import main.banksystem.entities.*;
 
 import static main.banksystem.controllers.SwitchMenu.switchMenu;
 

@@ -1,4 +1,4 @@
-package main.banksystem.containers;
+package main.banksystem.entities;
 
 import java.util.Objects;
 

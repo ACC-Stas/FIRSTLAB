@@ -1,4 +1,4 @@
-package main.banksystem.containers;
+package main.banksystem.entities;
 
 public enum Percent {
     First(5), Second(10), Third(15), Fourth(20), Fifth(25);

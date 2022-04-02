@@ -1,4 +1,4 @@
-package main.banksystem.containers;
+package main.banksystem.entities;
 
 public class Address implements java.io.Serializable {
     public Address(String country, String city, String streetAddress){

@@ -1,6 +1,6 @@
 package main.banksystem.builders;
 
-import main.banksystem.containers.Address;
+import main.banksystem.entities.Address;
 
 import java.util.Objects;
 

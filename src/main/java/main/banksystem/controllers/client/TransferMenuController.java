@@ -14,11 +14,9 @@ import javafx.scene.control.TextField;
 import main.banksystem.CPU;
 import main.banksystem.ProgramStatus;
 import main.banksystem.builders.TransferBuilder;
-import main.banksystem.commands.BuildBillCommand;
 import main.banksystem.commands.ICommand;
 import main.banksystem.commands.TransferCommand;
-import main.banksystem.containers.Id;
-import main.banksystem.containers.Transfer;
+import main.banksystem.entities.Id;
 
 public class TransferMenuController {
 

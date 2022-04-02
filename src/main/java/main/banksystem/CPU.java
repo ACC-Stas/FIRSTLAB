@@ -1,6 +1,6 @@
 package main.banksystem;
 import main.banksystem.commands.ICommand;
-import main.banksystem.containers.User;
+import main.banksystem.entities.User;
 
 import java.util.LinkedList;
 import java.util.Queue;

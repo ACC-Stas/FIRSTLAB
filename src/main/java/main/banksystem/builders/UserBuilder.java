@@ -1,10 +1,10 @@
 package main.banksystem.builders;
 
 import main.banksystem.DataBase;
-import main.banksystem.containers.Id;
-import main.banksystem.containers.Passport;
-import main.banksystem.containers.Role;
-import main.banksystem.containers.User;
+import main.banksystem.entities.Id;
+import main.banksystem.entities.Passport;
+import main.banksystem.entities.Role;
+import main.banksystem.entities.User;
 
 import java.util.Map;
 import java.util.Objects;

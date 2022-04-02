@@ -3,7 +3,6 @@ package main.banksystem.commands;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonTypeName;
-import main.banksystem.containers.Role;
 
 import java.io.Serializable;
 
