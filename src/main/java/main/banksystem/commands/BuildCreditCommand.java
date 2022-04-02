@@ -86,7 +86,7 @@ public class BuildCreditCommand implements ICommand {
     @Override
     public void execute() {
         DataBase dataBase = DataBase.getInstance();
-        Map<Id, Credit> credits = dataBase.downloadMap(DataBase.CREDITS_PART, Credit.class);
+        Map<Id, Credit> credits = dataBase.downloadMap(DataBase.CREDIT_PART, Credit.class);
 
         if (credits.containsKey(credit.getId())) {
             return;
@@ -95,7 +95,7 @@ public class BuildCreditCommand implements ICommand {
         User user = dataBase.download(this.userId, DataBase.USER_PART, User.class);
         user.getCreditIds().add(this.credit.getId());
         dataBase.save(this.userId, DataBase.USER_PART, user);
-        dataBase.save(credit.getId(), DataBase.CREDITS_PART, credit);
+        dataBase.save(credit.getId(), DataBase.CREDIT_PART, credit);
 
         transferCommand.execute();
     }
@@ -108,7 +108,7 @@ public class BuildCreditCommand implements ICommand {
         user.getCreditIds().remove(this.credit.getId());
         dataBase.save(this.userId, DataBase.USER_PART, user);
 
-        dataBase.remove(credit.getId(), DataBase.CREDITS_PART);
+        dataBase.remove(credit.getId(), DataBase.CREDIT_PART);
 
         transferCommand.undo();
     }

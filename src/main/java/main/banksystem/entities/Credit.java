@@ -1,7 +1,7 @@
 package main.banksystem.entities;
 
 public class Credit implements java.io.Serializable {
-    public Credit(Id bankBillId, Id sourceBillId, double sumToPay, double percent, Id id){
+    public Credit(Id bankBillId, Id sourceBillId, double sumToPay, double percent, Id id) {
         this.bankBillId = bankBillId;
         this.sourceBillId = sourceBillId;
         this.sumToPay = sumToPay;
@@ -9,7 +9,7 @@ public class Credit implements java.io.Serializable {
         this.id = id;
     }
 
-    public Credit(){
+    public Credit() {
         this.bankBillId = null;
         this.sourceBillId = null;
         this.sumToPay = -1;
@@ -61,5 +61,13 @@ public class Credit implements java.io.Serializable {
 
     public void setPercent(double percent) {
         this.percent = percent;
+    }
+
+    public void updateSum() {
+        if (sumToPay <= 0) {
+            return;
+        }
+
+        sumToPay += sumToPay * percent;
     }
 }

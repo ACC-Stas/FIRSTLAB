@@ -13,6 +13,17 @@ public class TransferCommand implements ICommand {
     private Transfer transfer;
     private String description = "";
 
+    public TransferCommand(Transfer transfer, Type type) {
+        this.type = type;
+        this.transfer = transfer;
+    }
+
+    @JsonCreator
+    public TransferCommand() {
+        this.type = null;
+        this.transfer = null;
+    }
+
     public Transfer getTransfer() {
         return transfer;
     }
@@ -29,17 +40,6 @@ public class TransferCommand implements ICommand {
     @Override
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public TransferCommand(Transfer transfer, Type type) {
-        this.type = type;
-        this.transfer = transfer;
-    }
-
-    @JsonCreator
-    public TransferCommand() {
-        this.type = null;
-        this.transfer = null;
     }
 
     @Override
