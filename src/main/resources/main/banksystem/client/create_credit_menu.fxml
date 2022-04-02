@@ -55,7 +55,7 @@
                 </Label>
                 <ChoiceBox fx:id="billChoice" layoutX="213.0" layoutY="55.0" prefHeight="33.0" prefWidth="291.0" />
             <ChoiceBox fx:id="periodChoice" layoutX="213.0" layoutY="92.0" prefHeight="33.0" prefWidth="291.0" />
-            <TabPane fx:id="percentTabPane" layoutX="118.0" layoutY="125.0" prefHeight="65.0" prefWidth="396.0" style="-fx-background-color: #fafafafa;" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="percentTabPane" layoutX="77.0" layoutY="125.0" prefHeight="65.0" prefWidth="474.0" style="-fx-background-color: #fafafafa;" stylesheets="@../tab_pane_sheet.css" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Фиксированный процент">
                   <content>

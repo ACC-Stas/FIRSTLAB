@@ -1,0 +1,102 @@
+package main.banksystem.controllers.client;
+
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.TextField;
+import main.banksystem.DataBase;
+import main.banksystem.ProgramStatus;
+import main.banksystem.builders.CreditBuilder;
+import main.banksystem.builders.DepositBuilder;
+import main.banksystem.entities.Company;
+import main.banksystem.entities.Id;
+import main.banksystem.entities.Percent;
+
+public class CreateDepositMenuController {
+
+    ObservableList<String> billList = FXCollections.observableArrayList();
+    ObservableList<String> percentList = FXCollections.observableArrayList();
+
+    @FXML
+    private ResourceBundle resources;
+
+    @FXML
+    private URL location;
+
+    @FXML
+    private ChoiceBox<String> billChoice;
+
+    @FXML
+    private Button depositButton;
+
+    @FXML
+    private Label errorLabel;
+
+    @FXML
+    private ChoiceBox<String> percentChoice;
+
+    @FXML
+    private TextField percentField;
+
+    @FXML
+    private TabPane percentTabPane;
+
+    @FXML
+    private TextField valueField;
+
+    @FXML
+    void initialize() {
+        ProgramStatus status = ProgramStatus.getInstance();
+        ArrayList<Id> ids = status.getUser().getBillIds();
+
+        for(Id id : ids) {
+            billList.add(String.valueOf(id.getId()));
+        }
+        billChoice.setItems(billList);
+
+        for (Percent percent : Percent.values()) {
+            percentList.add(percent.toString());
+        }
+        percentChoice.setItems((percentList));
+        percentChoice.setValue(percentList.get(0));
+
+        depositButton.setOnAction(event -> {
+            DataBase dataBase = DataBase.getInstance();
+
+            DepositBuilder depositBuilder = new DepositBuilder();
+            depositBuilder.buildId(new Id(-1));
+            Id billId = new Id(Long.parseLong(billChoice.getValue()));
+            depositBuilder.buildBillId(billId);
+
+            if (percentTabPane.getSelectionModel().getSelectedIndex() == 0){
+                depositBuilder.buildPercent(Double.parseDouble(percentChoice.getValue()));
+            }
+            else {
+                depositBuilder.buildPercent(Double.parseDouble(percentField.getText()));
+            }
+
+            Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
+            if (companies == null) {
+                errorLabel.setText("No banks");
+                return;
+            }
+            for (Company company : companies.values()) {
+                if (company.getIsBank() && company.getBillsIds().contains(billId)) {
+                    depositBuilder.buildBankBillId(company.getBillCompanyId());
+                    break;
+                }
+            }
+            //depositBuilder.
+        });
+    }
+
+}
