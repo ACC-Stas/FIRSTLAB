@@ -11,7 +11,7 @@
    <children>
       <AnchorPane layoutX="-1.0" layoutY="112.0" prefHeight="289.0" prefWidth="700.0" style="-fx-background-color: #fafafafa;">
          <children>
-            <TextField fx:id="loginField" layoutX="205.0" layoutY="78.0" prefHeight="33.0" prefWidth="291.0" promptText="Логин" style="-fx-background-color: fafafafa; -fx-border-color: silver; -fx-border-radius: 5;">
+            <TextField fx:id="loginField" layoutX="205.0" layoutY="78.0" prefHeight="33.0" prefWidth="291.0" promptText="Логин" style="-fx-background-color: fafafafa; -fx-border-color: silver; -fx-border-radius: 5;" text="admin">
                <font>
                   <Font size="17.0" />
                </font>
@@ -26,7 +26,7 @@
                   <Font name="System Bold Italic" size="30.0" />
                </font>
             </Button>
-            <PasswordField fx:id="passwordField" layoutX="205.0" layoutY="127.0" prefHeight="33.0" prefWidth="291.0" promptText="Пароль">
+            <PasswordField fx:id="passwordField" layoutX="205.0" layoutY="127.0" prefHeight="33.0" prefWidth="291.0" promptText="Пароль" text="admin">
                <font>
                   <Font size="17.0" />
                </font>

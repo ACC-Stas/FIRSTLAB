@@ -19,6 +19,8 @@ public class RepayInstallmentCommand implements ICommand {
         this.type = type;
         this.installmentId = installmentId;
         this.money = money;
+        this.transferCommand = null;
+        this.description = String.format("User repaying installment %d with sum %f", installmentId.getId(), money);
     }
 
     @JsonCreator

@@ -109,7 +109,10 @@ public class CreateInstallmentMenuController {
             else {
                 installmentBuilder.buildPercent(Double.parseDouble(percentField.getText()));
             }
-            installmentBuilder.buildCompanyBillId(companyChoice.getValue());
+
+
+            installmentBuilder.buildCompanyBillId(companies.get(new
+                    Id(Long.parseLong(companyChoice.getValue()))).getBillCompanyId());
             Id billId = new Id(Long.parseLong(billChoice.getValue()));
             installmentBuilder.buildSourceBillId(billId);
             installmentBuilder.buildSumToPay(valueField.getText());

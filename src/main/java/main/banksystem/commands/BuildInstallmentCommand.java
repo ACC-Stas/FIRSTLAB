@@ -62,7 +62,7 @@ public class BuildInstallmentCommand implements ICommand {
         this.userId = userId;
         this.installment = installment;
         this.type = type;
-        this.description = String.format("User %d want to create installment %s", userId.getId(), installment.toString());
+        this.description = String.format("User %d want to create installment %s", userId.getId(), installment.getId().toString());
 
         TransferBuilder transferBuilder = new TransferBuilder();
         transferBuilder.buildBillFromId(installment.getCompanyBillId());

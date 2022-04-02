@@ -13,6 +13,7 @@ public class Company implements java.io.Serializable {
     private boolean isBank;
     private List<Id> specialistIds;
     private List<Id> salaryProjectIds;
+    private List<Id> billsIds;
 
     public Company(String jName, Type type, Id PAN, BIC bankID, Address jAddress, Id billCompanyId) {
         this.jName = jName;
@@ -23,6 +24,7 @@ public class Company implements java.io.Serializable {
         this.billCompanyId = billCompanyId;
         specialistIds = new ArrayList<>();
         salaryProjectIds = new ArrayList<>();
+        billsIds = new ArrayList<>();
     }
 
     public Company() {
@@ -35,6 +37,7 @@ public class Company implements java.io.Serializable {
         this.isBank = false;
         specialistIds = new ArrayList<>();
         salaryProjectIds = new ArrayList<>();
+        billsIds = new ArrayList<>();
     }
 
     public enum Type {
@@ -114,5 +117,13 @@ public class Company implements java.io.Serializable {
 
     public void setSalaryProjectIds(List<Id> salaryProjectIds) {
         this.salaryProjectIds = salaryProjectIds;
+    }
+
+    public List<Id> getBillsIds() {
+        return billsIds;
+    }
+
+    public void setBillsIds(List<Id> billsIds) {
+        this.billsIds = billsIds;
     }
 }

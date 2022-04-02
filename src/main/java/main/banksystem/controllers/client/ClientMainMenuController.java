@@ -105,13 +105,19 @@ public class ClientMainMenuController {
             initialize();
         });
         createCreditButton.setOnAction(event ->{
-            newMenu(createBillButton, "/main/banksystem/client/create_credit_menu.fxml");
+            newMenu(createCreditButton, "/main/banksystem/client/create_credit_menu.fxml");
+        });
+        closeCreditButton.setOnAction(event ->{
+            newMenu(closeCreditButton, "/main/banksystem/client/close_credit_menu.fxml");
         });
         createBillButton.setOnAction(event ->{
             newMenu(createBillButton, "/main/banksystem/client/create_bill_menu.fxml");
         });
         createInstallmentButton.setOnAction(event ->{
             newMenu(createInstallmentButton, "/main/banksystem/client/create_installment_menu.fxml");
+        });
+        closeInstallmentButton.setOnAction(event ->{
+            newMenu(closeInstallmentButton, "/main/banksystem/client/close_installment_menu.fxml");
         });
         withdrawBillButton.setOnAction(event ->{
             newMenu(withdrawBillButton, "/main/banksystem/client/withdraw_menu.fxml");

@@ -20,6 +20,7 @@ public class RepayCreditCommand implements ICommand {
         this.type = type;
         this.creditId = creditId;
         this.money = money;
+        this.description = String.format("User repaying credit %d with sum %f", creditId.getId(), money);
     }
 
     @JsonCreator

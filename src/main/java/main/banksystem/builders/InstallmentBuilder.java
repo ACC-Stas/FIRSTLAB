@@ -117,11 +117,11 @@ public class InstallmentBuilder {
 
         if (installment.getCompanyBillId() == null) {
             result.valid = false;
-            result.description = "No bunk";
+            result.description = "No bank";
         } else {
 
             DataBase dataBase = DataBase.getInstance();
-            Bill bill = dataBase.download(installment.getCompanyBillId(), DataBase.COMPANY_PART, Bill.class);
+            Bill bill = dataBase.download(installment.getCompanyBillId(), DataBase.BILLS_PART, Bill.class);
             if (bill == null) {
                 result.valid = false;
                 result.description = "No such company bill in system";

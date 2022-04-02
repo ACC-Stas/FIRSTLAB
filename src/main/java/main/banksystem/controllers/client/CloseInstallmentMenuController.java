@@ -16,13 +16,15 @@ import main.banksystem.DataBase;
 import main.banksystem.ProgramStatus;
 import main.banksystem.commands.ICommand;
 import main.banksystem.commands.RepayCreditCommand;
+import main.banksystem.commands.RepayInstallmentCommand;
 import main.banksystem.entities.Bill;
 import main.banksystem.entities.Credit;
 import main.banksystem.entities.Id;
+import main.banksystem.entities.Installment;
 
-public class CloseCreditMenuController {
+public class CloseInstallmentMenuController {
 
-    ObservableList<String> creditList = FXCollections.observableArrayList();
+    ObservableList<String> installmentList = FXCollections.observableArrayList();
 
     @FXML
     private ResourceBundle resources;
@@ -31,7 +33,7 @@ public class CloseCreditMenuController {
     private URL location;
 
     @FXML
-    private ChoiceBox<String> creditChoice;
+    private ChoiceBox<String> installmentChoice;
 
     @FXML
     private Label errorLabel;
@@ -46,19 +48,19 @@ public class CloseCreditMenuController {
     void initialize() {
         ProgramStatus status = ProgramStatus.getInstance();
         DataBase dataBase = DataBase.getInstance();
-        Map<Id, Credit> credits = dataBase.downloadMap(DataBase.CREDIT_PART, Credit.class);
+        Map<Id, Installment> installments = dataBase.downloadMap(DataBase.INSTALLMENT_PART, Installment.class);
 
-        for (Id id : status.getUser().getCreditIds()) {
-            if (credits.get(id).getSumToPay() <= 0) {
+        for (Id id : status.getUser().getInstallmentIds()) {
+            if (installments.get(id).getSumToPay() <= 0) {
                 continue;
             }
-            creditList.add(id.toString());
+            installmentList.add(id.toString());
         }
-        creditChoice.setItems(creditList);
+        installmentChoice.setItems(installmentList);
 
-        creditChoice.setOnAction(event -> {
+        installmentChoice.setOnAction(event -> {
             valueSlider.setMin(0);
-            double maxValue = credits.get(new Id(Long.parseLong(creditChoice.getValue()))).getSumToPay();
+            double maxValue = installments.get(new Id(Long.parseLong(installmentChoice.getValue()))).getSumToPay();
             valueSlider.setMax(maxValue);
             valueSlider.setShowTickLabels(true);
             valueSlider.setShowTickMarks(true);
@@ -67,18 +69,19 @@ public class CloseCreditMenuController {
 
         transferButton.setOnAction(event -> {
             Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
-            double valueOnBill = bills.get(credits.get(new Id(Long.parseLong(creditChoice.getValue())))
+            double valueOnBill = bills.get(installments.get(new Id(Long.parseLong(installmentChoice.getValue())))
                     .getSourceBillId()).getMoney();
             if (valueOnBill < valueSlider.getValue()){
                 errorLabel.setText("Not enough money to pay");
                 return;
             }
-            RepayCreditCommand creditCommand = new RepayCreditCommand(new Id(Long.parseLong(creditChoice.getValue())),
-                    new ICommand.Type(false, true), valueSlider.getValue());
+            RepayInstallmentCommand installmentCommand = new RepayInstallmentCommand(new
+                    Id(Long.parseLong(installmentChoice.getValue())), new ICommand.Type(false, true),
+                    valueSlider.getValue());
 
             ProgramStatus programStatus = ProgramStatus.getInstance();
             CPU cpu = new CPU(programStatus.getUser());
-            cpu.heldCommand(creditCommand);
+            cpu.heldCommand(installmentCommand);
             transferButton.getScene().getWindow().hide();
         });
     }
