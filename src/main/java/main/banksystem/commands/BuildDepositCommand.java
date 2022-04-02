@@ -16,7 +16,6 @@ public class BuildDepositCommand implements ICommand {
     private ICommand.Type type;
     private Deposit deposit;
     private String description;
-    private TransferCommand transferCommand;
 
     public Id getUserId() {
         return userId;
@@ -24,14 +23,6 @@ public class BuildDepositCommand implements ICommand {
 
     public void setUserId(Id userId) {
         this.userId = userId;
-    }
-
-    public TransferCommand getTransferCommand() {
-        return transferCommand;
-    }
-
-    public void setTransferCommand(TransferCommand transferCommand) {
-        this.transferCommand = transferCommand;
     }
 
     @Override
@@ -62,17 +53,6 @@ public class BuildDepositCommand implements ICommand {
         this.deposit = deposit;
         this.type = type;
         this.description = String.format("User %d want to create deposit %s", userId.getId(), deposit.toString());
-
-        TransferBuilder transferBuilder = new TransferBuilder();
-       // transferBuilder.buildBillFromId(deposit.);
-        //transferBuilder.buildBillToId(installment.getSourceBillId());
-       // transferBuilder.buildValue(installment.getSumToPay());
-        TransferBuilder.Result transfer = transferBuilder.getTransfer();
-        if (!transfer.valid) {
-            this.description = transfer.description;
-            return;
-        }
-        this.transferCommand = new TransferCommand(transfer.transfer, new Type(false, false));
     }
 
     @JsonCreator

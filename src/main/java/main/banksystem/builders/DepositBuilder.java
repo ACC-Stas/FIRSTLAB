@@ -30,7 +30,7 @@ public class DepositBuilder {
     }
 
     public void buildBillId(Id id) {
-        deposit.setBill(id);
+        deposit.setBillId(id);
     }
 
     public void buildBillId(String string) {
@@ -108,12 +108,12 @@ public class DepositBuilder {
             }
         }
 
-        if (deposit.getBill() == null) {
+        if (deposit.getBillId() == null) {
             result.valid = false;
             result.description = "No bill id";
         } else {
             DataBase dataBase = DataBase.getInstance();
-            Bill bill = dataBase.download(deposit.getBill(), DataBase.BILLS_PART, Bill.class);
+            Bill bill = dataBase.download(deposit.getBillId(), DataBase.BILLS_PART, Bill.class);
             if (bill == null) {
                 result.valid = false;
                 result.description = "No such bill id in system";
