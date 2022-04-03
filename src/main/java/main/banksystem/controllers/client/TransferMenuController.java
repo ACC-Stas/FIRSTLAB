@@ -77,7 +77,7 @@ public class TransferMenuController {
 
                 CPU cpu = new CPU(status.getUser());
                 cpu.heldCommand(command);
-                if (Objects.equals(command.getDescription(), "Everything is good")) {
+                if (command.isValid()) {
                     transferButton.getScene().getWindow().hide();
                 } else {
                     errorLabel.setText(command.getDescription());
