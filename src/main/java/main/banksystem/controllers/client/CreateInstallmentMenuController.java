@@ -3,6 +3,7 @@ package main.banksystem.controllers.client;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -94,12 +95,24 @@ public class CreateInstallmentMenuController {
 
         for (Company company : companies.values()) {
             if (!company.getIsBank()) {
-                companyList.add(company.getPAN().toString());
+                companyList.add(company.getjName());
             }
         }
         companyChoice.setItems((companyList));
 
         installmentButton.setOnAction(event -> {
+            String companyJName = companyChoice.getValue();
+            Company company = null;
+            for (Company companyI : companies.values()) {
+                if (Objects.equals(companyI.getjName(), companyJName)) {
+                    company = companyI;
+                    break;
+                }
+            }
+            if (company == null) {
+                errorLabel.setText(String.format("No company %s", companyJName));
+                return;
+            }
 
             InstallmentBuilder installmentBuilder = new InstallmentBuilder();
             installmentBuilder.buildId(new Id(1));
@@ -111,8 +124,7 @@ public class CreateInstallmentMenuController {
             }
 
 
-            installmentBuilder.buildCompanyBillId(companies.get(new
-                    Id(Long.parseLong(companyChoice.getValue()))).getBillCompanyId());
+            installmentBuilder.buildCompanyBillId(company.getBillCompanyId());
             Id billId = new Id(Long.parseLong(billChoice.getValue()));
             installmentBuilder.buildSourceBillId(billId);
             installmentBuilder.buildSumToPay(valueField.getText());

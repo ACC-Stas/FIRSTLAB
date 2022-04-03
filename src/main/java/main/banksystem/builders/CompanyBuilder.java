@@ -112,7 +112,7 @@ public class CompanyBuilder {
             for (Company company : companies.values()) {
                 if (Objects.equals(this.company.getjName(), company.getjName())) {
                     result.valid = false;
-                    result.description = "Company name is already taken";
+                    result.description = "Company name is taken";
                     break;
                 }
             }
@@ -133,11 +133,13 @@ public class CompanyBuilder {
                 company.setBankID(new BIC(company.getPAN()));
             }
             if (company.getBankID() == null) {
+                result.description = "No bank id";
                 result.valid = false;
             }
         }
 
         if (company.getjAddress() == null) {
+            result.description = "No address";
             result.valid = false;
         }
 

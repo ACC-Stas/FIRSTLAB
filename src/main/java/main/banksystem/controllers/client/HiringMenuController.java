@@ -3,6 +3,7 @@ package main.banksystem.controllers.client;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -53,24 +54,37 @@ public class HiringMenuController {
         DataBase dataBase = DataBase.getInstance();
         Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
         for (Company company : companies.values()) {
-            companyList.add(company.getPAN().toString());
+            companyList.add(company.getjName());
         }
         companyChoice.setItems(companyList);
 
         ProgramStatus status = ProgramStatus.getInstance();
         ArrayList<Id> ids = status.getUser().getBillIds();
 
-        for(Id id : ids) {
+        for (Id id : ids) {
             billList.add(String.valueOf(id.getId()));
         }
         billChoice.setItems(billList);
 
         hireButton.setOnAction(event -> {
+            String companyJName = companyChoice.getValue();
+            Company company = null;
+            for (Company companyI : companies.values()) {
+                if (Objects.equals(companyI.getjName(), companyJName)) {
+                    company = companyI;
+                    break;
+                }
+            }
+
+            if (company == null) {
+                errorLabel.setText(String.format("No company %s", companyJName));
+                return;
+            }
+
             SalaryProjectBuilder salaryProjectBuilder = new SalaryProjectBuilder();
             salaryProjectBuilder.buildBillToId(new Id(Long.parseLong(billChoice.getValue())));
             salaryProjectBuilder.buildSum(valueField.getText());
-            salaryProjectBuilder.buildBillFromId(companies.get(new
-                    Id(Long.parseLong(companyChoice.getValue()))).getBillCompanyId());
+            salaryProjectBuilder.buildBillFromId(company.getBillCompanyId());
             salaryProjectBuilder.buildSalaryProjectId(new Id(0));
             SalaryProjectBuilder.Result result = salaryProjectBuilder.getSalaryProject();
 
@@ -80,15 +94,13 @@ public class HiringMenuController {
             }
 
             BuildSalaryProjectCommand salaryProjectCommand = new BuildSalaryProjectCommand(status.getUser().getIdx(),
-                    new Id(Long.parseLong(companyChoice.getValue())), result.salaryProject,
-                    new ICommand.Type(true, false));
+                    company.getPAN(), result.salaryProject, new ICommand.Type(true, false));
 
             CPU cpu = new CPU(status.getUser());
             cpu.heldCommand(salaryProjectCommand);
 
             hireButton.getScene().getWindow().hide();
         });
-
 
 
     }

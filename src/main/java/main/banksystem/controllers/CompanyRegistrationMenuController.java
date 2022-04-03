@@ -106,7 +106,7 @@ public class CompanyRegistrationMenuController {
             companyBuilder.buildBankId(friendChoice.getValue());
             CompanyBuilder.Result company = companyBuilder.getCompany();
             if (!company.valid) {
-                errorLabel.setText("Invalid input");
+                errorLabel.setText(company.description);
                 return;
             }
 
