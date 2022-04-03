@@ -14,8 +14,10 @@ import javafx.scene.control.Slider;
 import main.banksystem.CPU;
 import main.banksystem.DataBase;
 import main.banksystem.ProgramStatus;
+import main.banksystem.builders.TransferBuilder;
 import main.banksystem.commands.ICommand;
 import main.banksystem.commands.RepayCreditCommand;
+import main.banksystem.commands.TransferCommand;
 import main.banksystem.entities.Bill;
 import main.banksystem.entities.Credit;
 import main.banksystem.entities.Deposit;
@@ -68,12 +70,34 @@ public class CloseDepositMenuController {
 
         transferButton.setOnAction(event -> {
             Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
-            double valueOnBill = bills.get(deposits.get(new Id(Long.parseLong(depositChoice.getValue())))
-                    .getBankBillId()).getMoney();
-            if (valueOnBill < valueSlider.getValue()){
-                errorLabel.setText("Not enough money to withdraw");
+            if (depositChoice.getValue() == null) {
+                errorLabel.setText("Choose deposit");
                 return;
             }
+            Deposit deposit = deposits.get(new Id(Long.parseLong(depositChoice.getValue())));
+            Bill bankBill = bills.get(deposit.getBankBillId());
+            if (bankBill.getMoney() < valueSlider.getValue()) {
+                errorLabel.setText("Not enough money in bank to withdraw");
+                return;
+            }
+
+            TransferBuilder builder = new TransferBuilder();
+            builder.buildBillToId(deposit.getBillId());
+            builder.buildBillFromId(deposit.getBankBillId());
+            builder.buildValue(valueSlider.getValue());
+            TransferBuilder.Result result = builder.getTransfer();
+            if (!result.valid) {
+                errorLabel.setText(result.description);
+                return;
+            }
+            ICommand.Type type = new ICommand.Type(false, true);
+            TransferCommand transferCommand = new TransferCommand(result.transfer, type);
+
+            ProgramStatus programStatus = ProgramStatus.getInstance();
+            CPU cpu = new CPU(programStatus.getUser());
+            cpu.heldCommand(transferCommand);
+            transferButton.getScene().getWindow().hide();
+
             /*RepayCreditCommand creditCommand = new RepayCreditCommand(new Id(Long.parseLong(creditChoice.getValue())),
                     new ICommand.Type(false, true), valueSlider.getValue());
 
