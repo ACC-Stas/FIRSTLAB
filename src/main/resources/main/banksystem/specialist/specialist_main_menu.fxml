@@ -24,11 +24,6 @@
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="499.0" prefWidth="1280.0">
                                     <children>
                                         <Accordion fx:id="newStaffAccordion" layoutX="50.0" layoutY="80.0" prefHeight="178.0" prefWidth="1180.0" />
-                                        <Label fx:id="errorLabel" layoutX="1005.0" layoutY="20.0" prefHeight="25.0" prefWidth="188.0" textFill="RED">
-                                            <font>
-                                                <Font name="System Italic" size="20.0" />
-                                            </font>
-                                        </Label>
                                     </children></AnchorPane>
                             </content>
                         </Tab>
@@ -37,11 +32,16 @@
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                     <children>
                                         <Accordion fx:id="salaryAccordion" layoutX="50.0" layoutY="80.0" prefHeight="178.0" prefWidth="1180.0" />
-                              <Button fx:id="salaryButton" layoutX="50.0" layoutY="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="150.0" style="-fx-background-color: f39c63;" text="Раздать ЗП" textFill="WHITE">
+                              <Button fx:id="salaryButton" layoutX="530.0" layoutY="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="221.0" style="-fx-background-color: f39c63;" text="Раздать ЗП" textFill="WHITE" visible="false">
                                  <font>
                                     <Font name="System Italic" size="13.0" />
                                  </font>
                               </Button>
+                              <Label fx:id="salarySendLabel" layoutX="971.0" layoutY="38.0" prefHeight="25.0" prefWidth="188.0" textFill="LIME">
+                                 <font>
+                                    <Font name="System Italic" size="20.0" />
+                                 </font>
+                              </Label>
                                     </children></AnchorPane>
                             </content>
                         </Tab>
@@ -50,7 +50,7 @@
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
                               <Accordion fx:id="transferAccordion" layoutX="50.0" layoutY="80.0" prefHeight="178.0" prefWidth="1180.0" />
-                              <Button fx:id="createCompanyTransferButton" layoutX="50.0" layoutY="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="150.0" style="-fx-background-color: f39c63;" text="Создать перевод" textFill="WHITE">
+                              <Button fx:id="createCompanyTransferButton" layoutX="50.0" layoutY="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="150.0" style="-fx-background-color: f39c63;" text="Создать перевод" textFill="WHITE" visible="false">
                                  <font>
                                     <Font name="System Italic" size="13.0" />
                                  </font>
@@ -60,7 +60,7 @@
                                     <Font name="System Italic" size="20.0" />
                                  </font>
                               </Label>
-                              <Label fx:id="companyMoneyLabel" layoutX="898.0" layoutY="20.0" text="Label">
+                              <Label fx:id="companyMoneyLabel" layoutX="898.0" layoutY="20.0">
                                  <font>
                                     <Font size="20.0" />
                                  </font>

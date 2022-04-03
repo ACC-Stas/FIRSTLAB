@@ -1,1 +1,1 @@
-{"{\"id\":0}":"{\"Installment\":4,\"Deposit\":3,\"User\":6,\"Credit\":3,\"Bill\":22}"}
+{"{\"id\":0}":"{\"Installment\":4,\"Deposit\":3,\"Salary\":2,\"User\":6,\"Credit\":3,\"Bill\":23}"}

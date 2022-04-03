@@ -130,7 +130,8 @@ public class ManagerMainMenuController {
                 if (command.getClass() == BuildCreditCommand.class ||
                         command.getClass() == BuildInstallmentCommand.class) {
                     TitledPane titledPane = new TitledPane();
-                    titledPane.getStylesheets().add(ManagerMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+                    titledPane.getStylesheets().add(ManagerMainMenuController
+                            .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
                     titledPane.setText(command.getDescription());
 
                     VBox content = new VBox();

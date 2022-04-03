@@ -1,9 +1,8 @@
 package main.banksystem.controllers.specialist;
 
 import java.net.URL;
-import java.util.Map;
-import java.util.Queue;
-import java.util.ResourceBundle;
+import java.util.*;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
@@ -17,11 +16,9 @@ import main.banksystem.DataBase;
 import main.banksystem.ProgramStatus;
 import main.banksystem.commands.BuildSalaryProjectCommand;
 import main.banksystem.commands.ICommand;
+import main.banksystem.commands.PayEmployeesCommand;
 import main.banksystem.controllers.SwitchMenu;
-import main.banksystem.entities.Bill;
-import main.banksystem.entities.Company;
-import main.banksystem.entities.Id;
-import main.banksystem.entities.User;
+import main.banksystem.entities.*;
 
 import static main.banksystem.controllers.SwitchMenu.*;
 import static main.banksystem.controllers.SwitchMenu.switchMenu;
@@ -41,7 +38,7 @@ public class SpecialistMainMenuController {
     private Button createCompanyTransferButton;
 
     @FXML
-    private Label errorLabel;
+    private Label salarySendLabel;
 
     @FXML
     private Button salaryButton;
@@ -69,9 +66,6 @@ public class SpecialistMainMenuController {
 
     @FXML
     void initialize() {
-        createSalaryProjectAccordion();
-        reload();
-
         reloadButton.setOnAction(event -> {
             reload();
         });
@@ -79,22 +73,36 @@ public class SpecialistMainMenuController {
             newMenu(setCompanyButton, "/main/banksystem/specialist/connect_menu.fxml");
         });
         toClientButton.setOnAction(event -> {
-            switchMenu(toClientButton, "/main/banksystem/client/client_main_menu.fxml");
+            newMenu(toClientButton, "/main/banksystem/client/client_main_menu.fxml");
+        });
+        salaryButton.setOnAction(event -> {
+            ProgramStatus status = ProgramStatus.getInstance();
+            PayEmployeesCommand command = new PayEmployeesCommand(status.getUser().getIdx(), status.getCompany(),
+                    new ICommand.Type(true, false));
+            CPU cpu = new CPU(status.getUser());
+            cpu.heldCommand(command);
+            salarySendLabel.setText("Заявка отправлена!");
         });
 
     }
 
-    void createSalaryProjectAccordion(){
-        salaryAccordion.getPanes().clear();
+
+
+    void createNewStaffAccordion(){
+        newStaffAccordion.getPanes().clear();
+
+        ProgramStatus status = ProgramStatus.getInstance();
 
         DataBase dataBase = DataBase.getInstance();
         Map<Id, Queue<ICommand>> commands = dataBase.downloadQueue(DataBase.QUEUE_PART, ICommand.class);
 
         for (Map.Entry<Id, Queue<ICommand>> commandsEntry : commands.entrySet()) {
             for (ICommand command : commandsEntry.getValue()) {
-                if (command.getClass() == BuildSalaryProjectCommand.class) {
+                if (command.getClass() == BuildSalaryProjectCommand.class &&
+                        ((BuildSalaryProjectCommand) command).getCompanyId() == status.getCompany()) {
                     TitledPane titledPane = new TitledPane();
-                    titledPane.getStylesheets().add(SpecialistMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+                    titledPane.getStylesheets().add(SpecialistMainMenuController
+                            .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
                     titledPane.setText(command.getDescription());
 
                     VBox content = new VBox();
@@ -132,13 +140,15 @@ public class SpecialistMainMenuController {
                     content.getChildren().add(disapprove);
                     titledPane.setContent(content);
 
-                    salaryAccordion.getPanes().addAll(titledPane);
+                    newStaffAccordion.getPanes().addAll(titledPane);
                 }
             }
         }
     }
 
     void reload() {
+        salarySendLabel.setText("");
+
         ProgramStatus status = ProgramStatus.getInstance();
         Id userId = status.getUser().getIdx();
 
@@ -148,6 +158,7 @@ public class SpecialistMainMenuController {
             for (Id specialistId : company.getSpecialistIds()) {
                 if (userId.equals(specialistId)) {
                     status.setCompany(company.getPAN());
+
                 }
             }
         }
@@ -158,9 +169,16 @@ public class SpecialistMainMenuController {
                     .getBillCompanyId()).getMoney()));
             specialistStatusLabel.setTextFill(Color.GREEN);
             specialistStatusLabel.setText("Вы привязаны к предприятию.");
+
             setCompanyButton.setVisible(false);
             setCompanyButton.setManaged(false);
-        }
 
+            createCompanyTransferButton.setVisible(true);
+            salaryButton.setVisible(true);
+
+            createNewStaffAccordion();
+
+            initialize();
+        }
     }
 }

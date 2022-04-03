@@ -15,6 +15,7 @@ public class BankSystem extends Application {
         Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/main/banksystem/login_menu.fxml")));
         stage.setScene(new Scene(root));
         stage.setTitle("BankSystem");
+        stage.setResizable(false);
         stage.show();
     }
 

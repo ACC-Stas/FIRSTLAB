@@ -15,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.banksystem.CPU;
 import main.banksystem.DataBase;
+import main.banksystem.IndexGenerator;
 import main.banksystem.ProgramStatus;
 import main.banksystem.builders.SalaryProjectBuilder;
 import main.banksystem.commands.BuildSalaryProjectCommand;
@@ -92,6 +93,9 @@ public class HiringMenuController {
                 errorLabel.setText(result.description);
                 return;
             }
+
+            IndexGenerator indexGenerator = IndexGenerator.getInstance();
+            result.salaryProject.setSalaryProjectId(new Id(indexGenerator.generateIdx(IndexGenerator.SALARY_IDX)));
 
             BuildSalaryProjectCommand salaryProjectCommand = new BuildSalaryProjectCommand(status.getUser().getIdx(),
                     company.getPAN(), result.salaryProject, new ICommand.Type(true, false));

@@ -96,15 +96,8 @@ public class CloseDepositMenuController {
             ProgramStatus programStatus = ProgramStatus.getInstance();
             CPU cpu = new CPU(programStatus.getUser());
             cpu.heldCommand(transferCommand);
+
             transferButton.getScene().getWindow().hide();
-
-            /*RepayCreditCommand creditCommand = new RepayCreditCommand(new Id(Long.parseLong(creditChoice.getValue())),
-                    new ICommand.Type(false, true), valueSlider.getValue());
-
-            ProgramStatus programStatus = ProgramStatus.getInstance();
-            CPU cpu = new CPU(programStatus.getUser());
-            cpu.heldCommand(creditCommand);
-            transferButton.getScene().getWindow().hide();*/
         });
     }
 

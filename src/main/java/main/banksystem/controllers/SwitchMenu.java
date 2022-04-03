@@ -24,6 +24,7 @@ public class SwitchMenu {
         Stage stage = new Stage();
         stage.setTitle("BankSystem");
         stage.setScene(new Scene(root));
+        stage.setResizable(false);
         stage.show();
     }
     static public void newMenu(Button button, String path){
@@ -39,6 +40,7 @@ public class SwitchMenu {
         Stage stage = new Stage();
         stage.setTitle("BankSystem");
         stage.setScene(new Scene(root));
+        stage.setResizable(false);
         stage.show();
     }
 }
