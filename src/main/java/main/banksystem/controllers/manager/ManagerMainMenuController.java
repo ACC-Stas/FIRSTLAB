@@ -51,7 +51,7 @@ public class ManagerMainMenuController {
     @FXML
     void initialize() {
         createRegistrationAccordion();
-        createCreditAccordion();
+        createCreditAndInstallmentAccordion();
         toClientButton.setOnAction(event -> {
             switchMenu(toClientButton, "/main/banksystem/client/client_main_menu.fxml");
         });
@@ -90,7 +90,8 @@ public class ManagerMainMenuController {
 
         for (ICommand command : commands.get(id)) {
             TitledPane titledPane = new TitledPane();
-            titledPane.getStylesheets().add(ManagerMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+            titledPane.getStylesheets().add(ManagerMainMenuController
+                    .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
             titledPane.setText(command.getDescription());
 
             VBox content = new VBox();
@@ -115,7 +116,7 @@ public class ManagerMainMenuController {
         }
     }
 
-    void createCreditAccordion(){
+    void createCreditAndInstallmentAccordion(){
         creditsAndInstallmentAccordion.getPanes().clear();
 
         DataBase dataBase = DataBase.getInstance();
@@ -135,11 +136,13 @@ public class ManagerMainMenuController {
                     titledPane.setText(command.getDescription());
 
                     VBox content = new VBox();
+
+                    //Label user = new Label("Клиент: " + command.getCredit() )
+
                     Button approve = new Button("Approve");
                     approve.getStylesheets().add(ManagerMainMenuController
                             .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
                     approve.setOnAction(event -> {
-
                         command.setType(new ICommand.Type(false, true));
                         User user = new User();
                         user.setIdx(commandsEntry.getKey());
@@ -184,7 +187,8 @@ public class ManagerMainMenuController {
         if (queues.containsKey(DataBase.INIT_USER_ID)) {
             for (ICommand command : queues.get(DataBase.INIT_USER_ID)) {
                 TitledPane titledPane = new TitledPane();
-                titledPane.getStylesheets().add(ManagerMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+                titledPane.getStylesheets().add(ManagerMainMenuController
+                        .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
                 titledPane.setText(command.getDescription());
 
                 VBox content = new VBox();
