@@ -68,6 +68,11 @@ public class CloseCreditMenuController {
 
         transferButton.setOnAction(event -> {
             Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
+            if (creditChoice.getValue() == null) {
+                errorLabel.setText("Choose credit");
+                return;
+            }
+
             double valueOnBill = bills.get(credits.get(new Id(Long.parseLong(creditChoice.getValue())))
                     .getSourceBillId()).getMoney();
             if (valueOnBill < valueSlider.getValue()){

@@ -17,6 +17,8 @@ public class TransferCommand implements ICommand {
     public TransferCommand(Transfer transfer, Type type) {
         this.type = type;
         this.transfer = transfer;
+        this.description = String.format("Transfer from %d to %d sum of %f",
+                transfer.getBillFromId().getId(), transfer.getBillToId().getId(), transfer.getValue());
     }
 
     @JsonCreator
