@@ -67,8 +67,8 @@ public class BuildSalaryProjectCommand implements ICommand{
         this.userId = userId;
         this.salaryProject = salaryProject;
         this.type = type;
-        this.description = String.format("User %d want to create salary project %s", userId.getId(),
-                salaryProject.getSalaryProjectId().toString());
+        this.description = String.format("User %d want to create salary project %d", userId.getId(),
+                salaryProject.getSalaryProjectId().getId());
     }
 
     @JsonCreator
