@@ -12,6 +12,7 @@ public class TransferCommand implements ICommand {
     private ICommand.Type type;
     private Transfer transfer;
     private String description = "";
+    private boolean valid = true;
 
     public TransferCommand(Transfer transfer, Type type) {
         this.type = type;
@@ -49,11 +50,11 @@ public class TransferCommand implements ICommand {
 
     @Override
     public void execute() {
+        valid = false;
         type.setSaveable(false);
         DataBase dataBase = DataBase.getInstance();
         Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
 
-        description = "Everything is good";
         if (!bills.containsKey(transfer.getBillFromId())) {
             description = "No bill to get many from";
             return;
@@ -86,15 +87,16 @@ public class TransferCommand implements ICommand {
 
         dataBase.save(from.getId(), DataBase.BILLS_PART, from);
         dataBase.save(to.getId(), DataBase.BILLS_PART, to);
+        valid = true;
         type.setSaveable(true);
     }
 
     @Override
     public void undo() {
+        valid = false;
         DataBase dataBase = DataBase.getInstance();
         Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
 
-        description = "Everything is good";
         if (!bills.containsKey(transfer.getBillFromId())) {
             description = "No bill to get many to";
             return;
@@ -127,6 +129,8 @@ public class TransferCommand implements ICommand {
 
         dataBase.save(from.getId(), DataBase.BILLS_PART, from);
         dataBase.save(to.getId(), DataBase.BILLS_PART, to);
+
+        valid = true;
     }
 
     @Override
@@ -139,4 +143,11 @@ public class TransferCommand implements ICommand {
         this.type = type;
     }
 
+    public boolean isValid() {
+        return valid;
+    }
+
+    public void setValid(boolean valid) {
+        this.valid = valid;
+    }
 }

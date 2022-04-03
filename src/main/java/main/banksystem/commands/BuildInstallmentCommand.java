@@ -101,7 +101,7 @@ public class BuildInstallmentCommand implements ICommand {
         }
 
         transferCommand.execute();
-        if (!Objects.equals(transferCommand.getDescription(), "Everything is good")) {
+        if (!transferCommand.isValid()) {
             description = transferCommand.getDescription();
             return;
         }
@@ -120,7 +120,7 @@ public class BuildInstallmentCommand implements ICommand {
         DataBase dataBase = DataBase.getInstance();
 
         transferCommand.undo();
-        if (!Objects.equals(transferCommand.getDescription(), "Everything is good")) {
+        if (!transferCommand.isValid()) {
             description = transferCommand.getDescription();
             return;
         }

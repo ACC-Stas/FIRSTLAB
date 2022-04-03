@@ -85,7 +85,7 @@ public class WithdrawDepositCommand implements ICommand {
         this.transferCommand = new TransferCommand(result.transfer, new Type(false, false));
         transferCommand.execute();
         description = transferCommand.getDescription();
-        if (Objects.equals(transferCommand.getDescription(), "Everything is good")) {
+        if (transferCommand.isValid()) {
             deposit.setValue(deposit.getValue() - value);
         }
 
@@ -104,7 +104,7 @@ public class WithdrawDepositCommand implements ICommand {
         }
 
         description = transferCommand.getDescription();
-        if (Objects.equals(transferCommand.getDescription(), "Everything is good")) {
+        if (transferCommand.isValid()) {
             deposit.setValue(deposit.getValue() + value);
         }
 

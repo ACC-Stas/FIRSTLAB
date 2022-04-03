@@ -204,11 +204,11 @@ public class ClientMainMenuController {
             titledPane.setText("ID зарплатного проекта: " + id.toString());
 
             VBox content = new VBox();
-            Label value = new Label("Сумма: " + salary.getSum());
-            Label bill = new Label("Привязанный счёт: " + salary.getBillToId());
+            Label value = new Label("Сумма: " + String.valueOf(salary.getSum()));
+            Label bill = new Label("Привязанный счёт: " + String.valueOf(salary.getBillToId()));
             Label place = new Label("Компания не найдена");
             for (Company company : companies.values()) {
-                if (company.getBillCompanyId() == salary.getBillFromId()) {
+                if (company.getBillCompanyId().equals(salary.getBillFromId())) {
                     place.setText(String.format("Банк: %s", company.getjName()));
                     break;
                 }
@@ -247,7 +247,7 @@ public class ClientMainMenuController {
 
             String bankName = "Банк не найден";
             for (Company bank : banks.values()) {
-                if (bank.getBillCompanyId() == credits.get(id).getBankBillId()) {
+                if (bank.getBillCompanyId().equals(credits.get(id).getBankBillId())) {
                     bankName = bank.getjName();
                     break;
                 }
@@ -286,7 +286,7 @@ public class ClientMainMenuController {
 
             String companyName = "Компания не найдена";
             for (Company company : companies.values()) {
-                if (company.getBillCompanyId() == installments.get(id).getCompanyBillId()) {
+                if (company.getBillCompanyId().equals(installments.get(id).getCompanyBillId())) {
                     companyName = company.getjName();
                     break;
                 }
@@ -317,12 +317,12 @@ public class ClientMainMenuController {
             titledPane.setText("ID вклада: " + id.toString());
 
             VBox content = new VBox();
-            Label value = new Label("Значение: " + deposit.getValue());
-            Label bill = new Label("Привязанный счёт: " + deposit.getBillId());
+            Label value = new Label("Значение: " + String.valueOf(deposit.getValue()));
+            Label bill = new Label("Привязанный счёт: " + String.valueOf(deposit.getBillId()));
 
             String bankName = "Банк не найден";
             for (Company bank : banks.values()) {
-                if (bank.getBillCompanyId() == deposits.get(id).getBankBillId()) {
+                if (bank.getBillCompanyId().equals(deposits.get(id).getBankBillId())) {
                     bankName = bank.getjName();
                     break;
                 }

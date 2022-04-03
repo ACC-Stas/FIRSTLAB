@@ -67,7 +67,7 @@ public class BuildDepositCommand implements ICommand {
         this.userId = userId;
         this.deposit = deposit;
         this.type = type;
-        this.description = String.format("User %d want to create deposit %s", userId.getId(), deposit.toString());
+        this.description = String.format("User %d want to create deposit %d", userId.getId(), deposit.getId().getId());
 
         TransferBuilder transferBuilder = new TransferBuilder();
         transferBuilder.buildBillFromId(deposit.getBillId());
@@ -99,7 +99,7 @@ public class BuildDepositCommand implements ICommand {
         }
 
         this.transferCommand.execute();
-        if (Objects.equals(transferCommand.getDescription(), "Everything is good")) {
+        if (transferCommand.isValid()) {
             deposit.setValue(deposit.getValue() + deposit.getValue() * deposit.getPercent() / 100);
         } else {
             description = transferCommand.getDescription();
@@ -116,7 +116,7 @@ public class BuildDepositCommand implements ICommand {
     public void undo() {
 
         transferCommand.undo();
-        if (!Objects.equals(transferCommand.getDescription(), "Everything is good")) {
+        if (!transferCommand.isValid()) {
             description = transferCommand.getDescription();
             return;
         }

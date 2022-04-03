@@ -72,6 +72,11 @@ public class RepayInstallmentCommand implements ICommand {
         this.transferCommand = new TransferCommand(transfer.transfer, type);
 
         this.transferCommand.execute();
+        if (!transferCommand.isValid()) {
+            description = transferCommand.getDescription();
+            return;
+        }
+
         installment.setSumToPay(installment.getSumToPay() - money);
         dataBase.save(installmentId, DataBase.INSTALLMENT_PART, installment);
     }
@@ -79,6 +84,11 @@ public class RepayInstallmentCommand implements ICommand {
     @Override
     public void undo() {
         transferCommand.undo();
+        if (!transferCommand.isValid()) {
+            description = transferCommand.getDescription();
+            return;
+        }
+
         DataBase dataBase = DataBase.getInstance();
 
         Installment installment = dataBase.download(installmentId, DataBase.INSTALLMENT_PART, Installment.class);
