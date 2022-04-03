@@ -14,6 +14,8 @@ import javafx.scene.text.Text;
 import main.banksystem.CPU;
 import main.banksystem.DataBase;
 import main.banksystem.commands.ICommand;
+import main.banksystem.commands.RegistryCommand;
+import main.banksystem.commands.RegistryCompanyCommand;
 import main.banksystem.entities.Id;
 import main.banksystem.entities.User;
 import main.banksystem.controllers.manager.ManagerMainMenuController;
@@ -157,6 +159,11 @@ public class AdministratorMainMenuController {
                 titledPane.setText(command.getDescription());
 
                 VBox content = new VBox();
+
+                Label name = new Label("Название: " + ((RegistryCompanyCommand) command).getCompany().getjName());
+                Label type = new Label("Тип: " + ((RegistryCompanyCommand) command).getCompany().getType().name());
+                Label bic = new Label("BIC: " + ((RegistryCompanyCommand) command).getCompany().getBankID().getId().toString());
+
                 Button approve = new Button("Approve");
                 approve.getStylesheets().add(ManagerMainMenuController
                         .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
@@ -188,6 +195,9 @@ public class AdministratorMainMenuController {
                     initialize();
                 });
 
+                content.getChildren().add(name);
+                content.getChildren().add(type);
+                content.getChildren().add(bic);
                 content.getChildren().add(approve);
                 content.getChildren().add(disapprove);
                 titledPane.setContent(content);

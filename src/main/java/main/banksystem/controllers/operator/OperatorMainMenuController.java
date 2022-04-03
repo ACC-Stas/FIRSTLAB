@@ -16,6 +16,7 @@ import main.banksystem.commands.BuildInstallmentCommand;
 import main.banksystem.commands.ICommand;
 import main.banksystem.commands.PayEmployeesCommand;
 import main.banksystem.entities.Id;
+import main.banksystem.entities.Role;
 import main.banksystem.entities.User;
 import main.banksystem.controllers.manager.ManagerMainMenuController;
 
@@ -96,6 +97,9 @@ public class OperatorMainMenuController {
                     titledPane.setText(command.getDescription());
 
                     VBox content = new VBox();
+
+                    //Labels for salary project info
+
                     Button approve = new Button("Approve");
                     approve.getStylesheets().add(OperatorMainMenuController
                             .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
@@ -146,7 +150,6 @@ public class OperatorMainMenuController {
         }
 
         for (ICommand command : commands.get(id)) {
-            //if no user
             TitledPane titledPane = new TitledPane();
             titledPane.getStylesheets().add(ManagerMainMenuController
                     .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());

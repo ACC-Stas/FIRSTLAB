@@ -9,9 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import main.banksystem.CPU;
 import main.banksystem.DataBase;
-import main.banksystem.commands.BuildCreditCommand;
-import main.banksystem.commands.BuildInstallmentCommand;
-import main.banksystem.commands.ICommand;
+import main.banksystem.commands.*;
 import main.banksystem.entities.*;
 
 import static main.banksystem.controllers.SwitchMenu.switchMenu;
@@ -70,7 +68,8 @@ public class ManagerMainMenuController {
                 errorLabel.setText("Wrong input");
             }
 
-            if (users.containsKey(idx) && users.get(idx).getRole() == Role.SPECIALIST) {
+            if (users.containsKey(idx) && users.get(idx).getRole().equals(Role.SPECIALIST) ||
+                    users.get(idx).getRole().equals(Role.ADMINISTRATOR)) {
                 createSpecialistAccordion(idx);
             }
             else {
@@ -89,30 +88,32 @@ public class ManagerMainMenuController {
         }
 
         for (ICommand command : commands.get(id)) {
-            TitledPane titledPane = new TitledPane();
-            titledPane.getStylesheets().add(ManagerMainMenuController
-                    .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
-            titledPane.setText(command.getDescription());
+            if (command.getClass() == PayEmployeesCommand.class || command.getClass() == TransferCommand.class) {
+                TitledPane titledPane = new TitledPane();
+                titledPane.getStylesheets().add(ManagerMainMenuController
+                        .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+                titledPane.setText(command.getDescription());
 
-            VBox content = new VBox();
-            Button cancel = new Button("Cancel");
-            cancel.getStylesheets().add(ManagerMainMenuController
-                    .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
-            cancel.setOnAction(event -> {
+                VBox content = new VBox();
+                Button cancel = new Button("Cancel");
+                cancel.getStylesheets().add(ManagerMainMenuController
+                        .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
+                cancel.setOnAction(event -> {
 
-                command.undo();
+                    command.undo();
 
-                commands.get(id).remove(command);
-                dataBase.saveStack(id, DataBase.STACK_PART, commands.get(id));
-                historyAccordion.getPanes().remove(titledPane);
+                    commands.get(id).remove(command);
+                    dataBase.saveStack(id, DataBase.STACK_PART, commands.get(id));
+                    historyAccordion.getPanes().remove(titledPane);
 
-                initialize();
-            });
+                    initialize();
+                });
 
-            content.getChildren().add(cancel);
-            titledPane.setContent(content);
+                content.getChildren().add(cancel);
+                titledPane.setContent(content);
 
-            historyAccordion.getPanes().addAll(titledPane);
+                historyAccordion.getPanes().addAll(titledPane);
+            }
         }
     }
 
@@ -247,6 +248,11 @@ public class ManagerMainMenuController {
                 titledPane.setText(command.getDescription());
 
                 VBox content = new VBox();
+
+                Label name = new Label("ФИО: " + ((RegistryCommand) command).getUser().getPassport().getFullName().toString());
+                Label email = new Label("Email: " + ((RegistryCommand) command).getUser().getEmail());
+                Label login = new Label("Логин: " + ((RegistryCommand) command).getUser().getLogin());
+
                 Button approve = new Button("Approve");
                 approve.getStylesheets().add(ManagerMainMenuController
                         .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
@@ -278,6 +284,9 @@ public class ManagerMainMenuController {
                     initialize();
                 });
 
+                content.getChildren().add(name);
+                content.getChildren().add(email);
+                content.getChildren().add(login);
                 content.getChildren().add(approve);
                 content.getChildren().add(disapprove);
                 titledPane.setContent(content);
