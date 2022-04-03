@@ -128,8 +128,7 @@ public class ManagerMainMenuController {
 
         for (Map.Entry<Id, Queue<ICommand>> commandsEntry : commands.entrySet()) {
             for (ICommand command : commandsEntry.getValue()) {
-                if (command.getClass() == BuildCreditCommand.class ||
-                        command.getClass() == BuildInstallmentCommand.class) {
+                if (command.getClass() == BuildCreditCommand.class) {
                     TitledPane titledPane = new TitledPane();
                     titledPane.getStylesheets().add(ManagerMainMenuController
                             .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
@@ -137,7 +136,9 @@ public class ManagerMainMenuController {
 
                     VBox content = new VBox();
 
-                    //Label user = new Label("Клиент: " + command.getCredit() )
+                    Label money = new Label("Сумма: " + ((BuildCreditCommand) command).getCredit().getSumToPay());
+                    Label period = new Label("Период: " + ((BuildCreditCommand) command).getCredit().getPeriod().toString());
+                    Label percent = new Label("Процент: " + ((BuildCreditCommand) command).getCredit().getPercent());
 
                     Button approve = new Button("Approve");
                     approve.getStylesheets().add(ManagerMainMenuController
@@ -168,6 +169,60 @@ public class ManagerMainMenuController {
                         initialize();
                     });
 
+                    content.getChildren().add(money);
+                    content.getChildren().add(period);
+                    content.getChildren().add(percent);
+                    content.getChildren().add(approve);
+                    content.getChildren().add(disapprove);
+
+                    titledPane.setContent(content);
+
+                    creditsAndInstallmentAccordion.getPanes().addAll(titledPane);
+                }
+                else if (command.getClass() == BuildInstallmentCommand.class){
+                    TitledPane titledPane = new TitledPane();
+                    titledPane.getStylesheets().add(ManagerMainMenuController
+                            .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+                    titledPane.setText(command.getDescription());
+
+                    VBox content = new VBox();
+
+                    Label money = new Label("Сумма: " + ((BuildInstallmentCommand) command).getInstallment().getSumToPay());
+                    Label period = new Label("Период: " + ((BuildInstallmentCommand) command).getInstallment().getPeriod().toString());
+                    Label percent = new Label("Процент: " + ((BuildInstallmentCommand) command).getInstallment().getPercent());
+
+                    Button approve = new Button("Approve");
+                    approve.getStylesheets().add(ManagerMainMenuController
+                            .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
+                    approve.setOnAction(event -> {
+                        command.setType(new ICommand.Type(false, true));
+                        User user = new User();
+                        user.setIdx(commandsEntry.getKey());
+                        CPU cpu = new CPU(user);
+                        cpu.heldCommand(command);
+
+                        commandsEntry.getValue().remove(command);
+                        dataBase.saveQueue(commandsEntry.getKey(), DataBase.QUEUE_PART, commandsEntry.getValue());
+                        creditsAndInstallmentAccordion.getPanes().remove(titledPane);
+
+                        initialize();
+                    });
+
+                    Button disapprove = new Button("Disapprove");
+                    disapprove.getStylesheets().add(ManagerMainMenuController
+                            .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
+                    disapprove.setOnAction(event -> {
+
+                        commandsEntry.getValue().remove(command);
+                        dataBase.saveQueue(commandsEntry.getKey(), DataBase.QUEUE_PART, commandsEntry.getValue());
+                        creditsAndInstallmentAccordion.getPanes().remove(titledPane);
+
+                        initialize();
+                    });
+
+                    content.getChildren().add(money);
+                    content.getChildren().add(period);
+                    content.getChildren().add(percent);
                     content.getChildren().add(approve);
                     content.getChildren().add(disapprove);
                     titledPane.setContent(content);

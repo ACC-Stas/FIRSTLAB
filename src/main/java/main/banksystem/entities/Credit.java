@@ -1,12 +1,13 @@
 package main.banksystem.entities;
 
 public class Credit implements java.io.Serializable {
-    public Credit(Id bankBillId, Id sourceBillId, double sumToPay, double percent, Id id) {
+    public Credit(Id bankBillId, Id sourceBillId, double sumToPay, double percent, Id id, Period period) {
         this.bankBillId = bankBillId;
         this.sourceBillId = sourceBillId;
         this.sumToPay = sumToPay;
         this.percent = percent;
         this.id = id;
+        this.period = period;
     }
 
     public Credit() {
@@ -15,6 +16,7 @@ public class Credit implements java.io.Serializable {
         this.sumToPay = -1;
         this.percent = -1;
         this.id = null;
+        this.period = null;
     }
 
     Id bankBillId;
@@ -22,6 +24,15 @@ public class Credit implements java.io.Serializable {
     double sumToPay;
     Id id;
     double percent;
+    Period period;
+
+    public Period getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Period period) {
+        this.period = period;
+    }
 
     public Id getId() {
         return id;
