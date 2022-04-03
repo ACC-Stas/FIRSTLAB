@@ -105,46 +105,46 @@ public class ClientMainMenuController {
             programStatus.setUser(users.get(programStatus.getUser().getIdx()));
             initialize();
         });
-        createDepositButton.setOnAction(event ->{
+        createDepositButton.setOnAction(event -> {
             newMenu(createDepositButton, "/main/banksystem/client/create_deposit_menu.fxml");
         });
-        closeDepositButton.setOnAction(event ->{
+        closeDepositButton.setOnAction(event -> {
             newMenu(closeDepositButton, "/main/banksystem/client/close_deposit_menu.fxml");
         });
-        createCreditButton.setOnAction(event ->{
+        createCreditButton.setOnAction(event -> {
             newMenu(createCreditButton, "/main/banksystem/client/create_credit_menu.fxml");
         });
-        closeCreditButton.setOnAction(event ->{
+        closeCreditButton.setOnAction(event -> {
             newMenu(closeCreditButton, "/main/banksystem/client/close_credit_menu.fxml");
         });
-        createBillButton.setOnAction(event ->{
+        createBillButton.setOnAction(event -> {
             newMenu(createBillButton, "/main/banksystem/client/create_bill_menu.fxml");
         });
-        createInstallmentButton.setOnAction(event ->{
+        createInstallmentButton.setOnAction(event -> {
             newMenu(createInstallmentButton, "/main/banksystem/client/create_installment_menu.fxml");
         });
-        closeInstallmentButton.setOnAction(event ->{
+        closeInstallmentButton.setOnAction(event -> {
             newMenu(closeInstallmentButton, "/main/banksystem/client/close_installment_menu.fxml");
         });
-        withdrawBillButton.setOnAction(event ->{
+        withdrawBillButton.setOnAction(event -> {
             newMenu(withdrawBillButton, "/main/banksystem/client/withdraw_menu.fxml");
         });
-        transferBillButton.setOnAction(event ->{
+        transferBillButton.setOnAction(event -> {
             newMenu(transferBillButton, "/main/banksystem/client/transfer_menu.fxml");
         });
-        createSalaryButton.setOnAction(event ->{
+        createSalaryButton.setOnAction(event -> {
             newMenu(createSalaryButton, "/main/banksystem/client/hiring_menu.fxml");
         });
-        closeSalaryButton.setOnAction(event ->{
+        closeSalaryButton.setOnAction(event -> {
             newMenu(closeSalaryButton, "/main/banksystem/client/firing_menu.fxml");
         });
-        freezeBillButton.setOnAction(event ->{
+        freezeBillButton.setOnAction(event -> {
             newMenu(closeSalaryButton, "/main/banksystem/client/freeze_menu.fxml");
         });
-        unfreezeBillButton.setOnAction(event ->{
+        unfreezeBillButton.setOnAction(event -> {
             newMenu(closeSalaryButton, "/main/banksystem/client/unfreeze_menu.fxml");
         });
-        closeBillButton.setOnAction(event ->{
+        closeBillButton.setOnAction(event -> {
             newMenu(closeSalaryButton, "/main/banksystem/client/block_menu.fxml");
         });
     }
@@ -207,8 +207,8 @@ public class ClientMainMenuController {
             Label value = new Label("Сумма: " + String.valueOf(salary.getSum()));
             Label bill = new Label("Привязанный счёт: " + String.valueOf(salary.getBillToId()));
             Label place = new Label("Компания не найдена");
-            for (Company company : companies.values()){
-                if (company.getBillCompanyId() == salary.getBillFromId()){
+            for (Company company : companies.values()) {
+                if (company.getBillCompanyId().equals(salary.getBillFromId())) {
                     place.setText(String.format("Банк: %s", company.getjName()));
                     break;
                 }
@@ -224,7 +224,7 @@ public class ClientMainMenuController {
         }
     }
 
-    void createCreditAccordion(){
+    void createCreditAccordion() {
         creditAccordion.getPanes().clear();
 
         DataBase dataBase = DataBase.getInstance();
@@ -247,7 +247,7 @@ public class ClientMainMenuController {
 
             String bankName = "Банк не найден";
             for (Company bank : banks.values()) {
-                if (bank.getBillCompanyId() == credits.get(id).getBankBillId()) {
+                if (bank.getBillCompanyId().equals(credits.get(id).getBankBillId())) {
                     bankName = bank.getjName();
                     break;
                 }
@@ -263,7 +263,7 @@ public class ClientMainMenuController {
         }
     }
 
-    void createInstallmentAccordion(){
+    void createInstallmentAccordion() {
         installmentAccordion.getPanes().clear();
 
         DataBase dataBase = DataBase.getInstance();
@@ -286,7 +286,7 @@ public class ClientMainMenuController {
 
             String companyName = "Компания не найдена";
             for (Company company : companies.values()) {
-                if (company.getBillCompanyId() == installments.get(id).getCompanyBillId()) {
+                if (company.getBillCompanyId().equals(installments.get(id).getCompanyBillId())) {
                     companyName = company.getjName();
                     break;
                 }
@@ -322,7 +322,7 @@ public class ClientMainMenuController {
 
             String bankName = "Банк не найден";
             for (Company bank : banks.values()) {
-                if (bank.getBillCompanyId() == deposits.get(id).getBankBillId()) {
+                if (bank.getBillCompanyId().equals(deposits.get(id).getBankBillId())) {
                     bankName = bank.getjName();
                     break;
                 }
