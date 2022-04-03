@@ -62,7 +62,8 @@ public class CloseCreditMenuController {
             valueSlider.setMax(maxValue);
             valueSlider.setShowTickLabels(true);
             valueSlider.setShowTickMarks(true);
-            valueSlider.setBlockIncrement(maxValue/10);
+            valueSlider.setMajorTickUnit(maxValue / 5);
+            valueSlider.setMinorTickCount(5);
         });
 
         transferButton.setOnAction(event -> {
