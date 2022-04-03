@@ -1,6 +1,5 @@
 package main.banksystem.controllers;
 
-import java.io.File;
 import java.net.URL;
 import java.util.*;
 
@@ -13,9 +12,6 @@ import main.banksystem.DataBase;
 import main.banksystem.ProgramStatus;
 import main.banksystem.entities.Id;
 import main.banksystem.entities.User;
-
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 import static main.banksystem.controllers.SwitchMenu.switchMenu;
 
@@ -53,12 +49,6 @@ public class LoginMenuController {
         loginSignUpCompanyButton.setOnAction(event -> {
             switchMenu(loginSignUpButton, "/main/banksystem/company_registration_menu.fxml");
         });
-
-        String userDirectory = new File("").getAbsolutePath();
-        String ukraina = "file://" + userDirectory + "/ukraina-sche-ne-vmerla-ukraina.mp3";
-        Media media = new Media(ukraina);
-        MediaPlayer player = new MediaPlayer(media);
-        player.play();
 
         loginSignInButton.setOnAction(actionEvent -> {
             DataBase dataBase = DataBase.getInstance();
