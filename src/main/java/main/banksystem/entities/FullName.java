@@ -41,4 +41,8 @@ public class FullName implements java.io.Serializable {
     public String getFatherName() {
         return fatherName;
     }
+
+    public String toString() {
+        return String.format("%s %s %s", firstName, secondName, fatherName);
+    }
 }
