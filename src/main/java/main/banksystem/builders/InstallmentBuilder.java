@@ -59,6 +59,21 @@ public class InstallmentBuilder {
         this.buildSumToPay(val);
     }
 
+    public void buildPeriod(Period period) {
+        installment.setPeriod(period);
+    }
+
+    public void buildPeriod(String name) {
+        Period per = null;
+        for (Period period : Period.values()) {
+            if(period.toString() == name){
+                per = period;
+                break;
+            }
+        }
+        this.buildPeriod(per);
+    }
+
     public void buildPercent(double sum) {
         installment.setPercent(sum);
     }
@@ -113,6 +128,11 @@ public class InstallmentBuilder {
         if (installment.getPercent() < 0) {
             result.valid = false;
             result.description = "Invalid percent";
+        }
+
+        if (installment.getPeriod() == null) {
+            result.valid = false;
+            result.description = "Invalid period";
         }
 
         if (installment.getCompanyBillId() == null) {

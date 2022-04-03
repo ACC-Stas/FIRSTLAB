@@ -1,12 +1,13 @@
 package main.banksystem.entities;
 
 public class Installment {
-    public Installment(Id companyBillId, Id sourceBillId, double sumToPay, double percent, Id id){
+    public Installment(Id companyBillId, Id sourceBillId, double sumToPay, double percent, Id id, Period period){
         this.companyBillId = companyBillId;
         this.sourceBillId = sourceBillId;
         this.sumToPay = sumToPay;
         this.percent = percent;
         this.id = id;
+        this.period = period;
     }
 
     public Installment(){
@@ -15,12 +16,23 @@ public class Installment {
         this.sumToPay = -1;
         this.percent = -1;
         this.id = null;
+        this.period = null;
     }
 
     Id companyBillId;
     Id sourceBillId;
     double sumToPay;
     Id id;
+    double percent;
+    Period period;
+
+    public Period getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Period period) {
+        this.period = period;
+    }
 
     public Id getId() {
         return id;
@@ -62,5 +74,4 @@ public class Installment {
         this.percent = percent;
     }
 
-    double percent;
 }

@@ -74,6 +74,21 @@ public class CreditBuilder {
         this.buildPercent(val);
     }
 
+    public void buildPeriod(Period period) {
+        credit.setPeriod(period);
+    }
+
+    public void buildPeriod(String name) {
+        Period per = null;
+        for (Period period : Period.values()) {
+            if(period.toString() == name){
+                per = period;
+                break;
+            }
+        }
+        this.buildPeriod(per);
+    }
+
     public void buildId(Id id) {
         credit.setId(id);
     }
@@ -113,6 +128,11 @@ public class CreditBuilder {
         if (credit.getPercent() < 0) {
             result.valid = false;
             result.description = "Invalid percent";
+        }
+
+        if (credit.getPeriod() == null) {
+            result.valid = false;
+            result.description = "Invalid period";
         }
 
         if (credit.getBankBillId() == null) {

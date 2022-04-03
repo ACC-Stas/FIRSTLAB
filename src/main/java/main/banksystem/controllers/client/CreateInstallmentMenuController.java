@@ -124,6 +124,7 @@ public class CreateInstallmentMenuController {
                 installmentBuilder.buildPercent(Double.parseDouble(percentField.getText()));
             }
 
+            installmentBuilder.buildPeriod(periodChoice.getValue());
 
             installmentBuilder.buildCompanyBillId(company.getBillCompanyId());
             Id billId = new Id(Long.parseLong(billChoice.getValue()));

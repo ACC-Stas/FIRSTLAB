@@ -94,6 +94,8 @@ public class CreateCreditMenuController {
                 creditBuilder.buildPercent(Double.parseDouble(percentField.getText()));
             }
 
+            creditBuilder.buildPeriod(periodChoice.getValue());
+
             Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
             if (companies == null) {
                 errorLabel.setText("No banks");
