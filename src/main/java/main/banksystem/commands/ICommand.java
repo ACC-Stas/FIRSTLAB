@@ -23,7 +23,8 @@ import java.io.Serializable;
         @JsonSubTypes.Type(value = RepayCreditCommand.class, name = "RepayCreditCommand"),
         @JsonSubTypes.Type(value = RepayInstallmentCommand.class, name = "RepayInstallmentCommand"),
         @JsonSubTypes.Type(value = FireCommand.class, name = "FireCommand"),
-        @JsonSubTypes.Type(value = PayEmployeesCommand.class, name = "PayEmployeesCommand")
+        @JsonSubTypes.Type(value = PayEmployeesCommand.class, name = "PayEmployeesCommand"),
+        @JsonSubTypes.Type(value = WithdrawDepositCommand.class, name = "WithdrawDepositCommand")
 })
 @JsonTypeName("ICommand")
 public interface ICommand extends Serializable {
