@@ -19,6 +19,32 @@ public class BuildCreditCommand implements ICommand {
     private Id userId;
     private TransferCommand transferCommand;
 
+    public BuildCreditCommand(Id userId, Credit credit, ICommand.Type type) {
+        this.userId = userId;
+        this.credit = credit;
+        this.type = type;
+        this.description = String.format("User %d want to create credit %d", userId.getId(), credit.getId().getId());
+
+        TransferBuilder transferBuilder = new TransferBuilder();
+        transferBuilder.buildBillFromId(credit.getBankBillId());
+        transferBuilder.buildBillToId(credit.getSourceBillId());
+        transferBuilder.buildValue(credit.getSumToPay());
+        TransferBuilder.Result transfer = transferBuilder.getTransfer();
+        if (!transfer.valid) {
+            this.description = transfer.description;
+            return;
+        }
+        this.transferCommand = new TransferCommand(transfer.transfer, new Type(false, false));
+    }
+
+    @JsonCreator
+    public BuildCreditCommand() {
+        this.userId = null;
+        this.credit = null;
+        this.type = null;
+        this.description = String.format("No description");
+    }
+
     public TransferCommand getTransferCommand() {
         return transferCommand;
     }
@@ -63,32 +89,6 @@ public class BuildCreditCommand implements ICommand {
         return description;
     }
 
-    public BuildCreditCommand(Id userId, Credit credit, ICommand.Type type) {
-        this.userId = userId;
-        this.credit = credit;
-        this.type = type;
-        this.description = String.format("User %d want to create credit %d", userId.getId(), credit.getId().getId());
-
-        TransferBuilder transferBuilder = new TransferBuilder();
-        transferBuilder.buildBillFromId(credit.getBankBillId());
-        transferBuilder.buildBillToId(credit.getSourceBillId());
-        transferBuilder.buildValue(credit.getSumToPay());
-        TransferBuilder.Result transfer = transferBuilder.getTransfer();
-        if (!transfer.valid) {
-            this.description = transfer.description;
-            return;
-        }
-        this.transferCommand = new TransferCommand(transfer.transfer, new Type(false, false));
-    }
-
-    @JsonCreator
-    public BuildCreditCommand() {
-        this.userId = null;
-        this.credit = null;
-        this.type = null;
-        this.description = String.format("No description");
-    }
-
     @Override
     public void execute() {
         DataBase dataBase = DataBase.getInstance();
@@ -99,7 +99,7 @@ public class BuildCreditCommand implements ICommand {
         }
 
         transferCommand.execute();
-        if (!Objects.equals(transferCommand.getDescription(), "Everything is good")) {
+        if (!transferCommand.isValid()) {
             description = transferCommand.getDescription();
             return;
         }
@@ -117,7 +117,7 @@ public class BuildCreditCommand implements ICommand {
         DataBase dataBase = DataBase.getInstance();
 
         transferCommand.undo();
-        if (!Objects.equals(transferCommand.getDescription(), "Everything is good")) {
+        if (!transferCommand.isValid()) {
             description = transferCommand.getDescription();
             return;
         }
