@@ -9,6 +9,7 @@ import main.banksystem.entities.Id;
 import main.banksystem.entities.User;
 
 import java.util.Map;
+import java.util.Objects;
 
 @JsonTypeName("BuildDepositCommand")
 public class BuildDepositCommand implements ICommand {
@@ -78,7 +79,6 @@ public class BuildDepositCommand implements ICommand {
             return;
         }
         this.transferCommand = new TransferCommand(transfer.transfer, new Type(false, false));
-
     }
 
     @JsonCreator
@@ -98,28 +98,36 @@ public class BuildDepositCommand implements ICommand {
             return;
         }
 
-        deposit.setValue(deposit.getValue() + deposit.getValue() * deposit.getPercent() / 100);
+        this.transferCommand.execute();
+        if (Objects.equals(transferCommand.getDescription(), "Everything is good")) {
+            deposit.setValue(deposit.getValue() + deposit.getValue() * deposit.getPercent() / 100);
+        } else {
+            description = transferCommand.getDescription();
+            return;
+        }
 
         User user = dataBase.download(this.userId, DataBase.USER_PART, User.class);
         user.getDepositIds().add(this.deposit.getId());
         dataBase.save(this.userId, DataBase.USER_PART, user);
-
         dataBase.save(deposit.getId(), DataBase.DEPOSIT_PART, deposit);
-
-        transferCommand.execute();
     }
 
     @Override
     public void undo() {
+
+        transferCommand.undo();
+        if (!Objects.equals(transferCommand.getDescription(), "Everything is good")) {
+            description = transferCommand.getDescription();
+            return;
+        }
+
         DataBase dataBase = DataBase.getInstance();
 
         User user = dataBase.download(this.userId, DataBase.USER_PART, User.class);
         user.getDepositIds().remove(this.deposit.getId());
+
         dataBase.save(this.userId, DataBase.USER_PART, user);
-
         dataBase.remove(deposit.getId(), DataBase.DEPOSIT_PART);
-
-        transferCommand.undo();
     }
 
     @Override

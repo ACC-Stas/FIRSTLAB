@@ -116,7 +116,7 @@ public class DepositBuilder {
         } else {
 
             DataBase dataBase = DataBase.getInstance();
-            Bill bill = dataBase.download(deposit.getBankBillId(), DataBase.COMPANY_PART, Bill.class);
+            Bill bill = dataBase.download(deposit.getBankBillId(), DataBase.BILLS_PART, Bill.class);
             if (bill == null) {
                 result.valid = false;
                 result.description = "No such bank bill in system";

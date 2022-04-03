@@ -3,6 +3,7 @@ package main.banksystem.controllers.client;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -76,7 +77,7 @@ public class TransferMenuController {
 
                 CPU cpu = new CPU(status.getUser());
                 cpu.heldCommand(command);
-                if (command.getDescription() == "Everything is good") {
+                if (Objects.equals(command.getDescription(), "Everything is good")) {
                     transferButton.getScene().getWindow().hide();
                 } else {
                     errorLabel.setText(command.getDescription());

@@ -2,6 +2,7 @@ package main.banksystem.controllers.client;
 
 import java.net.URL;
 import java.util.Map;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -48,22 +49,35 @@ public class CreateBillMenuController {
         Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
         for (Company company : companies.values()) {
             if (company.getIsBank()) {
-                bankList.add(company.getPAN().toString());
+                bankList.add(company.getjName());
             }
         }
         bankChoice.setItems(bankList);
 
         createButton.setOnAction(event -> {
+            Company bank = null;
+            String jName = bankChoice.getValue();
+
+            for (Company company : companies.values()) {
+                if (company.getIsBank() && Objects.equals(jName, company.getjName())) {
+                    bank = company;
+                }
+            }
+
+            if (bank == null) {
+                errorLabel.setText("No bank found");
+                return;
+            }
+
             double value = -1;
             try {
                 value = Double.parseDouble(valueField.getText());
-            }
-            catch (Exception e) {
-                errorLabel.setText("Invalid input");
+            } catch (Exception e) {
+                errorLabel.setText("Invalid sum");
                 return;
             }
-            if (value < 0){
-                errorLabel.setText("Invalid input");
+            if (value < 0) {
+                errorLabel.setText("Invalid sum");
                 return;
             }
             IndexGenerator indexGenerator = IndexGenerator.getInstance();
@@ -71,7 +85,7 @@ public class CreateBillMenuController {
 
             ProgramStatus programStatus = ProgramStatus.getInstance();
             ICommand.Type type = new ICommand.Type(false, true);
-            BuildBillCommand command = new BuildBillCommand(bill, type, programStatus.getUser().getIdx(), new Id(Long.parseLong(bankChoice.getValue())));
+            BuildBillCommand command = new BuildBillCommand(bill, type, programStatus.getUser().getIdx(), bank.getPAN());
 
             CPU cpu = new CPU(programStatus.getUser());
             cpu.heldCommand(command);

@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.banksystem.controllers.client.CreateCreditMenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #2E3348;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.banksystem.controllers.client.CreateCreditMenuController">
     <children>
         <AnchorPane layoutY="100.0" prefHeight="300.0" prefWidth="600.0" style="-fx-background-color: #fafafafa;">
             <children>
@@ -55,7 +55,7 @@
                 </Label>
                 <ChoiceBox fx:id="billChoice" layoutX="213.0" layoutY="55.0" prefHeight="33.0" prefWidth="291.0" />
             <ChoiceBox fx:id="periodChoice" layoutX="213.0" layoutY="92.0" prefHeight="33.0" prefWidth="291.0" />
-            <TabPane fx:id="toTabPane" layoutX="77.0" layoutY="125.0" prefHeight="65.0" prefWidth="474.0" style="-fx-background-color: #fafafafa;" stylesheets="@../tab_pane_sheet.css" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="percentTabPane" layoutX="77.0" layoutY="125.0" prefHeight="65.0" prefWidth="474.0" style="-fx-background-color: #fafafafa;" stylesheets="@../tab_pane_sheet.css" tabClosingPolicy="UNAVAILABLE">
               <tabs>
                 <Tab text="Фиксированный процент">
                   <content>

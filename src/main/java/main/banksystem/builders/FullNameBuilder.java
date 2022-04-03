@@ -30,6 +30,7 @@ public class FullNameBuilder {
     public static class Result {
         public boolean valid;
         public FullName fullName;
+        public String description = "";
     }
 
     public Result getFullName() {
@@ -38,14 +39,17 @@ public class FullNameBuilder {
         result.fullName = this.fullName;
 
         if (fullName.getFirstName() == null || Objects.equals(fullName.getFirstName(), "")) {
+            result.description = "No first name";
             result.valid = false;
         }
 
         if (fullName.getSecondName() == null || Objects.equals(fullName.getSecondName(), "")) {
+            result.description = "No second name";
             result.valid = false;
         }
 
         if (fullName.getFatherName() == null || Objects.equals(fullName.getFatherName(), "")) {
+            result.description = "no father name";
             result.valid = false;
         }
 

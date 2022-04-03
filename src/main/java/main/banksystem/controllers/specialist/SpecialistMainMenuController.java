@@ -64,8 +64,11 @@ public class SpecialistMainMenuController {
 
     @FXML
     void initialize() {
+        ProgramStatus status = ProgramStatus.getInstance();
+        reload(false);
+
         reloadButton.setOnAction(event -> {
-            reload();
+            reload(true);
         });
         setCompanyButton.setOnAction(event -> {
             newMenu(setCompanyButton, "/main/banksystem/specialist/connect_menu.fxml");
@@ -77,14 +80,12 @@ public class SpecialistMainMenuController {
             newMenu(createCompanyTransferButton, "/main/banksystem/specialist/transfer_company_menu.fxml");
         });
         salaryButton.setOnAction(event -> {
-            ProgramStatus status = ProgramStatus.getInstance();
             PayEmployeesCommand command = new PayEmployeesCommand(status.getUser().getIdx(), status.getCompany(),
                     new ICommand.Type(true, false));
             CPU cpu = new CPU(status.getUser());
             cpu.heldCommand(command);
             salarySendLabel.setText("Заявка отправлена!");
         });
-
     }
 
 
@@ -147,7 +148,7 @@ public class SpecialistMainMenuController {
         }
     }
 
-    void reload() {
+    void reload(boolean need_initialize) {
         salarySendLabel.setText("");
 
         ProgramStatus status = ProgramStatus.getInstance();
@@ -179,7 +180,9 @@ public class SpecialistMainMenuController {
 
             createNewStaffAccordion();
 
-            initialize();
+            if (need_initialize) {
+                initialize();
+            }
         }
     }
 }

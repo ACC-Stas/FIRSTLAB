@@ -61,12 +61,12 @@ public class SetBillStatusCommand implements ICommand {
 
     @Override
     public Type getType() {
-        return null;
+        return type;
     }
 
     @Override
     public void setType(Type type) {
-
+        this.type = type;
     }
 
     @Override

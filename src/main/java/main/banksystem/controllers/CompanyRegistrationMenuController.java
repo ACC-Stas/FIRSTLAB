@@ -69,7 +69,7 @@ public class CompanyRegistrationMenuController {
 
     @FXML
     void initialize() {
-        for(Company.Type type : Company.Type.values()) {
+        for (Company.Type type : Company.Type.values()) {
             typeList.add(type.toString());
         }
         typeChoice.setItems(typeList);
@@ -95,7 +95,7 @@ public class CompanyRegistrationMenuController {
             addressBuilder.buildStreetAddress(streetField.getText());
             AddressBuilder.Result address = addressBuilder.getAddress();
             if (!address.valid) {
-                errorLabel.setText("Invalid address");
+                errorLabel.setText(address.description);
                 return;
             }
 
@@ -108,18 +108,17 @@ public class CompanyRegistrationMenuController {
                 }
             }
 
-            if (company == null) {
-                errorLabel.setText(String.format("No company %s", JName));
-                return;
-            }
-
             CompanyBuilder companyBuilder = new CompanyBuilder();
             companyBuilder.buildAddress(address.address);
             companyBuilder.buildName(jNameField.getText());
             companyBuilder.buildIsBank(bankChoice.getValue());
             companyBuilder.buildType(typeChoice.getValue());
             companyBuilder.buildPAN(panField.getText());
-            companyBuilder.buildBankId(new BIC(company.getPAN()));
+
+            if (company != null) {
+                companyBuilder.buildBankId(new BIC(company.getPAN()));
+            }
+
             CompanyBuilder.Result result = companyBuilder.getCompany();
             if (!result.valid) {
                 errorLabel.setText(result.description);

@@ -63,17 +63,28 @@ public class WithdrawMenuController {
                 value = Double.parseDouble(valueField.getText());
             }
             catch (Exception e) {
-                errorLabel.setText("Invalid input");
+                errorLabel.setText("Invalid sum");
+                return;
+            }
+
+            if (billFromChoice.getValue() == null) {
+                errorLabel.setText("No bill found");
                 return;
             }
 
             Bill bill = bills.get(new Id(Long.parseLong(billFromChoice.getValue())));
 
-            if (value < 0 || bill.getMoney() < value){
-                errorLabel.setText("Invalid input");
+            if (value < 0){
+                errorLabel.setText("Invalid sum");
                 return;
             }
 
+            if (bill.getMoney() < value) {
+                errorLabel.setText("Not enough money");
+                return;
+            }
+
+            bill.setMoney(bill.getMoney() - value);
             dataBase.save(bill.getId(), DataBase.BILLS_PART, bill);
 
             withdrawButton.getScene().getWindow().hide();

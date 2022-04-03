@@ -66,6 +66,7 @@ public class PassportBuilder {
     public static class Result {
         public boolean valid;
         public Passport passport;
+        public String description = "";
     }
 
     public Result getPassport() {
@@ -74,26 +75,32 @@ public class PassportBuilder {
         result.passport = this.passport;
 
         if (passport.getSex() == null) {
+            result.description = "no sex";
             result.valid = false;
         }
 
         if (passport.getBirthday() == null) {
+            result.description = "no birthday";
             result.valid = false;
         }
 
         if (passport.getAddress() == null) {
+            result.description = "no address";
             result.valid = false;
         }
 
         if (passport.getIdx() == null) {
+            result.description = "no passport idx";
             result.valid = false;
         }
 
         if (passport.getCitizenship() == null) {
+            result.description = "no citizenship";
             result.valid = false;
         }
 
         if (passport.getFullName() == null) {
+            result.description = "no fullName";
             result.valid = false;
         }
 

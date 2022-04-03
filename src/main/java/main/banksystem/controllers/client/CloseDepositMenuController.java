@@ -18,6 +18,7 @@ import main.banksystem.builders.TransferBuilder;
 import main.banksystem.commands.ICommand;
 import main.banksystem.commands.RepayCreditCommand;
 import main.banksystem.commands.TransferCommand;
+import main.banksystem.commands.WithdrawDepositCommand;
 import main.banksystem.entities.Bill;
 import main.banksystem.entities.Credit;
 import main.banksystem.entities.Deposit;
@@ -74,6 +75,9 @@ public class CloseDepositMenuController {
                 errorLabel.setText("Choose deposit");
                 return;
             }
+
+            Id depositId = new Id(Long.parseLong(depositChoice.getValue()));
+
             Deposit deposit = deposits.get(new Id(Long.parseLong(depositChoice.getValue())));
             Bill bankBill = bills.get(deposit.getBankBillId());
             if (bankBill.getMoney() < valueSlider.getValue()) {
@@ -81,21 +85,12 @@ public class CloseDepositMenuController {
                 return;
             }
 
-            TransferBuilder builder = new TransferBuilder();
-            builder.buildBillToId(deposit.getBillId());
-            builder.buildBillFromId(deposit.getBankBillId());
-            builder.buildValue(valueSlider.getValue());
-            TransferBuilder.Result result = builder.getTransfer();
-            if (!result.valid) {
-                errorLabel.setText(result.description);
-                return;
-            }
             ICommand.Type type = new ICommand.Type(false, true);
-            TransferCommand transferCommand = new TransferCommand(result.transfer, type);
+            WithdrawDepositCommand command = new WithdrawDepositCommand(depositId, type, valueSlider.getValue());
 
             ProgramStatus programStatus = ProgramStatus.getInstance();
             CPU cpu = new CPU(programStatus.getUser());
-            cpu.heldCommand(transferCommand);
+            cpu.heldCommand(command);
 
             transferButton.getScene().getWindow().hide();
         });

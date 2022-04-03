@@ -30,6 +30,7 @@ public class AddressBuilder {
     public static class Result {
         public boolean valid;
         public Address address;
+        public String description = "";
     }
 
     public AddressBuilder.Result getAddress() {
@@ -38,14 +39,17 @@ public class AddressBuilder {
         result.address = this.address;
 
         if (address.getCountry() == null || Objects.equals(address.getCountry(), "")) {
+            result.description = "no country";
             result.valid = false;
         }
 
         if (address.getStreetAddress() == null || Objects.equals(address.getStreetAddress(), "")) {
+            result.description = "no street address";
             result.valid = false;
         }
 
         if (address.getCity() == null || Objects.equals(address.getCity(), "")) {
+            result.description = "no city";
             result.valid = false;
         }
 

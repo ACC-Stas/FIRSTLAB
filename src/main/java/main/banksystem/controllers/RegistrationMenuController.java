@@ -119,7 +119,7 @@ public class RegistrationMenuController {
             fullNameBuilder.buildFatherName(fatherName.getText());
             FullNameBuilder.Result fullName = fullNameBuilder.getFullName();
             if (!fullName.valid) {
-                errorLabel.setText("Invalid full name");
+                errorLabel.setText(fullName.description);
                 return;
             }
 
@@ -129,7 +129,7 @@ public class RegistrationMenuController {
             addressBuilder.buildStreetAddress(streetField.getText());
             AddressBuilder.Result address = addressBuilder.getAddress();
             if (!address.valid) {
-                errorLabel.setText("Invalid address");
+                errorLabel.setText(address.description);
                 return;
             }
 
@@ -142,7 +142,7 @@ public class RegistrationMenuController {
             passportBuilder.buildAddress(address.address);
             PassportBuilder.Result passport = passportBuilder.getPassport();
             if (!passport.valid) {
-                errorLabel.setText("Invalid passport");
+                errorLabel.setText(passport.description);
                 return;
             }
 
@@ -156,7 +156,7 @@ public class RegistrationMenuController {
             userBuilder.buildPassport(passport.passport);
             UserBuilder.Result user = userBuilder.getUser();
             if (!user.valid) {
-                errorLabel.setText("Invalid user" + user.description);
+                errorLabel.setText(user.description);
                 return;
             }
 

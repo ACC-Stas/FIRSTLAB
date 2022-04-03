@@ -14,7 +14,7 @@ public class DataBase {
     }
 
     private static DataBase instance;
-    private static final char encoderKey = 0;
+    private static final char encoderKey = 1;
     private final Encoder encoder;
     private final StringConverter<Id> converter;
     private static final StringConverter<Map<String, String>> dataConverter = new StringConverter<>();

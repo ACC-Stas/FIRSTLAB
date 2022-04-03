@@ -2,6 +2,7 @@ package main.banksystem.commands;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonTypeName;
+import main.banksystem.DataBase;
 import main.banksystem.builders.TransferBuilder;
 import main.banksystem.entities.*;
 
@@ -10,14 +11,14 @@ import java.util.Objects;
 @JsonTypeName("WithdrawDepositCommand")
 public class WithdrawDepositCommand implements ICommand {
     private ICommand.Type type;
-    private Deposit deposit;
+    private Id depositId;
     private double value;
     private String description = "";
     private TransferCommand transferCommand = null;
 
-    public WithdrawDepositCommand(Deposit deposit, Type type, double value) {
+    public WithdrawDepositCommand(Id depositId, Type type, double value) {
         this.type = type;
-        this.deposit = deposit;
+        this.depositId = depositId;
         this.value = value;
     }
 
@@ -25,15 +26,15 @@ public class WithdrawDepositCommand implements ICommand {
     public WithdrawDepositCommand() {
         this.value = -1;
         this.type = null;
-        this.deposit = null;
+        this.depositId = null;
     }
 
-    public Deposit getDeposit() {
-        return deposit;
+    public Id getDepositId() {
+        return depositId;
     }
 
-    public void setDeposit(Deposit deposit) {
-        this.deposit = deposit;
+    public void setDepositId(Id depositId) {
+        this.depositId = depositId;
     }
 
     @Override
@@ -55,6 +56,13 @@ public class WithdrawDepositCommand implements ICommand {
     public void execute() {
         if (this.value < 0) {
             description = "value less than zero";
+            return;
+        }
+
+        DataBase dataBase = DataBase.getInstance();
+        Deposit deposit = dataBase.download(depositId, DataBase.DEPOSIT_PART, Deposit.class);
+        if (deposit == null) {
+            description = "no deposit found";
             return;
         }
 
@@ -80,15 +88,28 @@ public class WithdrawDepositCommand implements ICommand {
         if (Objects.equals(transferCommand.getDescription(), "Everything is good")) {
             deposit.setValue(deposit.getValue() - value);
         }
+
+        dataBase.save(depositId, DataBase.DEPOSIT_PART, deposit);
     }
 
     @Override
     public void undo() {
         transferCommand.undo();
+
+        DataBase dataBase = DataBase.getInstance();
+        Deposit deposit = dataBase.download(depositId, DataBase.DEPOSIT_PART, Deposit.class);
+        if (deposit == null) {
+            description = "no deposit found";
+            return;
+        }
+
         description = transferCommand.getDescription();
         if (Objects.equals(transferCommand.getDescription(), "Everything is good")) {
             deposit.setValue(deposit.getValue() + value);
         }
+
+        dataBase.save(depositId, DataBase.DEPOSIT_PART, deposit);
+
     }
 
     @Override

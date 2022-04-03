@@ -77,28 +77,35 @@ public class UserBuilder {
         result.valid = true;
         result.user = this.user;
         if (user.getPassword() == null || Objects.equals(user.getPassword(), "")) {
+            result.description = "No password";
             result.valid = false;
         }
         if (user.getRole() == null) {
+            result.description = "No role";
             result.valid = false;
         }
         if (user.getEmail() == null || Objects.equals(user.getEmail(), "")) {
+            result.description = "No email";
             result.valid = false;
         }
 
         if (user.getPassport() == null) {
+            result.description = "No passport";
             result.valid = false;
         }
 
         if (user.getNumber() == null || Objects.equals(user.getNumber(), "")) {
+            result.description = "No number";
             result.valid = false;
         }
 
         if (user.getIdx() == null) {
+            result.description = "No idx";
             result.valid = false;
         }
 
         if (user.getLogin() == null || Objects.equals(user.getLogin(), "")) {
+            result.description = "No login";
             result.valid = false;
         } else {
             DataBase dataBase = DataBase.getInstance();

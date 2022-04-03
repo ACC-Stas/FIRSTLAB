@@ -107,6 +107,7 @@ public class CreateDepositMenuController {
 
             if (!result.valid) {
                 errorLabel.setText(result.description);
+                return;
             }
 
             IndexGenerator indexGenerator = IndexGenerator.getInstance();

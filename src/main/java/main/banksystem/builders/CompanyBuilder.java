@@ -100,11 +100,18 @@ public class CompanyBuilder {
         result.valid = true;
         result.company = company;
 
+        if (company.getPAN() == null) {
+            result.description = "no PAN";
+            result.valid = false;
+        }
+
         if (company.getType() == null) {
+            result.description = "no type";
             result.valid = false;
         }
 
         if (company.getjName() == null || Objects.equals(company.getjName(), "")) {
+            result.description = "no jName";
             result.valid = false;
         } else {
             DataBase dataBase = DataBase.getInstance();
