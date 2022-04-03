@@ -9,6 +9,7 @@ import main.banksystem.entities.Installment;
 import main.banksystem.entities.User;
 
 import java.util.Map;
+import java.util.Objects;
 
 @JsonTypeName("BuildInstallmentCommand")
 public class BuildInstallmentCommand implements ICommand {
@@ -99,6 +100,12 @@ public class BuildInstallmentCommand implements ICommand {
             return;
         }
 
+        transferCommand.execute();
+        if (!Objects.equals(transferCommand.getDescription(), "Everything is good")) {
+            description = transferCommand.getDescription();
+            return;
+        }
+
         installment.setSumToPay(installment.getSumToPay() + installment.getSumToPay() * installment.getPercent() / 100);
 
         User user = dataBase.download(this.userId, DataBase.USER_PART, User.class);
@@ -106,23 +113,23 @@ public class BuildInstallmentCommand implements ICommand {
         dataBase.save(this.userId, DataBase.USER_PART, user);
 
         dataBase.save(installment.getId(), DataBase.INSTALLMENT_PART, installment);
-
-        transferCommand.execute();
-
     }
 
     @Override
     public void undo() {
         DataBase dataBase = DataBase.getInstance();
 
+        transferCommand.undo();
+        if (!Objects.equals(transferCommand.getDescription(), "Everything is good")) {
+            description = transferCommand.getDescription();
+            return;
+        }
+
         User user = dataBase.download(this.userId, DataBase.USER_PART, User.class);
         user.getInstallmentIds().remove(this.installment.getId());
         dataBase.save(this.userId, DataBase.USER_PART, user);
 
         dataBase.remove(installment.getId(), DataBase.INSTALLMENT_PART);
-
-        transferCommand.undo();
-
     }
 
     @Override

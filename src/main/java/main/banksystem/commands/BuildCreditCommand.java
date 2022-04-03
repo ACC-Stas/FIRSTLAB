@@ -9,6 +9,7 @@ import main.banksystem.entities.Id;
 import main.banksystem.entities.User;
 
 import java.util.Map;
+import java.util.Objects;
 
 @JsonTypeName("BuildCreditCommand")
 public class BuildCreditCommand implements ICommand {
@@ -97,27 +98,35 @@ public class BuildCreditCommand implements ICommand {
             return;
         }
 
+        transferCommand.execute();
+        if (!Objects.equals(transferCommand.getDescription(), "Everything is good")) {
+            description = transferCommand.getDescription();
+            return;
+        }
+
         credit.setSumToPay(credit.getSumToPay() + credit.getSumToPay() * credit.getPercent() / 100);
 
         User user = dataBase.download(this.userId, DataBase.USER_PART, User.class);
         user.getCreditIds().add(this.credit.getId());
         dataBase.save(this.userId, DataBase.USER_PART, user);
         dataBase.save(credit.getId(), DataBase.CREDIT_PART, credit);
-
-        transferCommand.execute();
     }
 
     @Override
     public void undo() {
         DataBase dataBase = DataBase.getInstance();
 
+        transferCommand.undo();
+        if (!Objects.equals(transferCommand.getDescription(), "Everything is good")) {
+            description = transferCommand.getDescription();
+            return;
+        }
+
         User user = dataBase.download(this.userId, DataBase.USER_PART, User.class);
         user.getCreditIds().remove(this.credit.getId());
         dataBase.save(this.userId, DataBase.USER_PART, user);
 
         dataBase.remove(credit.getId(), DataBase.CREDIT_PART);
-
-        transferCommand.undo();
     }
 
     @Override

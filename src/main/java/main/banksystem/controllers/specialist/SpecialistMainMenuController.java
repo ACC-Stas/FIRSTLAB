@@ -101,7 +101,7 @@ public class SpecialistMainMenuController {
         for (Map.Entry<Id, Queue<ICommand>> commandsEntry : commands.entrySet()) {
             for (ICommand command : commandsEntry.getValue()) {
                 if (command.getClass() == BuildSalaryProjectCommand.class &&
-                        ((BuildSalaryProjectCommand) command).getCompanyId() == status.getCompany()) {
+                        ((BuildSalaryProjectCommand) command).getCompanyId().equals(status.getCompany())) {
                     TitledPane titledPane = new TitledPane();
                     titledPane.getStylesheets().add(SpecialistMainMenuController
                             .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
