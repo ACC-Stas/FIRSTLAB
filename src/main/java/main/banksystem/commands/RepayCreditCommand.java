@@ -42,6 +42,11 @@ public class RepayCreditCommand implements ICommand {
     }
 
     @Override
+    public String toString() {
+        return description;
+    }
+
+    @Override
     public void execute() {
         DataBase dataBase = DataBase.getInstance();
         Credit credit = dataBase.download(creditId, DataBase.CREDIT_PART, Credit.class);

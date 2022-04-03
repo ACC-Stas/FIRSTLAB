@@ -78,7 +78,7 @@ public class CreateDepositMenuController {
             DataBase dataBase = DataBase.getInstance();
 
             DepositBuilder depositBuilder = new DepositBuilder();
-            depositBuilder.buildId(new Id(-1));
+            depositBuilder.buildId(new Id(0));
             Id billId = new Id(Long.parseLong(billChoice.getValue()));
             depositBuilder.buildBillId(billId);
 

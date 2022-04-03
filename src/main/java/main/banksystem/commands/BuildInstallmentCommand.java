@@ -58,6 +58,11 @@ public class BuildInstallmentCommand implements ICommand {
         this.description = description;
     }
 
+    @Override
+    public String toString() {
+        return description;
+    }
+
     public BuildInstallmentCommand(Id userId, Installment installment, ICommand.Type type) {
         this.userId = userId;
         this.installment = installment;

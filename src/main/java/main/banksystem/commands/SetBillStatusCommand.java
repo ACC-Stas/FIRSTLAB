@@ -71,12 +71,17 @@ public class SetBillStatusCommand implements ICommand {
 
     @Override
     public String getDescription() {
-        return null;
+        return description;
     }
 
     @Override
     public void setDescription(String description) {
+        this.description = description;
+    }
 
+    @Override
+    public String toString() {
+        return description;
     }
 
     public Id getBillId() {

@@ -75,6 +75,11 @@ public class FireCommand implements ICommand {
     }
 
     @Override
+    public String toString() {
+        return description;
+    }
+
+    @Override
     public void execute() {
         DataBase dataBase = DataBase.getInstance();
 

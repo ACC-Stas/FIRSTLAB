@@ -42,6 +42,11 @@ public class RepayInstallmentCommand implements ICommand {
     }
 
     @Override
+    public String toString() {
+        return description;
+    }
+
+    @Override
     public void execute() {
         DataBase dataBase = DataBase.getInstance();
         Installment installment = dataBase.download(installmentId, DataBase.INSTALLMENT_PART, Installment.class);

@@ -18,7 +18,6 @@ import main.banksystem.commands.ICommand;
 import main.banksystem.entities.Company;
 import main.banksystem.entities.Id;
 import main.banksystem.entities.SalaryProject;
-import main.banksystem.entities.User;
 
 public class FiringMenuController {
 
@@ -75,6 +74,8 @@ public class FiringMenuController {
 
             CPU cpu = new CPU(status.getUser());
             cpu.heldCommand(command);
+
+            fireButton.getScene().getWindow().hide();
         });
 
     }
