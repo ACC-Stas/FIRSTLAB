@@ -104,4 +104,8 @@ public class PayEmployeesCommand implements ICommand {
     public void setCommands(ArrayList<TransferCommand> commands) {
         this.commands = commands;
     }
+
+    public String toString() {
+        return this.description;
+    }
 }
