@@ -64,7 +64,12 @@ public class AdministratorMainMenuController {
 
         DataBase dataBase = DataBase.getInstance();
 
-        logText.setText(dataBase.downloadQueue(DataBase.QUEUE_PART, ICommand.class).toString());
+        String text = "";
+        Map<Id, Stack<ICommand>> map = dataBase.downloadStack(DataBase.STACK_PART, ICommand.class);
+        for (Map.Entry<Id, Stack<ICommand>> stack : map.entrySet()){
+            text += "ID = " + stack.getKey() + " - " + stack.getValue().toString() + "\n";
+        }
+        logText.setText(text);
 
         findButton.setOnAction(event -> {
             Map<Id, User> users = dataBase.downloadMap(DataBase.USER_PART, User.class);
@@ -77,6 +82,7 @@ public class AdministratorMainMenuController {
 
             if (users.containsKey(idx)) {
                 createUserAccordion(idx);
+                errorLabel.setText("");
             }
             else {
                 errorLabel.setText("Wrong ID");

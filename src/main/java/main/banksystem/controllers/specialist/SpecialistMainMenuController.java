@@ -10,16 +10,21 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 import main.banksystem.CPU;
 import main.banksystem.DataBase;
-import main.banksystem.commands.BuildCreditCommand;
-import main.banksystem.commands.BuildInstallmentCommand;
+import main.banksystem.ProgramStatus;
 import main.banksystem.commands.BuildSalaryProjectCommand;
 import main.banksystem.commands.ICommand;
 import main.banksystem.controllers.SwitchMenu;
-import main.banksystem.controllers.manager.ManagerMainMenuController;
+import main.banksystem.entities.Bill;
+import main.banksystem.entities.Company;
 import main.banksystem.entities.Id;
 import main.banksystem.entities.User;
+
+import static main.banksystem.controllers.SwitchMenu.*;
+import static main.banksystem.controllers.SwitchMenu.switchMenu;
 
 public class SpecialistMainMenuController {
 
@@ -39,7 +44,10 @@ public class SpecialistMainMenuController {
     private Label errorLabel;
 
     @FXML
-    private Button findButton1;
+    private Button salaryButton;
+
+    @FXML
+    private Button reloadButton;
 
     @FXML
     private Accordion newStaffAccordion;
@@ -62,11 +70,17 @@ public class SpecialistMainMenuController {
     @FXML
     void initialize() {
         createSalaryProjectAccordion();
+        reload();
 
-        setCompanyButton.setOnAction(event -> {
-            SwitchMenu.newMenu(setCompanyButton, "/main/banksystem/specialist/connect_menu.fxml");
+        reloadButton.setOnAction(event -> {
+            reload();
         });
-
+        setCompanyButton.setOnAction(event -> {
+            newMenu(setCompanyButton, "/main/banksystem/specialist/connect_menu.fxml");
+        });
+        toClientButton.setOnAction(event -> {
+            switchMenu(toClientButton, "/main/banksystem/client/client_main_menu.fxml");
+        });
 
     }
 
@@ -124,4 +138,29 @@ public class SpecialistMainMenuController {
         }
     }
 
+    void reload() {
+        ProgramStatus status = ProgramStatus.getInstance();
+        Id userId = status.getUser().getIdx();
+
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
+        for (Company company : companies.values()) {
+            for (Id specialistId : company.getSpecialistIds()) {
+                if (userId.equals(specialistId)) {
+                    status.setCompany(company.getPAN());
+                }
+            }
+        }
+
+        if (status.getCompany() != null) {
+            Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
+            companyMoneyLabel.setText(String.valueOf(bills.get(companies.get(status.getCompany())
+                    .getBillCompanyId()).getMoney()));
+            specialistStatusLabel.setTextFill(Color.GREEN);
+            specialistStatusLabel.setText("Вы привязаны к предприятию.");
+            setCompanyButton.setVisible(false);
+            setCompanyButton.setManaged(false);
+        }
+
+    }
 }

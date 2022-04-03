@@ -54,12 +54,6 @@ public class LoginMenuController {
             switchMenu(loginSignUpButton, "/main/banksystem/company_registration_menu.fxml");
         });
 
-        String userDirectory = new File("").getAbsolutePath();
-        String ukraina = "file://" + userDirectory + "/ukraina-sche-ne-vmerla-ukraina.mp3";
-        Media media = new Media(ukraina);
-        MediaPlayer player = new MediaPlayer(media);
-        player.play();
-
         loginSignInButton.setOnAction(actionEvent -> {
             DataBase dataBase = DataBase.getInstance();
             Map<Id, User> users = dataBase.downloadMap(DataBase.USER_PART, User.class);
