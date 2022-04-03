@@ -33,7 +33,7 @@ public class SalaryProjectBuilder {
         salaryProject.setBillToId(SourceId);
     }
 
-    public void buildSourceBillId(String string) {
+    public void buildBillToId(String string) {
         long number = -1;
         try {
             number = Long.parseLong(string);

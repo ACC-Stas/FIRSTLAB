@@ -82,7 +82,7 @@ public class HiringMenuController {
             }
 
             SalaryProjectBuilder salaryProjectBuilder = new SalaryProjectBuilder();
-            salaryProjectBuilder.buildBillToId(new Id(Long.parseLong(billChoice.getValue())));
+            salaryProjectBuilder.buildBillToId(billChoice.getValue());
             salaryProjectBuilder.buildSum(valueField.getText());
             salaryProjectBuilder.buildBillFromId(company.getBillCompanyId());
             salaryProjectBuilder.buildSalaryProjectId(new Id(0));
