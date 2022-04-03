@@ -43,7 +43,7 @@
                         <Font name="System Italic" size="20.0" />
                     </font>
                 </Label>
-            <TabPane fx:id="percentTabPane" layoutX="63.0" layoutY="75.0" prefHeight="65.0" prefWidth="474.0" style="-fx-background-color: #fafafafa;" stylesheets="@../tab_pane_sheet.css" tabClosingPolicy="UNAVAILABLE">
+            <TabPane fx:id="toTabPane" layoutX="63.0" layoutY="75.0" prefHeight="65.0" prefWidth="474.0" style="-fx-background-color: #fafafafa;" stylesheets="@../tab_pane_sheet.css" tabClosingPolicy="UNAVAILABLE">
                <tabs>
                   <Tab text="Перевод предприятию">
                      <content>

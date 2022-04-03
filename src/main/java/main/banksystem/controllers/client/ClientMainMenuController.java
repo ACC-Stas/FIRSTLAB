@@ -138,6 +138,15 @@ public class ClientMainMenuController {
         closeSalaryButton.setOnAction(event ->{
             newMenu(closeSalaryButton, "/main/banksystem/client/firing_menu.fxml");
         });
+        freezeBillButton.setOnAction(event ->{
+            newMenu(closeSalaryButton, "/main/banksystem/client/freeze_menu.fxml");
+        });
+        unfreezeBillButton.setOnAction(event ->{
+            newMenu(closeSalaryButton, "/main/banksystem/client/unfreeze_menu.fxml");
+        });
+        closeBillButton.setOnAction(event ->{
+            newMenu(closeSalaryButton, "/main/banksystem/client/block_menu.fxml");
+        });
     }
 
     void createBillAccordion() {

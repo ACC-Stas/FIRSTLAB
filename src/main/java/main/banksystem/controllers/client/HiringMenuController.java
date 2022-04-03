@@ -20,6 +20,8 @@ import main.banksystem.ProgramStatus;
 import main.banksystem.builders.SalaryProjectBuilder;
 import main.banksystem.commands.BuildSalaryProjectCommand;
 import main.banksystem.commands.ICommand;
+import main.banksystem.entities.Bill;
+import main.banksystem.entities.BillConditions;
 import main.banksystem.entities.Company;
 import main.banksystem.entities.Id;
 
@@ -62,8 +64,12 @@ public class HiringMenuController {
         ProgramStatus status = ProgramStatus.getInstance();
         ArrayList<Id> ids = status.getUser().getBillIds();
 
+        Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
+
         for (Id id : ids) {
-            billList.add(String.valueOf(id.getId()));
+            if (bills.get(id).getBillConditions() == BillConditions.ACTIVE) {
+                billList.add(String.valueOf(id.getId()));
+            }
         }
         billChoice.setItems(billList);
 

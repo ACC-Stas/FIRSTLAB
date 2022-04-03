@@ -1,1 +1,0 @@
-{"{\"id\":3}":"{\"bankBillId\":{\"id\":4},\"percent\":5.0,\"value\":2.1,\"billId\":{\"id\":5},\"id\":{\"id\":3}}","{\"id\":2}":"{\"bankBillId\":{\"id\":13},\"percent\":5.0,\"value\":150000.0,\"billId\":{\"id\":18},\"id\":{\"id\":2}}"}

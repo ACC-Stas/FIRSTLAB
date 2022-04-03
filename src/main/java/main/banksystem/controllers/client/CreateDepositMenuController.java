@@ -22,9 +22,7 @@ import main.banksystem.builders.DepositBuilder;
 import main.banksystem.commands.BuildCreditCommand;
 import main.banksystem.commands.BuildDepositCommand;
 import main.banksystem.commands.ICommand;
-import main.banksystem.entities.Company;
-import main.banksystem.entities.Id;
-import main.banksystem.entities.Percent;
+import main.banksystem.entities.*;
 
 public class CreateDepositMenuController {
 
@@ -63,8 +61,13 @@ public class CreateDepositMenuController {
         ProgramStatus status = ProgramStatus.getInstance();
         ArrayList<Id> ids = status.getUser().getBillIds();
 
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
+
         for(Id id : ids) {
-            billList.add(String.valueOf(id.getId()));
+            if (bills.get(id).getBillConditions() == BillConditions.ACTIVE) {
+                billList.add(String.valueOf(id.getId()));
+            }
         }
         billChoice.setItems(billList);
 
@@ -75,7 +78,6 @@ public class CreateDepositMenuController {
         percentChoice.setValue(percentList.get(0));
 
         depositButton.setOnAction(event -> {
-            DataBase dataBase = DataBase.getInstance();
 
             DepositBuilder depositBuilder = new DepositBuilder();
             depositBuilder.buildId(new Id(0));

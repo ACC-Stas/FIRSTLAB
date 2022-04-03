@@ -2,6 +2,7 @@ package main.banksystem.controllers.client;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 import javafx.collections.FXCollections;
@@ -12,10 +13,13 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import main.banksystem.CPU;
+import main.banksystem.DataBase;
 import main.banksystem.ProgramStatus;
 import main.banksystem.builders.TransferBuilder;
 import main.banksystem.commands.ICommand;
 import main.banksystem.commands.TransferCommand;
+import main.banksystem.entities.Bill;
+import main.banksystem.entities.BillConditions;
 import main.banksystem.entities.Id;
 
 public class TransferMenuController {
@@ -46,8 +50,14 @@ public class TransferMenuController {
     void initialize() {
         ProgramStatus status = ProgramStatus.getInstance();
         ArrayList<Id> ids = status.getUser().getBillIds();
+
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
+
         for(Id id : ids) {
-            billList.add(String.valueOf(id.getId()));
+            if (bills.get(id).getBillConditions() == BillConditions.ACTIVE) {
+                billList.add(String.valueOf(id.getId()));
+            }
         }
         billFromChoice.setItems(billList);
 

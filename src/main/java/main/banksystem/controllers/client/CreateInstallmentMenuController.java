@@ -23,10 +23,7 @@ import main.banksystem.builders.InstallmentBuilder;
 import main.banksystem.commands.BuildCreditCommand;
 import main.banksystem.commands.BuildInstallmentCommand;
 import main.banksystem.commands.ICommand;
-import main.banksystem.entities.Company;
-import main.banksystem.entities.Id;
-import main.banksystem.entities.Percent;
-import main.banksystem.entities.Period;
+import main.banksystem.entities.*;
 
 public class CreateInstallmentMenuController {
 
@@ -73,8 +70,13 @@ public class CreateInstallmentMenuController {
         ProgramStatus status = ProgramStatus.getInstance();
         ArrayList<Id> ids = status.getUser().getBillIds();
 
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
+
         for(Id id : ids) {
-            billList.add(String.valueOf(id.getId()));
+            if (bills.get(id).getBillConditions() == BillConditions.ACTIVE) {
+                billList.add(String.valueOf(id.getId()));
+            }
         }
         billChoice.setItems(billList);
 
@@ -90,7 +92,6 @@ public class CreateInstallmentMenuController {
         percentChoice.setItems((percentList));
         percentChoice.setValue(percentList.get(0));
 
-        DataBase dataBase = DataBase.getInstance();
         Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
 
         for (Company company : companies.values()) {

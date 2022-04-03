@@ -61,8 +61,13 @@ public class CreateCreditMenuController {
         ProgramStatus status = ProgramStatus.getInstance();
         ArrayList<Id> ids = status.getUser().getBillIds();
 
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
+
         for(Id id : ids) {
-            billList.add(String.valueOf(id.getId()));
+            if (bills.get(id).getBillConditions() == BillConditions.ACTIVE) {
+                billList.add(String.valueOf(id.getId()));
+            }
         }
         billChoice.setItems(billList);
 
@@ -79,7 +84,6 @@ public class CreateCreditMenuController {
         percentChoice.setValue(percentList.get(0));
 
         creditButton.setOnAction(event -> {
-            DataBase dataBase = DataBase.getInstance();
 
             CreditBuilder creditBuilder = new CreditBuilder();
             creditBuilder.buildId(new Id(1));

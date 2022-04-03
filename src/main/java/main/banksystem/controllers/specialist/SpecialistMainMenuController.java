@@ -17,11 +17,9 @@ import main.banksystem.ProgramStatus;
 import main.banksystem.commands.BuildSalaryProjectCommand;
 import main.banksystem.commands.ICommand;
 import main.banksystem.commands.PayEmployeesCommand;
-import main.banksystem.controllers.SwitchMenu;
 import main.banksystem.entities.*;
 
 import static main.banksystem.controllers.SwitchMenu.*;
-import static main.banksystem.controllers.SwitchMenu.switchMenu;
 
 public class SpecialistMainMenuController {
 
@@ -74,6 +72,9 @@ public class SpecialistMainMenuController {
         });
         toClientButton.setOnAction(event -> {
             newMenu(toClientButton, "/main/banksystem/client/client_main_menu.fxml");
+        });
+        createCompanyTransferButton.setOnAction(event -> {
+            newMenu(createCompanyTransferButton, "/main/banksystem/specialist/transfer_company_menu.fxml");
         });
         salaryButton.setOnAction(event -> {
             ProgramStatus status = ProgramStatus.getInstance();

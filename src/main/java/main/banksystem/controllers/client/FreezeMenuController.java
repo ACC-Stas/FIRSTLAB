@@ -11,14 +11,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import main.banksystem.CPU;
 import main.banksystem.DataBase;
 import main.banksystem.ProgramStatus;
+import main.banksystem.commands.ICommand;
+import main.banksystem.commands.SetBillStatusCommand;
 import main.banksystem.entities.Bill;
 import main.banksystem.entities.BillConditions;
 import main.banksystem.entities.Id;
 
-public class WithdrawMenuController {
+public class FreezeMenuController {
 
     ObservableList<String> billList = FXCollections.observableArrayList();
 
@@ -29,20 +31,16 @@ public class WithdrawMenuController {
     private URL location;
 
     @FXML
-    private ChoiceBox<String> billFromChoice;
+    private ChoiceBox<String> billChoice;
 
     @FXML
     private Label errorLabel;
 
     @FXML
-    private TextField valueField;
-
-    @FXML
-    private Button withdrawButton;
+    private Button freezeButton;
 
     @FXML
     void initialize() {
-
         ProgramStatus status = ProgramStatus.getInstance();
         ArrayList<Id> ids = status.getUser().getBillIds();
 
@@ -54,31 +52,16 @@ public class WithdrawMenuController {
                 billList.add(String.valueOf(id.getId()));
             }
         }
-        billFromChoice.setItems(billList);
+        billChoice.setItems(billList);
 
-        withdrawButton.setOnAction(event -> {
+        freezeButton.setOnAction(event -> {
+            SetBillStatusCommand command = new SetBillStatusCommand(new Id(Long.parseLong(billChoice.getValue())),
+                    BillConditions.ACTIVE, BillConditions.FROZEN, new ICommand.Type(false, true));
+            CPU cpu = new CPU(status.getUser());
+            cpu.heldCommand(command);
 
-            double value = -1;
-            try {
-                value = Double.parseDouble(valueField.getText());
-            }
-            catch (Exception e) {
-                errorLabel.setText("Invalid input");
-                return;
-            }
-
-            Bill bill = bills.get(new Id(Long.parseLong(billFromChoice.getValue())));
-
-            if (value < 0 || bill.getMoney() < value){
-                errorLabel.setText("Invalid input");
-                return;
-            }
-
-            dataBase.save(bill.getId(), DataBase.BILLS_PART, bill);
-
-            withdrawButton.getScene().getWindow().hide();
+            freezeButton.getScene().getWindow().hide();
         });
-
     }
 
 }
