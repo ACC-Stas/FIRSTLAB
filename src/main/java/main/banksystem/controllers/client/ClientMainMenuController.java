@@ -159,14 +159,15 @@ public class ClientMainMenuController {
         ProgramStatus programStatus = ProgramStatus.getInstance();
         for (Id id : programStatus.getUser().getBillIds()) {
             TitledPane titledPane = new TitledPane();
-            titledPane.getStylesheets().add(ManagerMainMenuController.class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
-            titledPane.setText(id.toString());
+            titledPane.getStylesheets().add(ManagerMainMenuController
+                    .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+            titledPane.setText("ID счёта: " + id.toString());
 
             VBox content = new VBox();
             Label value = new Label("Сумма: " + bills.get(id).getMoney());
             Label status = new Label("Статус: " + bills.get(id).getBillConditions().toString());
 
-            String bankName = "No bank found";
+            String bankName = "Банкн не найден";
             for (Company bank : banks.values()) {
                 for (Id billIdI : bank.getBillsIds()) {
                     if (billIdI.equals(id)) {
@@ -175,7 +176,7 @@ public class ClientMainMenuController {
                     }
                 }
             }
-            Label bank = new Label(String.format("Bank: %s", bankName));
+            Label bank = new Label(String.format("Банк: %s", bankName));
 
             content.getChildren().add(value);
             content.getChildren().add(status);
@@ -192,6 +193,7 @@ public class ClientMainMenuController {
         salaryAccordion.getPanes().clear();
         DataBase dataBase = DataBase.getInstance();
         Map<Id, SalaryProject> salaries = dataBase.downloadMap(DataBase.SALARY_PART, SalaryProject.class);
+        Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
 
         ProgramStatus programStatus = ProgramStatus.getInstance();
         for (Id id : programStatus.getUser().getSalaryIds()) {
@@ -199,14 +201,23 @@ public class ClientMainMenuController {
             TitledPane titledPane = new TitledPane();
             titledPane.getStylesheets().add(ManagerMainMenuController
                     .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
-            titledPane.setText(id.toString());
+            titledPane.setText("ID зарплатного проекта: " + id.toString());
 
             VBox content = new VBox();
-            Label value = new Label("Значение: " + String.valueOf(salary.getSum()));
+            Label value = new Label("Сумма: " + String.valueOf(salary.getSum()));
             Label bill = new Label("Привязанный счёт: " + String.valueOf(salary.getBillToId()));
+            Label place = new Label("Компания не найдена");
+            for (Company company : companies.values()){
+                if (company.getBillCompanyId() == salary.getBillFromId()){
+                    place.setText(String.format("Банк: %s", company.getjName()));
+                    break;
+                }
+            }
 
             content.getChildren().add(value);
             content.getChildren().add(bill);
+            content.getChildren().add(place);
+
             titledPane.setContent(content);
 
             salaryAccordion.getPanes().addAll(titledPane);
@@ -218,6 +229,7 @@ public class ClientMainMenuController {
 
         DataBase dataBase = DataBase.getInstance();
         Map<Id, Credit> credits = dataBase.downloadMap(DataBase.CREDIT_PART, Credit.class);
+        Map<Id, Company> banks = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
 
         ProgramStatus programStatus = ProgramStatus.getInstance();
         for (Id id : programStatus.getUser().getCreditIds()) {
@@ -227,14 +239,24 @@ public class ClientMainMenuController {
             TitledPane titledPane = new TitledPane();
             titledPane.getStylesheets().add(ManagerMainMenuController
                     .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
-            titledPane.setText(id.toString());
+            titledPane.setText("ID кредита: " + id.toString());
 
             VBox content = new VBox();
             Label sum = new Label("Осталось выплатить: " + credits.get(id).getSumToPay());
             Label bill = new Label("Привязанный счёт: " + credits.get(id).getSourceBillId().toString());
 
+            String bankName = "Банк не найден";
+            for (Company bank : banks.values()) {
+                if (bank.getBillCompanyId() == credits.get(id).getBankBillId()) {
+                    bankName = bank.getjName();
+                    break;
+                }
+            }
+            Label bank = new Label(String.format("Банк: %s", bankName));
+
             content.getChildren().add(sum);
             content.getChildren().add(bill);
+            content.getChildren().add(bank);
             titledPane.setContent(content);
 
             creditAccordion.getPanes().addAll(titledPane);
@@ -246,6 +268,7 @@ public class ClientMainMenuController {
 
         DataBase dataBase = DataBase.getInstance();
         Map<Id, Installment> installments = dataBase.downloadMap(DataBase.INSTALLMENT_PART, Installment.class);
+        Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
 
         ProgramStatus programStatus = ProgramStatus.getInstance();
         for (Id id : programStatus.getUser().getInstallmentIds()) {
@@ -255,14 +278,24 @@ public class ClientMainMenuController {
             TitledPane titledPane = new TitledPane();
             titledPane.getStylesheets().add(ManagerMainMenuController
                     .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
-            titledPane.setText(id.toString());
+            titledPane.setText("ID рассрочки: " + id.toString());
 
             VBox content = new VBox();
             Label sum = new Label("Осталось выплатить: " + installments.get(id).getSumToPay());
             Label bill = new Label("Привязанный счёт: " + installments.get(id).getSourceBillId().toString());
 
+            String companyName = "Компания не найдена";
+            for (Company company : companies.values()) {
+                if (company.getBillCompanyId() == installments.get(id).getCompanyBillId()) {
+                    companyName = company.getjName();
+                    break;
+                }
+            }
+            Label place = new Label(String.format("Компания: %s", companyName));
+
             content.getChildren().add(sum);
             content.getChildren().add(bill);
+            content.getChildren().add(place);
             titledPane.setContent(content);
 
             installmentAccordion.getPanes().addAll(titledPane);
@@ -273,6 +306,7 @@ public class ClientMainMenuController {
         depositAccordion.getPanes().clear();
         DataBase dataBase = DataBase.getInstance();
         Map<Id, Deposit> deposits = dataBase.downloadMap(DataBase.DEPOSIT_PART, Deposit.class);
+        Map<Id, Company> banks = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
 
         ProgramStatus programStatus = ProgramStatus.getInstance();
         for (Id id : programStatus.getUser().getDepositIds()) {
@@ -280,14 +314,24 @@ public class ClientMainMenuController {
             TitledPane titledPane = new TitledPane();
             titledPane.getStylesheets().add(ManagerMainMenuController
                     .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
-            titledPane.setText(id.toString());
+            titledPane.setText("ID вклада: " + id.toString());
 
             VBox content = new VBox();
             Label value = new Label("Значение: " + String.valueOf(deposit.getValue()));
             Label bill = new Label("Привязанный счёт: " + String.valueOf(deposit.getBillId()));
 
+            String bankName = "Банк не найден";
+            for (Company bank : banks.values()) {
+                if (bank.getBillCompanyId() == deposits.get(id).getBankBillId()) {
+                    bankName = bank.getjName();
+                    break;
+                }
+            }
+            Label bank = new Label(String.format("Банк: %s", bankName));
+
             content.getChildren().add(value);
             content.getChildren().add(bill);
+            content.getChildren().add(bank);
             titledPane.setContent(content);
 
             depositAccordion.getPanes().addAll(titledPane);
