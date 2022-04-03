@@ -53,6 +53,16 @@ public class ConnectMenuController {
                 return;
             }
 
+            Id userId = status.getUser().getIdx();;
+            for (Company company : companies.values()) {
+                for (Id specialistId : company.getSpecialistIds()) {
+                    if (userId.equals(specialistId)) {
+                        errorLabel.setText(String.format("You are already tied to company %s", company.getjName()));
+                        return;
+                    }
+                }
+            }
+
             Company company = null;
             for (Company companyI : companies.values()) {
                 if (Objects.equals(companyI.getjName(), jName)) {

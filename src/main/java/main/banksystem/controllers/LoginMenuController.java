@@ -1,6 +1,5 @@
 package main.banksystem.controllers;
 
-import java.io.File;
 import java.net.URL;
 import java.util.*;
 
@@ -13,9 +12,6 @@ import main.banksystem.DataBase;
 import main.banksystem.ProgramStatus;
 import main.banksystem.entities.Id;
 import main.banksystem.entities.User;
-
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 
 import static main.banksystem.controllers.SwitchMenu.switchMenu;
 
