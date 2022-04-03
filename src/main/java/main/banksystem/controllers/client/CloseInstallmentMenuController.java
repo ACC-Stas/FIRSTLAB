@@ -70,6 +70,11 @@ public class CloseInstallmentMenuController {
 
         transferButton.setOnAction(event -> {
             Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
+            if (installmentChoice.getValue() == null) {
+                errorLabel.setText("Choose installment");
+                return;
+            }
+
             double valueOnBill = bills.get(installments.get(new Id(Long.parseLong(installmentChoice.getValue())))
                     .getSourceBillId()).getMoney();
             if (valueOnBill < valueSlider.getValue()){
