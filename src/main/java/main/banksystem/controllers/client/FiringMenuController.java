@@ -18,6 +18,7 @@ import main.banksystem.commands.ICommand;
 import main.banksystem.entities.Company;
 import main.banksystem.entities.Id;
 import main.banksystem.entities.SalaryProject;
+import main.banksystem.entities.User;
 
 public class FiringMenuController {
 
@@ -42,13 +43,21 @@ public class FiringMenuController {
     void initialize() {
         DataBase dataBase = DataBase.getInstance();
         Map<Id, SalaryProject> salaries = dataBase.downloadMap(DataBase.SALARY_PART, SalaryProject.class);
+        ProgramStatus status = ProgramStatus.getInstance();
+        User user = status.getUser();
         for (SalaryProject salaryProject : salaries.values()) {
-            salaryList.add(salaryProject.getSalaryProjectId().toString());
+            if (user.getSalaryIds().contains(salaryProject.getSalaryProjectId())) {
+                salaryList.add(salaryProject.getSalaryProjectId().toString());
+            }
         }
         salaryChoice.setItems(salaryList);
 
         fireButton.setOnAction(event -> {
-            ProgramStatus status = ProgramStatus.getInstance();
+            if (salaryChoice.getValue() == null) {
+                errorLabel.setText("Choose salary project");
+                return;
+            }
+
             Id salaryProjectId = new Id(Long.parseLong(salaryChoice.getValue()));
             Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
 
