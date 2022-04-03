@@ -144,6 +144,7 @@ public class ClientMainMenuController {
         billsAccordion.getPanes().clear();
 
         DataBase dataBase = DataBase.getInstance();
+        Map<Id, Company> banks = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
         Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
 
         ProgramStatus programStatus = ProgramStatus.getInstance();
@@ -156,8 +157,20 @@ public class ClientMainMenuController {
             Label value = new Label("Сумма: " + bills.get(id).getMoney());
             Label status = new Label("Статус: " + bills.get(id).getBillConditions().toString());
 
+            String bankName = "No bank found";
+            for (Company bank : banks.values()) {
+                for (Id billIdI : bank.getBillsIds()) {
+                    if (billIdI.equals(id)) {
+                        bankName = bank.getjName();
+                        break;
+                    }
+                }
+            }
+            Label bank = new Label(String.format("Bank: %s", bankName));
+
             content.getChildren().add(value);
             content.getChildren().add(status);
+            content.getChildren().add(bank);
             titledPane.setContent(content);
 
             billsAccordion.getPanes().addAll(titledPane);
