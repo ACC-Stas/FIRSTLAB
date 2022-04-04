@@ -31,6 +31,7 @@ public class DataBase {
     public static final String SALARY_PART = "salary.txt";
     public static final Id INIT_USER_ID = new Id(-1L); // special user to register others
     public static final Id INIT_COMPANY_ID = new Id(-2L); // special user to register companies
+    public static final Id UNDO_LOG_ID = new Id(-3L);
     private static final String BASE_ADDRESS = "database/";
 
     public static DataBase getInstance() {

@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import main.banksystem.CPU;
 import main.banksystem.DataBase;
+import main.banksystem.ProgramStatus;
 import main.banksystem.commands.ICommand;
 import main.banksystem.commands.RegistryCommand;
 import main.banksystem.commands.RegistryCompanyCommand;
@@ -129,10 +130,21 @@ public class AdministratorMainMenuController {
                     .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
             cancel.setOnAction(event -> {
 
+                ProgramStatus status = ProgramStatus.getInstance();
                 command.undo();
+
+                command.setDescription("Action: " + command.getDescription() + "was canceled by " + status
+                        .getUser().getIdx().toString());
+
+                if (!commands.containsKey(new Id(-3))) {
+                    commands.put(new Id(-3), new Stack<>());
+                }
+                var commandStack = commands.get(new Id(-3));
+                commandStack.push(command);
 
                 commands.get(id).remove(command);
                 dataBase.saveStack(id, DataBase.STACK_PART, commands.get(id));
+                dataBase.saveStack(new Id(-3), DataBase.STACK_PART, commands.get(new Id(-3)));
                 historyAccordion.getPanes().remove(titledPane);
 
                 initialize();
@@ -163,6 +175,7 @@ public class AdministratorMainMenuController {
                 Label name = new Label("Название: " + ((RegistryCompanyCommand) command).getCompany().getjName());
                 Label type = new Label("Тип: " + ((RegistryCompanyCommand) command).getCompany().getType().name());
                 Label bic = new Label("BIC: " + ((RegistryCompanyCommand) command).getCompany().getBankID().getId().toString());
+                Label address = new Label("Юридический адрес: " + ((RegistryCompanyCommand) command).getCompany().getjAddress().toString());
 
                 Button approve = new Button("Approve");
                 approve.getStylesheets().add(ManagerMainMenuController
@@ -198,6 +211,8 @@ public class AdministratorMainMenuController {
                 content.getChildren().add(name);
                 content.getChildren().add(type);
                 content.getChildren().add(bic);
+                content.getChildren().add(address);
+
                 content.getChildren().add(approve);
                 content.getChildren().add(disapprove);
                 titledPane.setContent(content);

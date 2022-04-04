@@ -40,4 +40,8 @@ public class Address implements java.io.Serializable {
     public String getStreetAddress() {
         return streetAddress;
     }
+
+    public String toString() {
+        return String.format("%s %s %s", country, city, streetAddress);
+    }
 }

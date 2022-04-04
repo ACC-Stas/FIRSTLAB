@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import main.banksystem.CPU;
 import main.banksystem.DataBase;
+import main.banksystem.ProgramStatus;
 import main.banksystem.commands.*;
 import main.banksystem.entities.*;
 
@@ -102,8 +103,21 @@ public class ManagerMainMenuController {
 
                     command.undo();
 
+                    ProgramStatus status = ProgramStatus.getInstance();
+
+                    command.setDescription("Action: " + command.getDescription() + "was canceled by " + status
+                            .getUser().getIdx().toString());
+
+                    if (!commands.containsKey(new Id(-3))) {
+                        commands.put(new Id(-3), new Stack<>());
+                    }
+                    var commandStack = commands.get(new Id(-3));
+                    commandStack.push(command);
+
                     commands.get(id).remove(command);
                     dataBase.saveStack(id, DataBase.STACK_PART, commands.get(id));
+                    dataBase.saveStack(new Id(-3), DataBase.STACK_PART, commands.get(new Id(-3)));
+
                     historyAccordion.getPanes().remove(titledPane);
 
                     initialize();
@@ -250,8 +264,13 @@ public class ManagerMainMenuController {
                 VBox content = new VBox();
 
                 Label name = new Label("ФИО: " + ((RegistryCommand) command).getUser().getPassport().getFullName().toString());
+                Label telephone = new Label("Телефон: " + ((RegistryCommand) command).getUser().getNumber());
+                Label role = new Label("Роль: " + ((RegistryCommand) command).getUser().getRole().name());
+                Label address = new Label("Адрес: " + ((RegistryCommand) command).getUser().getPassport().getAddress().toString());
                 Label email = new Label("Email: " + ((RegistryCommand) command).getUser().getEmail());
                 Label login = new Label("Логин: " + ((RegistryCommand) command).getUser().getLogin());
+                Label password = new Label("Пароль: " + ((RegistryCommand) command).getUser().getPassword());
+
 
                 Button approve = new Button("Approve");
                 approve.getStylesheets().add(ManagerMainMenuController
@@ -285,8 +304,13 @@ public class ManagerMainMenuController {
                 });
 
                 content.getChildren().add(name);
+                content.getChildren().add(telephone);
+                content.getChildren().add(role);
+                content.getChildren().add(address);
                 content.getChildren().add(email);
                 content.getChildren().add(login);
+                content.getChildren().add(password);
+
                 content.getChildren().add(approve);
                 content.getChildren().add(disapprove);
                 titledPane.setContent(content);

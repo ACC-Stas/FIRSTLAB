@@ -8,6 +8,8 @@ import main.banksystem.entities.User;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class UserBuilder {
     private User user;
@@ -80,6 +82,16 @@ public class UserBuilder {
             result.description = "No password";
             result.valid = false;
         }
+        else{
+            String reg = "^[a-zA-Z0-9-]{3,}$";
+
+            Pattern pattern = Pattern.compile(reg);
+            Matcher matcher = pattern.matcher(user.getPassword());
+            if (!matcher.find()){
+                result.description = "Invalid password";
+                result.valid = false;
+            }
+        }
         if (user.getRole() == null) {
             result.description = "No role";
             result.valid = false;
@@ -88,6 +100,14 @@ public class UserBuilder {
             result.description = "No email";
             result.valid = false;
         }
+        else {
+            Pattern pattern = Pattern.compile("^([a-z0-9_-]+\\.)*[a-z0-9_-]+@[a-z0-9_-]+(\\.[a-z0-9_-]+)*\\.[a-z]{2,6}$");
+            Matcher matcher = pattern.matcher(user.getEmail());
+            if (!matcher.find()){
+                result.description = "Invalid email";
+                result.valid = false;
+            }
+        }
 
         if (user.getPassport() == null) {
             result.description = "No passport";
@@ -95,8 +115,16 @@ public class UserBuilder {
         }
 
         if (user.getNumber() == null || Objects.equals(user.getNumber(), "")) {
-            result.description = "No number";
+            result.description = "No telephone";
             result.valid = false;
+        }
+        else {
+            Pattern pattern = Pattern.compile("^\\d{5,8}$");
+            Matcher matcher = pattern.matcher(user.getNumber());
+            if (!matcher.find()){
+                result.description = "Invalid telephone";
+                result.valid = false;
+            }
         }
 
         if (user.getIdx() == null) {
@@ -108,6 +136,14 @@ public class UserBuilder {
             result.description = "No login";
             result.valid = false;
         } else {
+            String reg = "^\\w[a-zA-Z0-9-]{3,}$";
+
+            Pattern pattern = Pattern.compile(reg);
+            Matcher matcher = pattern.matcher(user.getLogin());
+            if (!matcher.find()){
+                result.description = "Invalid login";
+                result.valid = false;
+            }
             DataBase dataBase = DataBase.getInstance();
             Map<Id, User> users = dataBase.downloadMap(DataBase.USER_PART, User.class);
             for (User loopUser : users.values()) {

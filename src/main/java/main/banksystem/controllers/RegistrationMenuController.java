@@ -2,6 +2,7 @@ package main.banksystem.controllers;
 
 import java.net.URL;
 import java.util.*;
+import java.util.regex.Pattern;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.collections.FXCollections;
@@ -103,6 +104,17 @@ public class RegistrationMenuController {
         for (Sex sex : Sex.values()) {
             sexList.add(sex.toString());
         }
+
+        Pattern p = Pattern.compile("(\\d+\\.?\\d*)?");
+        numberField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!p.matcher(newValue).matches()) numberField.setText(oldValue);
+        });
+
+        idField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!p.matcher(newValue).matches()) idField.setText(oldValue);
+        });
+
+
         sexStatus.setItems(sexList);
         sexStatus.setValue(sexList.get(0));
         citizenshipStatus.setItems(citizenshipList);

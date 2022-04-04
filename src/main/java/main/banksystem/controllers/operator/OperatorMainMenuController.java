@@ -9,16 +9,14 @@ import java.util.Stack;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import main.banksystem.CPU;
 import main.banksystem.DataBase;
-import main.banksystem.commands.BuildCreditCommand;
-import main.banksystem.commands.BuildInstallmentCommand;
-import main.banksystem.commands.ICommand;
-import main.banksystem.commands.PayEmployeesCommand;
-import main.banksystem.entities.Id;
-import main.banksystem.entities.Role;
-import main.banksystem.entities.User;
+import main.banksystem.ProgramStatus;
+import main.banksystem.commands.*;
+import main.banksystem.entities.*;
 import main.banksystem.controllers.manager.ManagerMainMenuController;
+import org.controlsfx.glyphfont.Glyph;
 
 import static main.banksystem.controllers.SwitchMenu.newMenu;
 
@@ -37,7 +35,16 @@ public class OperatorMainMenuController {
     private Button findButton;
 
     @FXML
+    private Button reloadButton;
+
+    @FXML
     private Accordion historyAccordion;
+
+    @FXML
+    private Label operatorStatusLabel;
+
+    @FXML
+    private Button setCompanyButton;
 
     @FXML
     private TextField idField;
@@ -51,7 +58,15 @@ public class OperatorMainMenuController {
     @FXML
     void initialize() {
 
-        createSalaryAccordion();
+        setCompanyButton.setOnAction(event -> {
+            newMenu(setCompanyButton, "/main/banksystem/operator/connect_menu.fxml");
+        });
+
+        reload(false);
+
+        reloadButton.setOnAction(event -> {
+            reload(true);
+        });
 
         findButton.setOnAction(event -> {
             DataBase dataBase = DataBase.getInstance();
@@ -81,8 +96,12 @@ public class OperatorMainMenuController {
     void createSalaryAccordion() {
         salaryAccordion.getPanes().clear();
 
+        ProgramStatus status = ProgramStatus.getInstance();
+
         DataBase dataBase = DataBase.getInstance();
         Map<Id, Queue<ICommand>> commands = dataBase.downloadQueue(DataBase.QUEUE_PART, ICommand.class);
+        Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
+
 
         if (commands == null) {
             return;
@@ -91,50 +110,55 @@ public class OperatorMainMenuController {
         for (Map.Entry<Id, Queue<ICommand>> commandsEntry : commands.entrySet()) {
             for (ICommand command : commandsEntry.getValue()) {
                 if (command.getClass() == PayEmployeesCommand.class) {
-                    TitledPane titledPane = new TitledPane();
-                    titledPane.getStylesheets().add(OperatorMainMenuController
-                            .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
-                    titledPane.setText(command.getDescription());
+                    for (Company company : companies.values()){
+                        if (company.getBankID().getId().equals(status.getCompany())){
+                            TitledPane titledPane = new TitledPane();
+                            titledPane.getStylesheets().add(OperatorMainMenuController
+                                    .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+                            titledPane.setText(command.getDescription());
 
-                    VBox content = new VBox();
+                            VBox content = new VBox();
 
-                    //Labels for salary project info
+                            Label list = new Label(((PayEmployeesCommand) command).getCommands().toString());
 
-                    Button approve = new Button("Approve");
-                    approve.getStylesheets().add(OperatorMainMenuController
-                            .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
-                    approve.setOnAction(event -> {
+                            Button approve = new Button("Approve");
+                            approve.getStylesheets().add(OperatorMainMenuController
+                                    .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
+                            approve.setOnAction(event -> {
 
-                        command.setType(new ICommand.Type(false, true));
-                        User user = new User();
-                        user.setIdx(commandsEntry.getKey());
-                        CPU cpu = new CPU(user);
-                        cpu.heldCommand(command);
+                                command.setType(new ICommand.Type(false, true));
+                                User user = new User();
+                                user.setIdx(commandsEntry.getKey());
+                                CPU cpu = new CPU(user);
+                                cpu.heldCommand(command);
 
-                        commandsEntry.getValue().remove(command);
-                        dataBase.saveQueue(commandsEntry.getKey(), DataBase.QUEUE_PART, commandsEntry.getValue());
-                        salaryAccordion.getPanes().remove(titledPane);
+                                commandsEntry.getValue().remove(command);
+                                dataBase.saveQueue(commandsEntry.getKey(), DataBase.QUEUE_PART, commandsEntry.getValue());
+                                salaryAccordion.getPanes().remove(titledPane);
 
-                        initialize();
-                    });
+                                initialize();
+                            });
 
-                    Button disapprove = new Button("Disapprove");
-                    disapprove.getStylesheets().add(ManagerMainMenuController
-                            .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
-                    disapprove.setOnAction(event -> {
+                            Button disapprove = new Button("Disapprove");
+                            disapprove.getStylesheets().add(ManagerMainMenuController
+                                    .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
+                            disapprove.setOnAction(event -> {
 
-                        commandsEntry.getValue().remove(command);
-                        dataBase.saveQueue(commandsEntry.getKey(), DataBase.QUEUE_PART, commandsEntry.getValue());
-                        salaryAccordion.getPanes().remove(titledPane);
+                                commandsEntry.getValue().remove(command);
+                                dataBase.saveQueue(commandsEntry.getKey(), DataBase.QUEUE_PART, commandsEntry.getValue());
+                                salaryAccordion.getPanes().remove(titledPane);
 
-                        initialize();
-                    });
+                                initialize();
+                            });
 
-                    content.getChildren().add(approve);
-                    content.getChildren().add(disapprove);
-                    titledPane.setContent(content);
+                            content.getChildren().add(list);
+                            content.getChildren().add(approve);
+                            content.getChildren().add(disapprove);
+                            titledPane.setContent(content);
 
-                    salaryAccordion.getPanes().addAll(titledPane);
+                            salaryAccordion.getPanes().addAll(titledPane);
+                        }
+                    }
                 }
             }
         }
@@ -144,6 +168,7 @@ public class OperatorMainMenuController {
         historyAccordion.getPanes().clear();
         DataBase dataBase = DataBase.getInstance();
         Map<Id, Stack<ICommand>> commands = dataBase.downloadStack(DataBase.STACK_PART, ICommand.class);
+        Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
 
         if (!commands.containsKey(id)) {
             return;
@@ -161,10 +186,21 @@ public class OperatorMainMenuController {
                     .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
             cancel.setOnAction(event -> {
 
+                ProgramStatus status = ProgramStatus.getInstance();
                 command.undo();
+                command.setDescription("Action: " + command.getDescription() + "was canceled by " + status
+                        .getUser().getIdx().toString());
+
+                if (!commands.containsKey(new Id(-3))) {
+                    commands.put(new Id(-3), new Stack<>());
+                }
+                var commandStack = commands.get(new Id(-3));
+                commandStack.push(command);
 
                 commands.get(id).remove(command);
                 dataBase.saveStack(id, DataBase.STACK_PART, commands.get(id));
+                dataBase.saveStack(new Id(-3), DataBase.STACK_PART, commands.get(new Id(-3)));
+
                 historyAccordion.getPanes().remove(titledPane);
 
                 initialize();
@@ -174,6 +210,40 @@ public class OperatorMainMenuController {
             titledPane.setContent(content);
 
             historyAccordion.getPanes().addAll(titledPane);
+        }
+    }
+
+    void reload(boolean need_initialize) {
+
+        ProgramStatus status = ProgramStatus.getInstance();
+        Id userId = status.getUser().getIdx();
+
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
+        for (Company company : companies.values()) {
+            for (Id specialistId : company.getSpecialistIds()) {
+                if (userId.equals(specialistId)) {
+                    status.setCompany(company.getPAN());
+
+                }
+            }
+        }
+
+        if (status.getCompany() != null) {
+
+            operatorStatusLabel.setTextFill(Color.GREEN);
+            operatorStatusLabel.setText("Вы привязаны к предприятию.");
+
+            setCompanyButton.setVisible(false);
+            setCompanyButton.setManaged(false);
+
+            findButton.setVisible(true);
+
+            createSalaryAccordion();
+
+            if (need_initialize) {
+                initialize();
+            }
         }
     }
 }
