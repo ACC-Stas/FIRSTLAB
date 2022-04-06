@@ -46,18 +46,11 @@ public class ManagerMainMenuController {
     private Button toClientButton;
 
     @FXML
-    private Button toOperatorButton;
-
-    @FXML
     void initialize() {
         createRegistrationAccordion();
         createCreditAndInstallmentAccordion();
         toClientButton.setOnAction(event -> {
             switchMenu(toClientButton, "/main/banksystem/client/client_main_menu.fxml");
-        });
-
-        toOperatorButton.setOnAction(event -> {
-            switchMenu(toClientButton, "/main/banksystem/operator/operator_main_menu.fxml");
         });
 
         findButton.setOnAction(event -> {

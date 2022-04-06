@@ -160,7 +160,8 @@ public class SpecialistMainMenuController {
             for (Id specialistId : company.getSpecialistIds()) {
                 if (userId.equals(specialistId)) {
                     status.setCompany(company.getPAN());
-
+                    specialistStatusLabel.setTextFill(Color.GREEN);
+                    specialistStatusLabel.setText("Вы привязаны к предприятию " + company.getjName());
                 }
             }
         }
@@ -169,8 +170,7 @@ public class SpecialistMainMenuController {
             Map<Id, Bill> bills = dataBase.downloadMap(DataBase.BILLS_PART, Bill.class);
             companyMoneyLabel.setText(String.valueOf(bills.get(companies.get(status.getCompany())
                     .getBillCompanyId()).getMoney()));
-            specialistStatusLabel.setTextFill(Color.GREEN);
-            specialistStatusLabel.setText("Вы привязаны к предприятию.");
+
 
             setCompanyButton.setVisible(false);
             setCompanyButton.setManaged(false);

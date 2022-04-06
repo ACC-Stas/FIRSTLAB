@@ -3,6 +3,7 @@
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
@@ -25,7 +26,6 @@
                             <content>
                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="499.0" prefWidth="1280.0">
                                     <children>
-                                        <Accordion fx:id="historyAccordion" layoutX="50.0" layoutY="80.0" prefHeight="178.0" prefWidth="1180.0" />
                                         <Button fx:id="findButton" layoutX="777.0" layoutY="14.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="150.0" style="-fx-background-color: f39c63;" text="Найти" textFill="WHITE">
                                             <font>
                                                 <Font name="System Italic" size="13.0" />
@@ -42,6 +42,15 @@
                                                 <Font name="System Italic" size="20.0" />
                                             </font>
                                         </Label>
+                              <ScrollPane layoutX="50.0" layoutY="80.0" prefHeight="420.0" prefWidth="1180.0">
+                                <content>
+                                  <AnchorPane fx:id="userScrollPane" minHeight="0.0" minWidth="0.0" prefHeight="60.0" prefWidth="1160.0">
+                                       <children>
+                                                    <Accordion fx:id="historyAccordion" prefHeight="410.0" prefWidth="1160.0" />
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </ScrollPane>
                                     </children></AnchorPane>
                             </content>
                         </Tab>
@@ -71,17 +80,12 @@
                                                 <Font name="System Italic" size="20.0" />
                                             </font>
                                         </Button>
-                                        <Button fx:id="toOperatorButton" layoutX="465.0" layoutY="160.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="350.0" style="-fx-background-color: f39c63;" text="Перейти в меню Оператора" textFill="WHITE">
-                                            <font>
-                                                <Font name="System Italic" size="20.0" />
-                                            </font>
-                                        </Button>
-                              <Button fx:id="toManagerButton" layoutX="465.0" layoutY="260.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="350.0" style="-fx-background-color: f39c63;" text="Перейти в меню Менеджера" textFill="WHITE">
+                              <Button fx:id="toManagerButton" layoutX="465.0" layoutY="158.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="350.0" style="-fx-background-color: f39c63;" text="Перейти в меню Менеджера" textFill="WHITE">
                                  <font>
                                     <Font name="System Italic" size="20.0" />
                                  </font>
                               </Button>
-                              <Button fx:id="toSpecialistButton" layoutX="465.0" layoutY="360.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="350.0" style="-fx-background-color: f39c63;" text="Перейти в меню Специалиста" textFill="WHITE">
+                              <Button fx:id="toSpecialistButton" layoutX="465.0" layoutY="265.0" mnemonicParsing="false" prefHeight="72.0" prefWidth="350.0" style="-fx-background-color: f39c63;" text="Перейти в меню Специалиста" textFill="WHITE">
                                  <font>
                                     <Font name="System Italic" size="20.0" />
                                  </font>

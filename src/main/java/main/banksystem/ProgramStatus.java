@@ -5,11 +5,13 @@ import main.banksystem.entities.User;
 public class ProgramStatus {
     private User user;
     private Id company;
+    private Id bank;
     private static ProgramStatus status;
 
     private ProgramStatus() {
         company = null;
         user = null;
+        bank = null;
     }
 
     public User getUser() {
@@ -26,6 +28,14 @@ public class ProgramStatus {
 
     public void setCompany(Id company) {
         this.company = company;
+    }
+
+    public Id getBank() {
+        return bank;
+    }
+
+    public void setBank(Id bank) {
+        this.bank = bank;
     }
 
     public static ProgramStatus getInstance() {

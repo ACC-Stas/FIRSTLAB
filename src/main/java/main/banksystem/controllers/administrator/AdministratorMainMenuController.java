@@ -51,13 +51,13 @@ public class AdministratorMainMenuController {
     private Accordion registrationAccordion;
 
     @FXML
+    private AnchorPane userScrollPane;
+
+    @FXML
     private Button toClientButton;
 
     @FXML
     private Button toManagerButton;
-
-    @FXML
-    private Button toOperatorButton;
 
     @FXML
     private Button toSpecialistButton;
@@ -100,10 +100,6 @@ public class AdministratorMainMenuController {
 
         toClientButton.setOnAction(event -> {
             newMenu(toClientButton, "/main/banksystem/client/client_main_menu.fxml");
-        });
-
-        toOperatorButton.setOnAction(event -> {
-            newMenu(toOperatorButton, "/main/banksystem/operator/operator_main_menu.fxml");
         });
 
         toManagerButton.setOnAction(event -> {
@@ -151,12 +147,14 @@ public class AdministratorMainMenuController {
                 commands.get(id).remove(command);
                 dataBase.saveStack(id, DataBase.STACK_PART, commands.get(id));
                 dataBase.saveStack(new Id(-3), DataBase.STACK_PART, commands.get(new Id(-3)));
+                userScrollPane.setPrefHeight(userScrollPane.getPrefHeight() - 24);
                 historyAccordion.getPanes().remove(titledPane);
 
                 initialize();
             });
 
             content.getChildren().add(cancel);
+            userScrollPane.setPrefHeight(userScrollPane.getPrefHeight() + 24);
             titledPane.setContent(content);
 
             historyAccordion.getPanes().addAll(titledPane);

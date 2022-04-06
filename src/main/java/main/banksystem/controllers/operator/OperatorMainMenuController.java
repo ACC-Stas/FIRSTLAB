@@ -230,15 +230,13 @@ public class OperatorMainMenuController {
             for (Id specialistId : company.getSpecialistIds()) {
                 if (userId.equals(specialistId)) {
                     status.setCompany(company.getPAN());
-
+                    operatorStatusLabel.setTextFill(Color.GREEN);
+                    operatorStatusLabel.setText("Вы привязаны к предприятию " + company.getjName());
                 }
             }
         }
 
         if (status.getCompany() != null) {
-
-            operatorStatusLabel.setTextFill(Color.GREEN);
-            operatorStatusLabel.setText("Вы привязаны к предприятию.");
 
             setCompanyButton.setVisible(false);
             setCompanyButton.setManaged(false);
