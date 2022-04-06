@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -72,6 +73,11 @@ public class HiringMenuController {
             }
         }
         billChoice.setItems(billList);
+
+        Pattern p = Pattern.compile("(\\d+\\.?\\d*)?");
+        valueField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!p.matcher(newValue).matches()) valueField.setText(oldValue);
+        });
 
         hireButton.setOnAction(event -> {
             String companyJName = companyChoice.getValue();

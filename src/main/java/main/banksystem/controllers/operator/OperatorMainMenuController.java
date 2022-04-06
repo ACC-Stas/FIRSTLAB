@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.ResourceBundle;
 import java.util.Stack;
+import java.util.regex.Pattern;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -66,6 +67,11 @@ public class OperatorMainMenuController {
 
         reloadButton.setOnAction(event -> {
             reload(true);
+        });
+
+        Pattern p = Pattern.compile("(\\d+)?");
+        idField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!p.matcher(newValue).matches()) idField.setText(oldValue);
         });
 
         findButton.setOnAction(event -> {

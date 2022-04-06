@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -53,6 +54,11 @@ public class CreateBillMenuController {
             }
         }
         bankChoice.setItems(bankList);
+
+        Pattern p = Pattern.compile("(\\d+\\.?\\d*)?");
+        valueField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!p.matcher(newValue).matches()) valueField.setText(oldValue);
+        });
 
         createButton.setOnAction(event -> {
             Company bank = null;

@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -61,6 +62,11 @@ public class TransferCompanyMenuController {
             companyList.add(company.getjName());
         }
         companyChoice.setItems(companyList);
+
+        Pattern p = Pattern.compile("(\\d+\\.?\\d*)?");
+        valueField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!p.matcher(newValue).matches()) valueField.setText(oldValue);
+        });
 
         transferButton.setOnAction(event -> {
             TransferBuilder transferBuilder = new TransferBuilder();

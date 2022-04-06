@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Queue;
 import java.util.ResourceBundle;
 import java.util.Stack;
+import java.util.regex.Pattern;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -73,6 +74,11 @@ public class AdministratorMainMenuController {
             text += "ID = " + stack.getKey() + " - " + stack.getValue().toString() + "\n";
         }
         logText.setText(text);
+
+        Pattern p = Pattern.compile("(\\d+)?");
+        idUserField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!p.matcher(newValue).matches()) idUserField.setText(oldValue);
+        });
 
         findButton.setOnAction(event -> {
             Map<Id, User> users = dataBase.downloadMap(DataBase.USER_PART, User.class);

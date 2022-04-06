@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -55,6 +56,11 @@ public class WithdrawMenuController {
             }
         }
         billFromChoice.setItems(billList);
+
+        Pattern p = Pattern.compile("(\\d+\\.?\\d*)?");
+        valueField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!p.matcher(newValue).matches()) valueField.setText(oldValue);
+        });
 
         withdrawButton.setOnAction(event -> {
 

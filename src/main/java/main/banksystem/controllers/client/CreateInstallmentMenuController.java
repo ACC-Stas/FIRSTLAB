@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -91,6 +92,15 @@ public class CreateInstallmentMenuController {
         }
         percentChoice.setItems((percentList));
         percentChoice.setValue(percentList.get(0));
+
+        Pattern p = Pattern.compile("(\\d+\\.?\\d*)?");
+        valueField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!p.matcher(newValue).matches()) valueField.setText(oldValue);
+        });
+
+        percentField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!p.matcher(newValue).matches()) percentField.setText(oldValue);
+        });
 
         Map<Id, Company> companies = dataBase.downloadMap(DataBase.COMPANY_PART, Company.class);
 

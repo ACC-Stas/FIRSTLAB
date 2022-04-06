@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 import java.util.ResourceBundle;
+import java.util.regex.Pattern;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -61,6 +62,16 @@ public class TransferMenuController {
             }
         }
         billFromChoice.setItems(billList);
+
+        Pattern p = Pattern.compile("(\\d+\\.?\\d*)?");
+        valueField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!p.matcher(newValue).matches()) valueField.setText(oldValue);
+        });
+
+        Pattern p1 = Pattern.compile("(\\d+)?");
+        billToField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!p1.matcher(newValue).matches()) billToField.setText(oldValue);
+        });
 
         transferButton.setOnAction(event -> {
             TransferBuilder transferBuilder = new TransferBuilder();

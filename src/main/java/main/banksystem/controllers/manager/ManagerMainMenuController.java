@@ -3,6 +3,7 @@ package main.banksystem.controllers.manager;
 import java.net.URL;
 
 import java.util.*;
+import java.util.regex.Pattern;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -83,6 +84,11 @@ public class ManagerMainMenuController {
         historyAccordion.getPanes().clear();
         DataBase dataBase = DataBase.getInstance();
         Map<Id, Stack<ICommand>> commands = dataBase.downloadStack(DataBase.STACK_PART, ICommand.class);
+
+        Pattern p = Pattern.compile("(\\d+)?");
+        idSpecialistField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!p.matcher(newValue).matches()) idSpecialistField.setText(oldValue);
+        });
 
         if (!commands.containsKey(id)) {
             return;
