@@ -23,6 +23,19 @@ public class PayEmployeesCommand implements ICommand {
         this.type = type;
         this.description = String.format("Specialist %d want to pay to company employees", specialistId.getId());
         this.commands = new ArrayList<>();
+
+        DataBase dataBase = DataBase.getInstance();
+        Company company = dataBase.download(companyId, DataBase.COMPANY_PART, Company.class);
+        if (company == null) {
+            description = String.format("No company with PAN %d", companyId.getId());
+            return;
+        }
+        commands.clear();
+        for (Id salaryProjectId : company.getSalaryProjectIds()) {
+            SalaryProject salaryProject = dataBase.download(salaryProjectId, DataBase.SALARY_PART, SalaryProject.class);
+            TransferCommand command = salaryProject.buildTransferCommand();
+            commands.add(command);
+        }
     }
 
     @JsonCreator
@@ -67,18 +80,6 @@ public class PayEmployeesCommand implements ICommand {
 
     @Override
     public void execute() {
-        DataBase dataBase = DataBase.getInstance();
-        Company company = dataBase.download(companyId, DataBase.COMPANY_PART, Company.class);
-        if (company == null) {
-            description = String.format("No company with PAN %d", companyId.getId());
-            return;
-        }
-        commands.clear();
-        for (Id salaryProjectId : company.getSalaryProjectIds()) {
-            SalaryProject salaryProject = dataBase.download(salaryProjectId, DataBase.SALARY_PART, SalaryProject.class);
-            TransferCommand command = salaryProject.buildTransferCommand();
-            commands.add(command);
-        }
 
         for (TransferCommand command : commands) {
             command.execute();

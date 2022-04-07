@@ -53,6 +53,11 @@ public class ManagerMainMenuController {
             switchMenu(toClientButton, "/main/banksystem/client/client_main_menu.fxml");
         });
 
+        Pattern p = Pattern.compile("(\\d+)?");
+        idSpecialistField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!p.matcher(newValue).matches()) idSpecialistField.setText(oldValue);
+        });
+
         findButton.setOnAction(event -> {
             DataBase dataBase = DataBase.getInstance();
             Map<Id, User> users = dataBase.downloadMap(DataBase.USER_PART, User.class);
@@ -77,11 +82,6 @@ public class ManagerMainMenuController {
         historyAccordion.getPanes().clear();
         DataBase dataBase = DataBase.getInstance();
         Map<Id, Stack<ICommand>> commands = dataBase.downloadStack(DataBase.STACK_PART, ICommand.class);
-
-        Pattern p = Pattern.compile("(\\d+)?");
-        idSpecialistField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!p.matcher(newValue).matches()) idSpecialistField.setText(oldValue);
-        });
 
         if (!commands.containsKey(id)) {
             return;

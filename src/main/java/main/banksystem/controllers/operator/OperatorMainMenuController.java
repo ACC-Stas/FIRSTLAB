@@ -125,12 +125,18 @@ public class OperatorMainMenuController {
 
                             VBox content = new VBox();
 
-                            Label list = new Label(((PayEmployeesCommand) command).getCommands().toString());
+                            for (TransferCommand command1 : ((PayEmployeesCommand) command).getCommands()) {
+                                Label list = new Label(command1.getDescription());
+                                content.getChildren().add(list);
+                            }
+
 
                             Button approve = new Button("Approve");
                             approve.getStylesheets().add(OperatorMainMenuController
                                     .class.getResource("/main/banksystem/button_sheet.css").toExternalForm());
                             approve.setOnAction(event -> {
+
+                                command.setDescription("Заявка на раздачу ЗП одобрена");
 
                                 command.setType(new ICommand.Type(false, true));
                                 User user = new User();
@@ -157,7 +163,6 @@ public class OperatorMainMenuController {
                                 initialize();
                             });
 
-                            content.getChildren().add(list);
                             content.getChildren().add(approve);
                             content.getChildren().add(disapprove);
                             titledPane.setContent(content);

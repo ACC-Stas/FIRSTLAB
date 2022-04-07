@@ -2,6 +2,7 @@ package main.banksystem.controllers.specialist;
 
 import java.net.URL;
 import java.util.*;
+import java.util.regex.Pattern;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
@@ -17,6 +18,8 @@ import main.banksystem.ProgramStatus;
 import main.banksystem.commands.BuildSalaryProjectCommand;
 import main.banksystem.commands.ICommand;
 import main.banksystem.commands.PayEmployeesCommand;
+import main.banksystem.commands.TransferCommand;
+import main.banksystem.controllers.manager.ManagerMainMenuController;
 import main.banksystem.entities.*;
 
 import static main.banksystem.controllers.SwitchMenu.*;
@@ -89,6 +92,38 @@ public class SpecialistMainMenuController {
     }
 
 
+    void createSalaryAccordion() {
+        salaryAccordion.getPanes().clear();
+        DataBase dataBase = DataBase.getInstance();
+        Map<Id, Stack<ICommand>> commands = dataBase.downloadStack(DataBase.STACK_PART, ICommand.class);
+
+        ProgramStatus status = ProgramStatus.getInstance();
+        Id id = status.getUser().getIdx();
+
+        if (!commands.containsKey(id)) {
+            return;
+        }
+
+        for (ICommand command : commands.get(id)) {
+            if (command.getClass() == PayEmployeesCommand.class) {
+                TitledPane titledPane = new TitledPane();
+                titledPane.getStylesheets().add(ManagerMainMenuController
+                        .class.getResource("/main/banksystem/pane_sheet.css").toExternalForm());
+                titledPane.setText(command.getDescription());
+
+                VBox content = new VBox();
+
+                for (TransferCommand command1 : ((PayEmployeesCommand) command).getCommands()) {
+                    Label list = new Label(command1.getDescription());
+                    content.getChildren().add(list);
+                }
+
+                titledPane.setContent(content);
+
+                salaryAccordion.getPanes().addAll(titledPane);
+            }
+        }
+    }
 
     void createNewStaffAccordion(){
         newStaffAccordion.getPanes().clear();
@@ -121,7 +156,7 @@ public class SpecialistMainMenuController {
 
                         commandsEntry.getValue().remove(command);
                         dataBase.saveQueue(commandsEntry.getKey(), DataBase.QUEUE_PART, commandsEntry.getValue());
-                        salaryAccordion.getPanes().remove(titledPane);
+                        newStaffAccordion.getPanes().remove(titledPane);
 
                         initialize();
                     });
@@ -133,7 +168,7 @@ public class SpecialistMainMenuController {
 
                         commandsEntry.getValue().remove(command);
                         dataBase.saveQueue(commandsEntry.getKey(), DataBase.QUEUE_PART, commandsEntry.getValue());
-                        salaryAccordion.getPanes().remove(titledPane);
+                        newStaffAccordion.getPanes().remove(titledPane);
 
                         initialize();
                     });
@@ -179,6 +214,7 @@ public class SpecialistMainMenuController {
             salaryButton.setVisible(true);
 
             createNewStaffAccordion();
+            createSalaryAccordion();
 
             if (need_initialize) {
                 initialize();
